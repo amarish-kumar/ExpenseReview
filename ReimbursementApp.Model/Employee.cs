@@ -7,17 +7,12 @@ namespace ReimbursementApp.Model
 {
     public class Employee
     {
+        public int Id { get; set; }
         [Required]
         public int EmployeeId { get; set; }
         [Required]
         [StringLength(40)]
         public string EmployeeName { get; set; }
 
-        public virtual ICollection<Expense> Expenses { get; set; }
-
-        public Employee()
-        {
-            Expenses= new Collection<Expense>();
-        }
     }
 }

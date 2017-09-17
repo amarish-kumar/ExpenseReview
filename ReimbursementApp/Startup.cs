@@ -5,8 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ReimbursementApp.DbContext;
+using ReimbursementApp.SampleData;
+
 
 namespace ReimbursementApp
 {
@@ -22,11 +27,22 @@ namespace ReimbursementApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            /*services.AddEntityFrameworkSqlServer()
+                .AddDbContext<ExpenseReviewDbContext>(options =>
+                    options.UseSqlServer(Configuration["Data:ExpenseReviewSPA:ConnectionString"],
+                        b => b.MigrationsAssembly("ReimbursementApp.Data")));*/
+
+            services.AddEntityFrameworkSqlServer()
+                .AddDbContext<ExpenseReviewDbContext>(options =>
+                    options.UseSqlServer(Configuration["Data:ExpenseReviewSPA:ConnectionString"]));
+
             services.AddMvc();
+            //Initiating Seed Data
+            services.AddTransient<InitialData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, InitialData seedDbContext)
         {
             if (env.IsDevelopment())
             {
@@ -53,6 +69,8 @@ namespace ReimbursementApp
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
+            //Initiating from here
+            seedDbContext.SeedData();
         }
     }
 }

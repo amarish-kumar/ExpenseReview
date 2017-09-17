@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Mime;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ReimbursementApp.Model;
 
-namespace ReimbursementApp.Data
+namespace ReimbursementApp.DbContext
 {
-   public class ExpenseReviewDbContext : DbContext
+    public class ExpenseReviewDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
         public ExpenseReviewDbContext()
         {
@@ -35,4 +31,3 @@ namespace ReimbursementApp.Data
 
     }
 }
-

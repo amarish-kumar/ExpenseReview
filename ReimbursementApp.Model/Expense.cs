@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection.Metadata;
 using System.Text;
@@ -8,11 +9,11 @@ namespace ReimbursementApp.Model
 {
    public class Expense
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         [Required]
-        public DateTime ExpenseDate { get; set; }
+        public string ExpenseDate { get; set; }
         [Required]
-        public DateTime SubmitDate { get; set; }
+        public string SubmitDate { get; set; }
         [Required]
         [StringLength(500)]
         public string ExpenseDetails { get; set; }
@@ -22,5 +23,16 @@ namespace ReimbursementApp.Model
 
         [Required]
         public double TotalAmount { get; set; }
+
+        public virtual ICollection<Employee> Employees { get; set; }
+
+        public virtual ICollection<Approver> Approvers { get; set; }
+
+        public Expense()
+        {
+            Employees= new Collection<Employee>();
+            Approvers= new Collection<Approver>();
+        }
+        
     }
 }
