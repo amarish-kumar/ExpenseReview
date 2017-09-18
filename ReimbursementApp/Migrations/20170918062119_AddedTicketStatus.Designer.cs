@@ -12,9 +12,10 @@ using System;
 namespace ReimbursementApp.Migrations
 {
     [DbContext(typeof(ExpenseReviewDbContext))]
-    partial class ExpenseReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170918062119_AddedTicketStatus")]
+    partial class AddedTicketStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

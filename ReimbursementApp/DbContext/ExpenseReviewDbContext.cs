@@ -14,6 +14,8 @@ namespace ReimbursementApp.DbContext
 
         public DbSet<Approver> Approvers { get; set; }
 
+        public DbSet<TicketStatus> TicketStatuses { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

@@ -28,10 +28,13 @@ namespace ReimbursementApp.Model
 
         public virtual Approver Approvers { get; set; }
 
+        public virtual TicketStatus Status { get; set; }
+
         public Expense()
         {
             Employees= new Employee();
             Approvers= new Approver();
+            Status = new TicketStatus();
         }
         
     }

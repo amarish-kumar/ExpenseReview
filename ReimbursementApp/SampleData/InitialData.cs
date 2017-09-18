@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using ReimbursementApp.DbContext;
 using ReimbursementApp.Model;
 
@@ -44,7 +41,8 @@ namespace ReimbursementApp.SampleData
                         Name = "Dhaval",
                         Remarks = "Approved"
 
-                    }
+                    },
+                    Status = new TicketStatus { State = TicketState.Approved}
 
                 };
                 _dbContext.Expenses.Add(expense);
@@ -72,12 +70,42 @@ namespace ReimbursementApp.SampleData
                         Name = "Deepak",
                         Remarks = "nothing"
 
-                    }
+                    },
+                    Status = new TicketStatus { State = TicketState.Pending }
 
                 };
                 _dbContext.Expenses.Add(expense1);
                 _dbContext.Employees.AddRange(expense1.Employees);
                 _dbContext.Approvers.AddRange(expense1.Approvers);
+                _dbContext.SaveChanges();
+
+                var expense2 = new Expense
+                {
+                    ExpenseDate = "10/09/2017",
+                    SubmitDate = "11/09/2017",
+                    Amount = 5400,
+                    Employees = new Employee
+                    {
+                        EmployeeId = 93868,
+                        EmployeeName = "John"
+
+                    },
+                    ExpenseDetails = "Misel",
+                    TotalAmount = 5400,
+                    Approvers = new Approver
+                    {
+                        ApproverId = 3456,
+                        ApprovedDate = "13/09/2017",
+                        Name = "Mrinal",
+                        Remarks = "Reviewing"
+
+                    },
+                    Status = new TicketStatus { State = TicketState.Submitted }
+
+                };
+                _dbContext.Expenses.Add(expense2);
+                _dbContext.Employees.AddRange(expense2.Employees);
+                _dbContext.Approvers.AddRange(expense2.Approvers);
                 _dbContext.SaveChanges();
             }
         }

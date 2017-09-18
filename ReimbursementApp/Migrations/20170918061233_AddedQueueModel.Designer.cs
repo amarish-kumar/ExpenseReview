@@ -12,9 +12,10 @@ using System;
 namespace ReimbursementApp.Migrations
 {
     [DbContext(typeof(ExpenseReviewDbContext))]
-    partial class ExpenseReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170918061233_AddedQueueModel")]
+    partial class AddedQueueModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,7 +81,7 @@ namespace ReimbursementApp.Migrations
                         .IsRequired()
                         .HasMaxLength(500);
 
-                    b.Property<int?>("StatusId");
+                    b.Property<int>("Status");
 
                     b.Property<string>("SubmitDate")
                         .IsRequired();
@@ -91,21 +92,7 @@ namespace ReimbursementApp.Migrations
 
                     b.HasIndex("EmployeesId");
 
-                    b.HasIndex("StatusId");
-
                     b.ToTable("Expenses");
-                });
-
-            modelBuilder.Entity("ReimbursementApp.Model.TicketStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("State");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TicketStatuses");
                 });
 
             modelBuilder.Entity("ReimbursementApp.Model.Approver", b =>
@@ -121,10 +108,6 @@ namespace ReimbursementApp.Migrations
                     b.HasOne("ReimbursementApp.Model.Employee", "Employees")
                         .WithMany()
                         .HasForeignKey("EmployeesId");
-
-                    b.HasOne("ReimbursementApp.Model.TicketStatus", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId");
                 });
 #pragma warning restore 612, 618
         }
