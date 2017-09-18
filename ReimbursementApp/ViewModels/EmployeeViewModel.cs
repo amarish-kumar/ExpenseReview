@@ -8,6 +8,7 @@ namespace ReimbursementApp.ViewModels
 {
     public class EmployeeViewModel
     {
+        public string EmployeeId { get; set; }
         public string EmployeeName { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }

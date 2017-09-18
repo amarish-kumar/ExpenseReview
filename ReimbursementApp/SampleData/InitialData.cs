@@ -27,7 +27,7 @@ namespace ReimbursementApp.SampleData
                     Employees = new Employee
                     {
 
-                        EmployeeId = 93888,
+                        EmployeeId = "93888",
                         EmployeeName = "Shyam Sinha"
 
                     },
@@ -57,7 +57,7 @@ namespace ReimbursementApp.SampleData
                     Amount = 5300,
                     Employees = new Employee
                     {
-                        EmployeeId = 93868,
+                        EmployeeId = "93868",
                         EmployeeName = "Kamlesh"
 
                     },
@@ -86,7 +86,7 @@ namespace ReimbursementApp.SampleData
                     Amount = 5400,
                     Employees = new Employee
                     {
-                        EmployeeId = 93869,
+                        EmployeeId = "93869",
                         EmployeeName = "John"
 
                     },

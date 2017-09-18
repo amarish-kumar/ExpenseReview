@@ -39,6 +39,7 @@ namespace ReimbursementApp.Controllers.API
 
             var empObj = new Employee
             {
+                EmployeeId = employee.EmployeeId,
                 EmployeeName = User.Identity.Name,
                 Email=employee.Email,
                 Mobile = employee.Mobile,
