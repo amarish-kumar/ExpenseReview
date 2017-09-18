@@ -9,7 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ReimbursementApp.Data.Contracts;
+using ReimbursementApp.DatabaseHelpers;
 using ReimbursementApp.DbContext;
+using ReimbursementApp.EFRepository;
 using ReimbursementApp.SampleData;
 
 
@@ -39,6 +42,10 @@ namespace ReimbursementApp
             services.AddMvc();
             //Initiating Seed Data
             services.AddTransient<InitialData>();
+            //DI Setup
+            services.AddScoped<RepositoryFactories, RepositoryFactories>();
+            services.AddScoped<IRepositoryProvider, RepositoryProvider>();
+            services.AddScoped<IExpenseReviewUOW, ExpenseReviewUOW>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

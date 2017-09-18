@@ -24,14 +24,14 @@ namespace ReimbursementApp.Model
         [Required]
         public double TotalAmount { get; set; }
 
-        public virtual ICollection<Employee> Employees { get; set; }
+        public virtual Employee Employees { get; set; }
 
-        public virtual ICollection<Approver> Approvers { get; set; }
+        public virtual Approver Approvers { get; set; }
 
         public Expense()
         {
-            Employees= new Collection<Employee>();
-            Approvers= new Collection<Approver>();
+            Employees= new Employee();
+            Approvers= new Approver();
         }
         
     }

@@ -27,25 +27,23 @@ namespace ReimbursementApp.SampleData
                     ExpenseDate = "12/09/2017",
                     SubmitDate = "13/09/2017",
                     Amount = 5200,
-                    Employees = new List<Employee>
+                    Employees = new Employee
                     {
-                        new Employee
-                        {
-                            EmployeeId = 93867,
-                            EmployeeName = "Rahul Sahay"
-                        }
+
+                        EmployeeId = 93867,
+                        EmployeeName = "Rahul Sahay"
+
                     },
                     ExpenseDetails = "Random",
                     TotalAmount = 5200,
-                    Approvers = new List<Approver>
+                    Approvers = new Approver
                     {
-                        new Approver
-                        {
-                            ApproverId = 1234,
-                            ApprovedDate = "13/09/2017",
-                            Name = "Dhaval",
-                            Remarks = "Approved"
-                        }
+
+                        ApproverId = 1234,
+                        ApprovedDate = "13/09/2017",
+                        Name = "Dhaval",
+                        Remarks = "Approved"
+
                     }
 
                 };
@@ -59,25 +57,21 @@ namespace ReimbursementApp.SampleData
                     ExpenseDate = "11/09/2017",
                     SubmitDate = "12/09/2017",
                     Amount = 5300,
-                    Employees = new List<Employee>
+                    Employees = new Employee
                     {
-                        new Employee
-                        {
-                            EmployeeId = 93868,
-                            EmployeeName = "Kamlesh"
-                        }
+                        EmployeeId = 93868,
+                        EmployeeName = "Kamlesh"
+
                     },
                     ExpenseDetails = "Another Expense",
                     TotalAmount = 5300,
-                    Approvers = new List<Approver>
+                    Approvers = new Approver
                     {
-                        new Approver
-                        {
-                            ApproverId = 2345,
-                            ApprovedDate = "13/09/2017",
-                            Name = "Deepak",
-                            Remarks = "nothing"
-                        }
+                        ApproverId = 2345,
+                        ApprovedDate = "13/09/2017",
+                        Name = "Deepak",
+                        Remarks = "nothing"
+
                     }
 
                 };
