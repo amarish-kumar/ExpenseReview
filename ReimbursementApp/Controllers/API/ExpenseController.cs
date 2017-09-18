@@ -1,6 +1,9 @@
 ﻿using System.Linq;
+using System.Net;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReimbursementApp.Data.Contracts;
+using ReimbursementApp.Model;
 using ReimbursementApp.ViewModels;
 
 namespace ReimbursementApp.Controllers.API
@@ -27,6 +30,8 @@ namespace ReimbursementApp.Controllers.API
                         ApproverName = exp.Approvers.Name,
                         SubmitDate = exp.SubmitDate,
                         ApprovedDate = exp.Approvers.ApprovedDate,
+                        Amount = exp.Amount,
+                        TotalAmount = exp.TotalAmount,
                         TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
                         ExpenseId = exp.Id
 
@@ -39,19 +44,44 @@ namespace ReimbursementApp.Controllers.API
         [HttpGet("{id}")]
         public IQueryable Get(int id)
         {
-            var model = UOW.Expenses.GetAll().Where(exp=>exp.Id==id)
+            var model = UOW.Expenses.GetAll().Where(exp => exp.Id == id)
                 .Select(exp => new ExpenseViewModel
                 {
                     EmployeeName = exp.Employees.EmployeeName,
                     ApproverName = exp.Approvers.Name,
                     SubmitDate = exp.SubmitDate,
                     ApprovedDate = exp.Approvers.ApprovedDate,
+                    Amount = exp.Amount,
+                    TotalAmount = exp.TotalAmount,
                     TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
                     ExpenseId = exp.Id
 
                 });
             return model;
 
+        }
+
+        // Post a new Expense
+        // POST /api/expense
+        //TODO: Need to think on populating Employee and Approver Id
+        [HttpPost("")]
+        public int Post([FromBody]ExpenseViewModel expenseViewModel)
+        {
+            var ExpenseObj = new Expense
+            {
+                Amount = expenseViewModel.TotalAmount,
+                TotalAmount = expenseViewModel.TotalAmount,
+                ExpenseDate = expenseViewModel.ExpenseDate,
+                SubmitDate = expenseViewModel.SubmitDate,
+                Status = new TicketStatus {State = TicketState.Submitted},
+                Approvers = new Approver {Name = expenseViewModel.ApproverName},
+                Employees = new Employee {EmployeeName = User.Identity.Name},
+                ExpenseDetails = expenseViewModel.ExpenseDetails
+            };
+
+            UOW.Expenses.Add(ExpenseObj);
+            UOW.Commit();
+            return Response.StatusCode = (int)HttpStatusCode.Created;
         }
 
     }

@@ -6,6 +6,7 @@ using ReimbursementApp.Data.Contracts;
 using ReimbursementApp.DatabaseHelpers;
 using ReimbursementApp.DbContext;
 using ReimbursementApp.Model;
+using ReimbursementApp.ViewModels;
 
 namespace ReimbursementApp.EFRepository
 {
@@ -19,8 +20,7 @@ namespace ReimbursementApp.EFRepository
         }
 
         public IRepository<Expense> Expenses { get { return GetStandardRepo<Expense>(); } }
-
-
+        public IRepository<Employee> Employees { get { return GetStandardRepo<Employee>(); } }
 
 
         public void Commit()

@@ -12,9 +12,10 @@ using System;
 namespace ReimbursementApp.Migrations
 {
     [DbContext(typeof(ExpenseReviewDbContext))]
-    partial class ExpenseReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170918085900_addedanother")]
+    partial class addedanother
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,9 +33,12 @@ namespace ReimbursementApp.Migrations
 
                     b.Property<int>("ExpenseId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(40);
 
-                    b.Property<string>("Remarks");
+                    b.Property<string>("Remarks")
+                        .HasMaxLength(255);
 
                     b.HasKey("Id");
 
@@ -49,29 +53,9 @@ namespace ReimbursementApp.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AddressLine1");
-
-                    b.Property<string>("AddressLine2");
-
-                    b.Property<string>("AddressLine3");
-
-                    b.Property<string>("AlternateNumber");
-
-                    b.Property<string>("Country");
-
-                    b.Property<string>("Email");
-
                     b.Property<int>("EmployeeId");
 
                     b.Property<string>("EmployeeName");
-
-                    b.Property<string>("Mobile");
-
-                    b.Property<string>("ReportingManager");
-
-                    b.Property<string>("State");
-
-                    b.Property<string>("ZipCode");
 
                     b.HasKey("Id");
 

@@ -12,9 +12,10 @@ using System;
 namespace ReimbursementApp.Migrations
 {
     [DbContext(typeof(ExpenseReviewDbContext))]
-    partial class ExpenseReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170918100026_ImprovisedEmployee")]
+    partial class ImprovisedEmployee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,13 +68,15 @@ namespace ReimbursementApp.Migrations
 
                     b.Property<string>("Mobile");
 
-                    b.Property<string>("ReportingManager");
+                    b.Property<int?>("ReportingManagerId");
 
                     b.Property<string>("State");
 
                     b.Property<string>("ZipCode");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ReportingManagerId");
 
                     b.ToTable("Employees");
                 });
@@ -128,6 +131,13 @@ namespace ReimbursementApp.Migrations
                         .WithOne("Approvers")
                         .HasForeignKey("ReimbursementApp.Model.Approver", "ExpenseId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ReimbursementApp.Model.Employee", b =>
+                {
+                    b.HasOne("ReimbursementApp.Model.Approver", "ReportingManager")
+                        .WithMany()
+                        .HasForeignKey("ReportingManagerId");
                 });
 
             modelBuilder.Entity("ReimbursementApp.Model.Expense", b =>

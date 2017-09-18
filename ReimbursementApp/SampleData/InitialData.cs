@@ -27,8 +27,8 @@ namespace ReimbursementApp.SampleData
                     Employees = new Employee
                     {
 
-                        EmployeeId = 93867,
-                        EmployeeName = "Rahul Sahay"
+                        EmployeeId = 93888,
+                        EmployeeName = "Shyam Sinha"
 
                     },
                     ExpenseDetails = "Random",
@@ -86,7 +86,7 @@ namespace ReimbursementApp.SampleData
                     Amount = 5400,
                     Employees = new Employee
                     {
-                        EmployeeId = 93868,
+                        EmployeeId = 93869,
                         EmployeeName = "John"
 
                     },

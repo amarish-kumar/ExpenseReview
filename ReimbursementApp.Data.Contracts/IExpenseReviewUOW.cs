@@ -12,5 +12,6 @@ namespace ReimbursementApp.Data.Contracts
         /// </summary>
         void Commit();
         IRepository<Expense> Expenses { get; }
-   }
+       IRepository<Employee> Employees { get; }
+    }
 }
