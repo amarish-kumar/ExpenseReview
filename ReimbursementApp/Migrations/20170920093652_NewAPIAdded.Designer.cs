@@ -12,9 +12,10 @@ using System;
 namespace ReimbursementApp.Migrations
 {
     [DbContext(typeof(ExpenseReviewDbContext))]
-    partial class ExpenseReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170920093652_NewAPIAdded")]
+    partial class NewAPIAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,20 +38,20 @@ namespace ReimbursementApp.Migrations
 
             modelBuilder.Entity("ReimbursementApp.Model.Approver", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ApproverId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("ApprovedDate");
 
-                    b.Property<int>("ApproverId");
-
                     b.Property<int>("ExpenseId");
+
+                    b.Property<int>("Id");
 
                     b.Property<string>("Name");
 
                     b.Property<string>("Remarks");
 
-                    b.HasKey("Id");
+                    b.HasKey("ApproverId");
 
                     b.HasIndex("ExpenseId")
                         .IsUnique();
@@ -74,7 +75,7 @@ namespace ReimbursementApp.Migrations
 
             modelBuilder.Entity("ReimbursementApp.Model.Employee", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<string>("EmployeeId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AddressLine1");
@@ -99,13 +100,13 @@ namespace ReimbursementApp.Migrations
 
                     b.Property<string>("EmergencyContactRelation");
 
-                    b.Property<string>("EmployeeId");
-
                     b.Property<string>("EmployeeName");
 
                     b.Property<string>("FatherDOB");
 
                     b.Property<string>("FatherName");
+
+                    b.Property<int>("Id");
 
                     b.Property<string>("Mobile");
 
@@ -121,7 +122,7 @@ namespace ReimbursementApp.Migrations
 
                     b.Property<string>("ZipCode");
 
-                    b.HasKey("Id");
+                    b.HasKey("EmployeeId");
 
                     b.ToTable("Employees");
                 });
@@ -133,7 +134,7 @@ namespace ReimbursementApp.Migrations
 
                     b.Property<double>("Amount");
 
-                    b.Property<int?>("EmployeesId");
+                    b.Property<string>("EmployeesEmployeeId");
 
                     b.Property<string>("ExpenseDate")
                         .IsRequired();
@@ -151,7 +152,7 @@ namespace ReimbursementApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeesId");
+                    b.HasIndex("EmployeesEmployeeId");
 
                     b.HasIndex("StatusId");
 
@@ -184,7 +185,7 @@ namespace ReimbursementApp.Migrations
                 {
                     b.HasOne("ReimbursementApp.Model.Employee", "Employees")
                         .WithMany()
-                        .HasForeignKey("EmployeesId");
+                        .HasForeignKey("EmployeesEmployeeId");
 
                     b.HasOne("ReimbursementApp.Model.TicketStatus", "Status")
                         .WithMany()

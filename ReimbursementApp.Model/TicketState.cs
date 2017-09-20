@@ -7,9 +7,12 @@ namespace ReimbursementApp.Model
     public enum TicketState
     {
 
+        //Approval --> This is for offline, 
+        //Submitted --> Pending for approval, Next-->AdminCheck-->FinanceCheck Status (Processed,Pending with reason)
+        //Need to create two flows for admin and Bills
         Submitted = 1,
 
-        Pending = 2,
+        Pending = 2, //either from admin, finance, manager, reason also required
 
         Approved = 3
 

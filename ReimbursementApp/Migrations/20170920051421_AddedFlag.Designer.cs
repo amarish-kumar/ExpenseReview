@@ -12,28 +12,15 @@ using System;
 namespace ReimbursementApp.Migrations
 {
     [DbContext(typeof(ExpenseReviewDbContext))]
-    partial class ExpenseReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170920051421_AddedFlag")]
+    partial class AddedFlag
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("ReimbursementApp.Model.Admin", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("DepartmentPerson");
-
-                    b.Property<string>("EmployeeId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Admins");
-                });
 
             modelBuilder.Entity("ReimbursementApp.Model.Approver", b =>
                 {
@@ -58,20 +45,6 @@ namespace ReimbursementApp.Migrations
                     b.ToTable("Approvers");
                 });
 
-            modelBuilder.Entity("ReimbursementApp.Model.Bill", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("DepartmentPerson");
-
-                    b.Property<string>("EmployeeId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Bills");
-                });
-
             modelBuilder.Entity("ReimbursementApp.Model.Employee", b =>
                 {
                     b.Property<int>("Id")
@@ -87,31 +60,13 @@ namespace ReimbursementApp.Migrations
 
                     b.Property<string>("Country");
 
-                    b.Property<string>("DOB");
-
                     b.Property<string>("Email");
-
-                    b.Property<string>("EmergencyContactDOB");
-
-                    b.Property<string>("EmergencyContactName");
-
-                    b.Property<string>("EmergencyContactNumber");
-
-                    b.Property<string>("EmergencyContactRelation");
 
                     b.Property<string>("EmployeeId");
 
                     b.Property<string>("EmployeeName");
 
-                    b.Property<string>("FatherDOB");
-
-                    b.Property<string>("FatherName");
-
                     b.Property<string>("Mobile");
-
-                    b.Property<string>("MotherDOB");
-
-                    b.Property<string>("MotherName");
 
                     b.Property<string>("ReportingManager");
 
@@ -162,8 +117,6 @@ namespace ReimbursementApp.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Reason");
 
                     b.Property<int>("State");
 

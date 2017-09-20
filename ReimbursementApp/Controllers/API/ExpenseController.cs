@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Net;
-using Microsoft.AspNetCore.Authorization;
+using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReimbursementApp.Data.Contracts;
 using ReimbursementApp.Model;
@@ -82,6 +82,27 @@ namespace ReimbursementApp.Controllers.API
             UOW.Expenses.Add(ExpenseObj);
             UOW.Commit();
             return Response.StatusCode = (int)HttpStatusCode.Created;
+        }
+
+        // Update an existing expense
+        // PUT /api/expense/
+        //TODO:- Need to check if inifinite loop is happening,
+        //Also, delete and update functionality will be available to admins
+        [HttpPut("")]
+        public HttpResponseMessage Put([FromBody]Expense expense)
+        {
+            UOW.Expenses.Update(expense);
+            UOW.Commit();
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
+
+        // DELETE api/expense/5
+        [HttpDelete("{Id}")]
+        public HttpResponseMessage Delete(int Id)
+        {
+            UOW.Expenses.Delete(Id);
+            UOW.Commit();
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 
     }

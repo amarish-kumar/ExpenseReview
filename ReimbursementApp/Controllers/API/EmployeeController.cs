@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Net;
+using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using ReimbursementApp.Data.Contracts;
 using ReimbursementApp.Model;
@@ -42,6 +43,7 @@ namespace ReimbursementApp.Controllers.API
                 EmployeeId = employee.EmployeeId,
                 EmployeeName = User.Identity.Name,
                 Email=employee.Email,
+                DOB = employee.DOB,
                 Mobile = employee.Mobile,
                 AlternateNumber = employee.AlternateNumber,
                 AddressLine1 = employee.AddressLine1,
@@ -52,12 +54,45 @@ namespace ReimbursementApp.Controllers.API
                 State = employee.State,
                 //Need to check on below logic. May be this should be drop-down for 1st case
                 //Below logic will change
-                ReportingManager = employee.ReportingManager
+                ReportingManager = employee.ReportingManager,
+                FatherName = employee.FatherName,
+                MotherName = employee.MotherName,
+                FatherDOB = employee.FatherDOB,
+                MotherDOB = employee.MotherDOB,
+                EmergencyContactName = employee.EmergencyContactName,
+                EmergencyContactNumber = employee.EmergencyContactNumber,
+                EmergencyContactRelation = employee.EmergencyContactRelation,
+                EmergencyContactDOB = employee.EmergencyContactDOB,
+                //Upon, sign up, this flag will automatically set to true.
+                //Means, from next time user can't see this flow again
+                SignedUp = true
             };
 
             UOW.Employees.Add(empObj);
             UOW.Commit();
             return Response.StatusCode = (int)HttpStatusCode.Created;
         }
+
+        // Update an existing employee
+        // PUT /api/employee/
+        //TODO:- Need to check if inifinite loop is happening
+        [HttpPut("")]
+        public HttpResponseMessage Put([FromBody]Employee employeeViewModel)
+        {
+            UOW.Employees.Update(employeeViewModel);
+            UOW.Commit();
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
+
+        // DELETE api/employee/5
+        [HttpDelete("{EmployeeId}")]
+        public HttpResponseMessage Delete(int EmployeeId)
+        {
+            UOW.Employees.Delete(EmployeeId);
+            UOW.Commit();
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
+
+
     }
 }

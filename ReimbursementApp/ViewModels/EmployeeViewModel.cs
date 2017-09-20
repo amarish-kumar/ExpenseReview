@@ -10,6 +10,7 @@ namespace ReimbursementApp.ViewModels
     {
         public string EmployeeId { get; set; }
         public string EmployeeName { get; set; }
+        public string DOB { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
         public string AlternateNumber { get; set; }
@@ -20,5 +21,14 @@ namespace ReimbursementApp.ViewModels
         public string Country { get; set; }
         public string State { get; set; }
         public string ReportingManager { get; set; }
+        public bool SignedUp { get; set; }
+        public string FatherName { get; set; }
+        public string MotherName { get; set; }
+        public string FatherDOB { get; set; }
+        public string MotherDOB { get; set; }
+        public string EmergencyContactName { get; set; }
+        public string EmergencyContactRelation { get; set; }
+        public string EmergencyContactNumber { get; set; }
+        public string EmergencyContactDOB { get; set; }
     }
 }

@@ -12,9 +12,10 @@ using System;
 namespace ReimbursementApp.Migrations
 {
     [DbContext(typeof(ExpenseReviewDbContext))]
-    partial class ExpenseReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170920091033_NewAPI")]
+    partial class NewAPI
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,8 +92,6 @@ namespace ReimbursementApp.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<string>("EmergencyContactDOB");
-
                     b.Property<string>("EmergencyContactName");
 
                     b.Property<string>("EmergencyContactNumber");
@@ -162,8 +161,6 @@ namespace ReimbursementApp.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Reason");
 
                     b.Property<int>("State");
 

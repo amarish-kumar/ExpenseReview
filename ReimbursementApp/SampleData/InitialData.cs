@@ -26,9 +26,27 @@ namespace ReimbursementApp.SampleData
                     Amount = 5200,
                     Employees = new Employee
                     {
-
-                        EmployeeId = "93888",
-                        EmployeeName = "Shyam Sinha"
+                        EmployeeName = "Saket Kumar",
+                        EmployeeId = "93865",
+                        Email = "saket.kumar@kdi.kongsberg.com",
+                        DOB = "15/01/1985",
+                        Mobile = "8147602853",
+                        AlternateNumber = "7975645963",
+                        AddressLine1 = "Flat No 205, Shobha Garnet",
+                        AddressLine2 = "Off Sarjapur Road",
+                        AddressLine3 = "Near Wipro Office",
+                        ZipCode = "560102",
+                        Country = "India",
+                        State = "Karnataka",
+                        FatherName = "Anil Kumar",
+                        MotherName = "Anila Kumari",
+                        FatherDOB = "15/03/1957",
+                        MotherDOB = "05/04/1961",
+                        EmergencyContactName = "Nirja Kumari",
+                        EmergencyContactNumber = "1234567890",
+                        EmergencyContactRelation = "Wife",
+                        EmergencyContactDOB = "17/07/1985",
+                        ReportingManager = "Dhaval"
 
                     },
                     ExpenseDetails = "Random",
@@ -42,7 +60,7 @@ namespace ReimbursementApp.SampleData
                         Remarks = "Approved"
 
                     },
-                    Status = new TicketStatus { State = TicketState.Approved}
+                    Status = new TicketStatus { State = TicketState.Approved,Reason = "Claim Approved"}
 
                 };
                 _dbContext.Expenses.Add(expense);
@@ -57,8 +75,27 @@ namespace ReimbursementApp.SampleData
                     Amount = 5300,
                     Employees = new Employee
                     {
+                        EmployeeName = "Shyam Sinha",
                         EmployeeId = "93868",
-                        EmployeeName = "Kamlesh"
+                        Email = "shyam.sinha@kdi.kongsberg.com",
+                        DOB = "19/05/1983",
+                        Mobile = "8147612345",
+                        AlternateNumber = "7975612345",
+                        AddressLine1 = "Flat No 206, Suncity Apartment",
+                        AddressLine2 = "Off Sarjapur Road",
+                        AddressLine3 = "Near Wipro Office",
+                        ZipCode = "560102",
+                        Country = "India",
+                        State = "Karnataka",
+                        FatherName = "Ram Kumar",
+                        MotherName = "Anita Kumari",
+                        FatherDOB = "05/10/1961",
+                        MotherDOB = "06/12/1961",
+                        EmergencyContactName = "Kritika Kumari",
+                        EmergencyContactNumber = "2345678901",
+                        EmergencyContactRelation = "Sister",
+                        EmergencyContactDOB = "15/07/1983",
+                        ReportingManager = "Deepak"
 
                     },
                     ExpenseDetails = "Another Expense",
@@ -71,7 +108,7 @@ namespace ReimbursementApp.SampleData
                         Remarks = "nothing"
 
                     },
-                    Status = new TicketStatus { State = TicketState.Pending }
+                    Status = new TicketStatus { State = TicketState.Pending, Reason = "Claim Pending for document submission." }
 
                 };
                 _dbContext.Expenses.Add(expense1);
@@ -86,8 +123,27 @@ namespace ReimbursementApp.SampleData
                     Amount = 5400,
                     Employees = new Employee
                     {
+                        EmployeeName = "Laxman Kumar",
                         EmployeeId = "93869",
-                        EmployeeName = "John"
+                        Email = "laxman.kumar@kdi.kongsberg.com",
+                        DOB = "19/05/1986",
+                        Mobile = "8147602843",
+                        AlternateNumber = "7975645965",
+                        AddressLine1 = "Flat No 205, Suncity Apartment",
+                        AddressLine2 = "Off Sarjapur Road",
+                        AddressLine3 = "Near Wipro Office",
+                        ZipCode = "560102",
+                        Country = "India",
+                        State = "Karnataka",
+                        FatherName = "Rakesh Kumar",
+                        MotherName = "Uma Devi",
+                        FatherDOB = "18/11/1957",
+                        MotherDOB = "06/05/1961",
+                        EmergencyContactName = "Kumar Gautham",
+                        EmergencyContactNumber = "3456789012",
+                        EmergencyContactRelation = "Brother",
+                        EmergencyContactDOB = "15/10/1985",
+                        ReportingManager = "Mrinal"
 
                     },
                     ExpenseDetails = "Misel",
@@ -100,7 +156,7 @@ namespace ReimbursementApp.SampleData
                         Remarks = "Reviewing"
 
                     },
-                    Status = new TicketStatus { State = TicketState.Submitted }
+                    Status = new TicketStatus { State = TicketState.Submitted, Reason = "Claim Submitted!" }
 
                 };
                 _dbContext.Expenses.Add(expense2);
