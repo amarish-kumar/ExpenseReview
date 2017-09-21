@@ -6,10 +6,10 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class EmployeeService {
-    constructor(private http: Http, @Inject('BASE_URL') private originUrl: string, employeeService:EmployeeService) { }
+    constructor(private http: Http, @Inject('BASE_URL') private originUrl: string) { }
     
     getEmployees(){
-        return this.http.get(this.originUrl + '/api/employee')
+        return this.http.get(this.originUrl + 'api/employee')
         //Once, we get the response back, it has to get mapped to json
         .map(res => res.json());
     }
