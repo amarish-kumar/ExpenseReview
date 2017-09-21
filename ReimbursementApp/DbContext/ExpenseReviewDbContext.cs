@@ -41,12 +41,14 @@ namespace ReimbursementApp.DbContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+           /* modelBuilder.Entity<Employee>().HasKey(e => e.EmployeeId);
+            modelBuilder.Entity<Approver>().HasKey(a => a.ApproverId);*/
             //TODO: Set Composite Keys here. Need to check for EF-Core.
-           /* _b = ((modelBuilder.Entity<Employee>().HasKey(e => new {e.Id, e.EmployeeId}).Metadata.Properties[0]
-                       .ValueGenerated & ValueGenerated.OnAdd) != 0);
-
-            _c = (modelBuilder.Entity<Approver>().HasKey(e => new { e.Id, e.ApproverId }).Metadata.Properties[0]
-                      .ValueGenerated & ValueGenerated.OnAdd) != 0;*/
+            /* _b = ((modelBuilder.Entity<Employee>().HasKey(e => new {e.Id, e.EmployeeId}).Metadata.Properties[0]
+                        .ValueGenerated & ValueGenerated.OnAdd) != 0);
+ 
+             _c = (modelBuilder.Entity<Approver>().HasKey(e => new { e.Id, e.ApproverId }).Metadata.Properties[0]
+                       .ValueGenerated & ValueGenerated.OnAdd) != 0;*/
             // base.OnModelCreating(modelBuilder);
         }
     }

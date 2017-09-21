@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Reflection.Metadata;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReimbursementApp.Model
 {
     //TODO:- Sign info will present below screen. This is one time activity.
     public class Employee
     {
+        /*[DatabaseGenerated(DatabaseGeneratedOption.Identity)]*/
         public int Id { get; set; }
         //TODO on Expense page, EMP_Id and Approver name will get auto populated
         public string EmployeeId { get; set; }
