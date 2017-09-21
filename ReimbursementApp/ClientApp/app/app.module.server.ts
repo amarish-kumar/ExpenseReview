@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { ServerModule } from '@angular/platform-server';
-import { AppModuleShared } from './app.module.shared';
-import { AppComponent } from './components/app/app.component';
+import { sharedConfig } from './app.module.shared';
+
 
 @NgModule({
-    bootstrap: [ AppComponent ],
+    bootstrap: sharedConfig.bootstrap,
+    declarations: sharedConfig.declarations,
     imports: [
-        ServerModule,
-        AppModuleShared
-    ]
+        ServerModule
+    ],
+    providers: []
 })
 export class AppModule {
 }
