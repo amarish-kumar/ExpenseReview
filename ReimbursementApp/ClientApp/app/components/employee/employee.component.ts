@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { EmployeeService } from './employee.service';
+
 import { Http } from '@angular/http';
+import { EmployeeService } from '../../services/employee.service';
 
 
 @Component({

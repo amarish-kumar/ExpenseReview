@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppModuleShared } from './app.module.shared';
 import { AppComponent } from './components/app/app.component';
-import {EmployeeService } from "./components/employee/employee.service";
+import { EmployeeService } from './services/employee.service';
+
 
 
 @NgModule({

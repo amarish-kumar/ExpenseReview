@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { ServerModule } from '@angular/platform-server';
 import { AppModuleShared } from './app.module.shared';
 import { AppComponent } from './components/app/app.component';
-import { EmployeeService } from "./components/employee/employee.service";
+import { EmployeeService } from './services/employee.service';
+
 
 //TODO:- URL Refresh issue needs to be fixed. Base URL needs to explored more
 @NgModule({
