@@ -2,6 +2,7 @@
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { EmployeeService } from '../../services/employee.service';
+import { ToastyService } from "ng2-toasty";
 
 
 @Component({
@@ -15,25 +16,147 @@ export class SearchEmployeeComponent implements OnInit {
     employees;
     id: any;
     showHide: boolean;
+    desigSearch: boolean;
     @ViewChild('empIdInput') empIdInput;
-    constructor(private router: Router,private employeeService: EmployeeService) { }
+    constructor(private router: Router, private employeeService: EmployeeService, private toastyService: ToastyService) { }
 
     ngOnInit() {
         this.showHide = false;
+        this.desigSearch = false;
     }
-
+    clearEmployee() {
+        this.showHide = false;
+        this.empIdInput.nativeElement.value = "";
+    }
     searchEmployee() {
+        //Search by Employee ID
         this.employeeService.getEmployee(this.empIdInput.nativeElement.value)
             .subscribe(e => {
-                   // console.log(this.empIdInput.nativeElement);
-                    this.employees = e;
-                    console.log("Employee Fetched:-", this.employees);
-                    this.showHide = true;
-                },
-                err => {
-                    if (err.status == 404) {
-                        this.router.navigate(['/']);
-                    }
-                });
+                this.employees = e;
+                console.log("Length:-", this.employees.length);
+                console.log("Employee Fetched:-", this.employees);
+                if (this.employees.length == 1) {
+                    this.toastyService.success({
+                        title: 'Success',
+                        msg: 'Employee Fetched!',
+                        theme: 'bootstrap',
+                        showClose: true,
+                        timeout: 5000
+                    });
+                }
+                if (this.employees.length > 1) {
+                    this.toastyService.success({
+                        title: 'Success',
+                        msg: 'Employees Fetched!',
+                        theme: 'bootstrap',
+                        showClose: true,
+                        timeout: 5000
+                    });
+                }
+                this.showHide = true;
+                //Search by Employee Name
+                if (this.employees.length == 0) {
+                    this.employeeService.getEmployeeByName(this.empIdInput.nativeElement.value)
+                        .subscribe(name => {
+                            this.employees = name;
+                            if (name.length == 0) {
+                                //Search by Designation Name
+                                this.employeeService.getEmployeeByDesig(this.empIdInput.nativeElement.value)
+                                    .subscribe(desig => {
+                                        this.employees = desig;
+                                        //Search by Manager Name
+                                        if (desig.length == 0) {
+                                            this.employeeService
+                                                .getEmployeeByManager(this.empIdInput.nativeElement.value)
+                                                .subscribe(manager => {
+                                                    this.employees = manager;
+                                                    console.log("Emloyee Fetched via Manager:-", this.employees);
+                                                    if (manager.length > 0) {
+                                                        this.toastyService.success({
+                                                            title: 'Success',
+                                                            msg: 'Employee Fetched via Manager!',
+                                                            theme: 'bootstrap',
+                                                            showClose: true,
+                                                            timeout: 5000
+                                                        });
+                                                    }
+                                                },
+                                                err => {
+                                                    if (err.status == 404) {
+                                                        this.toastyService.error({
+                                                            title: 'Error',
+                                                            msg: 'An unexpected error while fetching the record!',
+                                                            theme: 'bootstrap',
+                                                            showClose: true,
+                                                            timeout: 5000
+                                                        });
+                                                        this.router.navigate(['/']);
+                                                    }
+                                                });
+                                        }
+                                        if (desig.length > 0) {
+                                            this.toastyService.success({
+                                                title: 'Success',
+                                                msg: 'Employee Fetched via designation!',
+                                                theme: 'bootstrap',
+                                                showClose: true,
+                                                timeout: 5000
+                                            });
+                                            console.log("Employee Fetched via designation:-", this.employees);
+                                        }
+                                    },
+                                    err => {
+                                        if (err.status == 404) {
+                                            this.toastyService.error({
+                                                title: 'Error',
+                                                msg: 'An unexpected error while fetching the record!',
+                                                theme: 'bootstrap',
+                                                showClose: true,
+                                                timeout: 5000
+                                            });
+                                            this.router.navigate(['/']);
+                                        }
+                                    }
+                                    );
+
+                            }
+                            if (name.length > 0) {
+                                this.toastyService.success({
+                                    title: 'Success',
+                                    msg: 'Employee Fetched via name!',
+                                    theme: 'bootstrap',
+                                    showClose: true,
+                                    timeout: 5000
+                                });
+                                console.log("Employee Fetched via name:-", this.employees);
+                            }
+                        }, err => {
+                            if (err.status == 404) {
+                                this.toastyService.error({
+                                    title: 'Error',
+                                    msg: 'An unexpected error while fetching the record!',
+                                    theme: 'bootstrap',
+                                    showClose: true,
+                                    timeout: 5000
+                                });
+                                this.router.navigate(['/']);
+                            }
+                        }
+                        );
+                }
+
+            },
+            err => {
+                if (err.status == 404) {
+                    this.toastyService.error({
+                        title: 'Error',
+                        msg: 'An unexpected error while fetching the record!',
+                        theme: 'bootstrap',
+                        showClose: true,
+                        timeout: 5000
+                    });
+                    this.router.navigate(['/']);
+                }
+            });
     }
 }

@@ -2,10 +2,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="input-group" id="adv-search">
-                <input type="text" class="form-control" placeholder="Search for employees" #empIdInput/>
+                <input type="text" class="form-control" placeholder="Search for employees by Id or Name or Designation or Manager" #empIdInput/>
                 <div class="input-group-btn">
                     <div class="btn-group" role="group">
-                        <div class="dropdown dropdown-lg">
+                    <!--    <div class="dropdown dropdown-lg">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
                             <div class="dropdown-menu dropdown-menu-right" role="menu">
                                 <form class="form-horizontal" role="form">
@@ -23,15 +23,16 @@
                                         <label for="contain">Input</label>
                                         <input class="form-control" type="text" />
                                     </div>
-                                    <!--<div class="form-group">
+                                    $1$<div class="form-group">
                                         <label for="contain">Contains the words</label>
                                         <input class="form-control" type="text" />
-                                    </div>-->
+                                    </div>#1#
                                     <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                                 </form>
                             </div>
-                        </div>
+                        </div>-->
                         <button type="button" class="btn btn-primary" (click)="searchEmployee()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-danger" (click)="clearEmployee()"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></button>
                     </div>
                 </div>
             </div>
@@ -53,12 +54,11 @@
 </div>
 <!-- Select Basic -->
 <div class="form-group">
-    <label class="col-md-4 control-label" for="selectbasic">Title</label>
+    <label class="col-md-4 control-label" for="selectbasic">Gender</label>
     <div class="col-md-4">
         <select id="selectbasic" name="selectbasic" class="form-control">
-            <option value="1">Mr</option>
-            <option value="2">Ms</option>
-        </select>
+            <option value="1">{{e.gender}}</option>
+         </select>
     </div>
 </div>
 <!-- Text input-->
@@ -252,8 +252,8 @@
 <div class="form-group">
     <label class="col-md-4 control-label" for="send">Edit/Remove</label>
     <div class="col-md-4">
-        <button id="send" name="send" type="submit" class="btn btn-primary">Edit</button>
-        <button id="edit" name="edit" type="submit" class="btn btn-danger">Remove</button>
+        <button type="button" id="send" name="send" class="btn btn-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit</button>
+        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove</button>
     </div>
 </div>
 
