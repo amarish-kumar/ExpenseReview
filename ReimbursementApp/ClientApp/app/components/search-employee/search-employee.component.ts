@@ -17,12 +17,21 @@ export class SearchEmployeeComponent implements OnInit {
     id: any;
     showHide: boolean;
     desigSearch: boolean;
+    idflag: boolean;
+    desigFlag: boolean;
+    nameFlag: boolean;
+    managerFlag: boolean;
+
     @ViewChild('empIdInput') empIdInput;
     constructor(private router: Router, private employeeService: EmployeeService, private toastyService: ToastyService) { }
 
     ngOnInit() {
         this.showHide = false;
         this.desigSearch = false;
+        this.idflag = true;
+        this.desigFlag = true;
+        this.nameFlag = true;
+        this.managerFlag = true;
     }
     clearEmployee() {
         this.showHide = false;
@@ -35,7 +44,10 @@ export class SearchEmployeeComponent implements OnInit {
                 this.employees = e;
                 console.log("Length:-", this.employees.length);
                 console.log("Employee Fetched:-", this.employees);
-                if (this.employees.length == 1) {
+                if (this.employees.length == 0) {
+                    this.idflag = false;
+                }
+                    if (this.employees.length == 1) {
                     this.toastyService.success({
                         title: 'Success',
                         msg: 'Employee Fetched!',
@@ -80,7 +92,10 @@ export class SearchEmployeeComponent implements OnInit {
                                                             timeout: 5000
                                                         });
                                                     }
-                                                },
+                                                    if (manager.length == 0) {
+                                                        this.managerFlag = false;
+                                                    }
+                                              },
                                                 err => {
                                                     if (err.status == 404) {
                                                         this.toastyService.error({
@@ -104,7 +119,11 @@ export class SearchEmployeeComponent implements OnInit {
                                             });
                                             console.log("Employee Fetched via designation:-", this.employees);
                                         }
-                                    },
+                                        if (desig.length == 0) {
+                                            this.desigFlag = false;
+                                        }
+
+                                        },
                                     err => {
                                         if (err.status == 404) {
                                             this.toastyService.error({
@@ -130,7 +149,11 @@ export class SearchEmployeeComponent implements OnInit {
                                 });
                                 console.log("Employee Fetched via name:-", this.employees);
                             }
-                        }, err => {
+                            if (name.length == 0) {
+                                this.nameFlag = false;
+                            }
+
+                            }, err => {
                             if (err.status == 404) {
                                 this.toastyService.error({
                                     title: 'Error',
@@ -144,7 +167,16 @@ export class SearchEmployeeComponent implements OnInit {
                         }
                         );
                 }
-
+                //Checking Flag collection for not found scenario
+                if (!this.idflag && !this.desigFlag && !this.managerFlag && !this.nameFlag) {
+                    this.toastyService.warning({
+                        title: 'Info',
+                        msg: 'Employee Not Found!',
+                        theme: 'bootstrap',
+                        showClose: true,
+                        timeout: 5000
+                    });
+                }
             },
             err => {
                 if (err.status == 404) {
