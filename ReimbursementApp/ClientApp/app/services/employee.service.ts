@@ -13,4 +13,9 @@ export class EmployeeService {
         //Once, we get the response back, it has to get mapped to json
         .map(res => res.json());
     }
+
+    getEmployee(id) {
+        return this.http.get(this.originUrl + 'api/employee/' + id)
+            .map(res => res.json());
+    }
 }

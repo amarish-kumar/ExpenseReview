@@ -1,5 +1,5 @@
-﻿import { Component, OnInit, Inject } from '@angular/core';
-
+﻿import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { EmployeeService } from '../../services/employee.service';
 
@@ -12,11 +12,25 @@ import { EmployeeService } from '../../services/employee.service';
 })
 
 export class SearchEmployeeComponent implements OnInit {
-    employees: any;
-
-    constructor(private employeeService: EmployeeService) { }
+    employee: any;
+    id: any;
+    @ViewChild('empIdInput') empIdInput;
+    constructor(private router: Router,private employeeService: EmployeeService) { }
 
     ngOnInit() {
 
+    }
+
+    searchEmployee() {
+        this.employeeService.getEmployee(this.empIdInput.nativeElement.value)
+            .subscribe(e => {
+                    this.employee = e;
+                    console.log("Employee Fetched:-", this.employee);
+                },
+                err => {
+                    if (err.status == 404) {
+                        this.router.navigate(['/']);
+                    }
+                });
     }
 }
