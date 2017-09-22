@@ -32,6 +32,27 @@ namespace ReimbursementApp.Controllers.API
             return model;
         }
 
+       
+        [HttpGet("~/api/employee/GetByName/{EmployeeName}")]
+        public IQueryable<Employee> GetByName(string EmployeeName)
+        {
+            IQueryable<Employee> model = UOW.Employees.GetAll().Where(e => e.EmployeeName.StartsWith(EmployeeName));
+            return model;
+        }
+
+        [HttpGet("~/api/employee/GetByDesignation/{Desig}")]
+        public IQueryable<Employee> GetByDesignation(string Desig)
+        {
+            IQueryable<Employee> model = UOW.Employees.GetAll().Where(e => e.Designation.StartsWith(Desig));
+            return model;
+        }
+
+        [HttpGet("~/api/employee/GetByManager/{Manager}")]
+        public IQueryable<Employee> GetByManager(string Manager)
+        {
+            IQueryable<Employee> model = UOW.Employees.GetAll().Where(e => e.ReportingManager.StartsWith(Manager));
+            return model;
+        }
         // Post a new Employee
         // POST /api/employee
         //TODO: Need to think on populating Employee and Approver Id

@@ -24,6 +24,7 @@ export class SearchEmployeeComponent implements OnInit {
     searchEmployee() {
         this.employeeService.getEmployee(this.empIdInput.nativeElement.value)
             .subscribe(e => {
+                   // console.log(this.empIdInput.nativeElement);
                     this.employee = e;
                     console.log("Employee Fetched:-", this.employee);
                 },

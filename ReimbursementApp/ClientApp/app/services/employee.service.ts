@@ -18,4 +18,19 @@ export class EmployeeService {
         return this.http.get(this.originUrl + 'api/employee/' + id)
             .map(res => res.json());
     }
+
+    getEmployeeByName(name) {
+        return this.http.get(this.originUrl + 'api/employee/GetByName/' + name)
+            .map(res => res.json());
+    }
+
+    getEmployeeByDesig(desig) {
+        return this.http.get(this.originUrl + 'api/employee/GetByDesignation/' + desig)
+            .map(res => res.json());
+    }
+
+    getEmployeeByManager(manager) {
+        return this.http.get(this.originUrl + 'api/employee/GetByManager/' + manager)
+            .map(res => res.json());
+    }
 }
