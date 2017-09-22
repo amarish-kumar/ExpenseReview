@@ -24,7 +24,7 @@
                 </li>
 
                 <li [routerLinkActive]="['link-active']">
-                    <a href="#">
+                    <a [routerLink]="['/search-employee']">
                         <span class='glyphicon glyphicon-user'></span> Search Employee
                     </a>
                 </li>
@@ -34,8 +34,8 @@
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
-                    <a href="#">
-                        <span class='glyphicon glyphicon-education'></span> Add Employee
+                    <a [routerLink]="['/new-employee']">
+                        <span class='glyphicon glyphicon-education'></span> Employee SignUp
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">

@@ -45,6 +45,7 @@ namespace ReimbursementApp.Controllers.API
                 //Below practice is good for login/logout/admin access stuffs
                 //EmployeeName = User.Identity.Name,
                 EmployeeName = employee.EmployeeName,
+                Gender = employee.Gender,
                 Designation = employee.Designation,
                 //Skillset will be comma-separated, so that later it can be listed as that.
                 SkillSet = employee.SkillSet,
