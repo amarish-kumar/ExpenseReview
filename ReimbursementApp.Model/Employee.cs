@@ -12,6 +12,9 @@ namespace ReimbursementApp.Model
         public string EmployeeId { get; set; }
         //This will get populated via windows login
         public string EmployeeName { get; set; }
+
+        public string Designation { get; set; }
+        public string SkillSet { get; set; }
         public string DOB { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }

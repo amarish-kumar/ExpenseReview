@@ -26,11 +26,12 @@ namespace ReimbursementApp.Controllers.API
         }
 
         [HttpGet("{id}")]
-        public Employee Get(int id)
+        public IQueryable<Employee> Get(int id)
         {
-            var model = UOW.Employees.GetById(id);
+            IQueryable<Employee> model = UOW.Employees.GetAll().Where(e => e.EmployeeId == id.ToString());
             return model;
         }
+
         // Post a new Employee
         // POST /api/employee
         //TODO: Need to think on populating Employee and Approver Id
@@ -41,7 +42,12 @@ namespace ReimbursementApp.Controllers.API
             var empObj = new Employee
             {
                 EmployeeId = employee.EmployeeId,
-                EmployeeName = User.Identity.Name,
+                //Below practice is good for login/logout/admin access stuffs
+                //EmployeeName = User.Identity.Name,
+                EmployeeName = employee.EmployeeName,
+                Designation = employee.Designation,
+                //Skillset will be comma-separated, so that later it can be listed as that.
+                SkillSet = employee.SkillSet,
                 Email=employee.Email,
                 DOB = employee.DOB,
                 Mobile = employee.Mobile,

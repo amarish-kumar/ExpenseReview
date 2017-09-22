@@ -27,6 +27,8 @@ namespace ReimbursementApp.SampleData
                     Employees = new Employee
                     {
                         EmployeeName = "Saket Kumar",
+                        Designation = "SDE 1",
+                        SkillSet = "HTML 5, AngularJS, JavaScript, .NET",
                         EmployeeId = "93865",
                         Email = "saket.kumar@kdi.kongsberg.com",
                         DOB = "15/01/1985",
@@ -76,6 +78,8 @@ namespace ReimbursementApp.SampleData
                     Employees = new Employee
                     {
                         EmployeeName = "Shyam Sinha",
+                        Designation = "SDE 2",
+                        SkillSet = "C#, .NET",
                         EmployeeId = "93868",
                         Email = "shyam.sinha@kdi.kongsberg.com",
                         DOB = "19/05/1983",
@@ -124,6 +128,8 @@ namespace ReimbursementApp.SampleData
                     Employees = new Employee
                     {
                         EmployeeName = "Laxman Kumar",
+                        Designation = "Developer",
+                        SkillSet = "HTML 5, AngularJS, JavaScript",
                         EmployeeId = "93869",
                         Email = "laxman.kumar@kdi.kongsberg.com",
                         DOB = "19/05/1986",
