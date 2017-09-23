@@ -28,7 +28,7 @@ namespace ReimbursementApp.Controllers.API
         [HttpGet("{id}")]
         public IQueryable<Employee> Get(int id)
         {
-            IQueryable<Employee> model = UOW.Employees.GetAll().Where(e => e.EmployeeId == id.ToString());
+            IQueryable<Employee> model = UOW.Employees.GetAll().Where(e => e.EmployeeId == id);
             return model;
         }
 

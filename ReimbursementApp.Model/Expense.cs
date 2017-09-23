@@ -24,17 +24,25 @@ namespace ReimbursementApp.Model
         [Required]
         public double TotalAmount { get; set; }
 
+        /*public virtual int EmployeeId { get; set; }
+        public virtual int ApproverId { get; set; }*/
         public virtual Employee Employees { get; set; }
 
         public virtual Approver Approvers { get; set; }
-
+        
         public virtual TicketStatus Status { get; set; }
+
+        public virtual ExpenseCategory ExpCategory  { get; set; }
+
+        public virtual Reason Reason { get; set; }
 
         public Expense()
         {
-            Employees= new Employee();
-            Approvers= new Approver();
+          //  Employees= new Employee();
+           // Approvers= new Approver();
             Status = new TicketStatus();
+            ExpCategory= new ExpenseCategory();
+            Reason= new Reason();
         }
         
     }

@@ -7,6 +7,8 @@ namespace ReimbursementApp.ViewModels
 {
     public class ExpenseViewModel
     {
+        public int EmployeeId { get; set; }
+        public int ApproverId { get; set; }
         public string EmployeeName { get; set; }
         public string ApproverName { get; set; }
         public string ExpenseDate { get; set; }

@@ -30,7 +30,7 @@ namespace ReimbursementApp.SampleData
                         Gender = "M",
                         Designation = "SDE 1",
                         SkillSet = "HTML 5, AngularJS, JavaScript, .NET",
-                        EmployeeId = "93865",
+                        EmployeeId = 93865,
                         Email = "saket.kumar@kdi.kongsberg.com",
                         DOB = "15/01/1985",
                         Mobile = "8147602853",
@@ -54,6 +54,10 @@ namespace ReimbursementApp.SampleData
                     },
                     ExpenseDetails = "Random",
                     TotalAmount = 5200,
+                    ExpCategory = new ExpenseCategory
+                    {
+                      Category  = "Visa"
+                    },
                     Approvers = new Approver
                     {
 
@@ -63,7 +67,8 @@ namespace ReimbursementApp.SampleData
                         Remarks = "Approved"
 
                     },
-                    Status = new TicketStatus { State = TicketState.Approved,Reason = "Claim Approved"}
+                    Status = new TicketStatus { State = TicketState.ApprovedFromFinance,Reason = "Claim Approved"},
+                    Reason = new Reason { Reasoning = "Approved From Finance",EmployeeId = "93865" }
 
                 };
                 _dbContext.Expenses.Add(expense);
@@ -82,7 +87,7 @@ namespace ReimbursementApp.SampleData
                         Gender = "M",
                         Designation = "SDE 2",
                         SkillSet = "C#, .NET",
-                        EmployeeId = "93868",
+                        EmployeeId = 93868,
                         Email = "shyam.sinha@kdi.kongsberg.com",
                         DOB = "19/05/1983",
                         Mobile = "8147612345",
@@ -106,6 +111,10 @@ namespace ReimbursementApp.SampleData
                     },
                     ExpenseDetails = "Another Expense",
                     TotalAmount = 5300,
+                    ExpCategory = new ExpenseCategory
+                    {
+                        Category = "Party"
+                    },
                     Approvers = new Approver
                     {
                         ApproverId = 2345,
@@ -114,8 +123,8 @@ namespace ReimbursementApp.SampleData
                         Remarks = "nothing"
 
                     },
-                    Status = new TicketStatus { State = TicketState.Pending, Reason = "Claim Pending for document submission." }
-
+                    Status = new TicketStatus { State = TicketState.PendingWithFinanace, Reason = "Claim Pending for document submission." },
+                    Reason = new Reason { Reasoning = "Pending From Finance", EmployeeId = "93868" }
                 };
                 _dbContext.Expenses.Add(expense1);
                 _dbContext.Employees.AddRange(expense1.Employees);
@@ -133,7 +142,7 @@ namespace ReimbursementApp.SampleData
                         Gender = "F",
                         Designation = "Developer",
                         SkillSet = "HTML 5, AngularJS, JavaScript",
-                        EmployeeId = "93869",
+                        EmployeeId = 93869,
                         Email = "sheena.kumar1@kdi.kongsberg.com",
                         DOB = "19/05/1986",
                         Mobile = "8147602843",
@@ -157,6 +166,10 @@ namespace ReimbursementApp.SampleData
                     },
                     ExpenseDetails = "Misel",
                     TotalAmount = 5400,
+                    ExpCategory = new ExpenseCategory
+                    {
+                        Category = "Cab"
+                    },
                     Approvers = new Approver
                     {
                         ApproverId = 3456,
@@ -165,7 +178,8 @@ namespace ReimbursementApp.SampleData
                         Remarks = "Reviewing"
 
                     },
-                    Status = new TicketStatus { State = TicketState.Submitted, Reason = "Claim Submitted!" }
+                    Status = new TicketStatus { State = TicketState.Submitted, Reason = "Claim Submitted!" },
+                    Reason = new Reason { Reasoning = "Claim Submitted", EmployeeId = "93869" }
 
                 };
                 _dbContext.Expenses.Add(expense2);

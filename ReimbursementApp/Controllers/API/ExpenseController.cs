@@ -26,6 +26,8 @@ namespace ReimbursementApp.Controllers.API
             var model = UOW.Expenses.GetAll().OrderByDescending(exp => exp.TotalAmount)
                     .Select(exp => new ExpenseViewModel
                     {
+                        EmployeeId=exp.Employees.EmployeeId,
+                        ApproverId = exp.Approvers.ApproverId,
                         EmployeeName = exp.Employees.EmployeeName,
                         ApproverName = exp.Approvers.Name,
                         SubmitDate = exp.SubmitDate,
@@ -47,6 +49,8 @@ namespace ReimbursementApp.Controllers.API
             var model = UOW.Expenses.GetAll().Where(exp => exp.Id == id)
                 .Select(exp => new ExpenseViewModel
                 {
+                    EmployeeId = exp.Employees.EmployeeId,
+                    ApproverId = exp.Approvers.ApproverId,
                     EmployeeName = exp.Employees.EmployeeName,
                     ApproverName = exp.Approvers.Name,
                     SubmitDate = exp.SubmitDate,

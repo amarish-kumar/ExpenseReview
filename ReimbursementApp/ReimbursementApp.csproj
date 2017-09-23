@@ -44,6 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\new-expense\new-expense.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\new-employee\new-employee.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\search-employee\search-employee.component.ts" />
   </ItemGroup>

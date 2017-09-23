@@ -1,227 +1,110 @@
-<div class="container">
     <div class="container">
-        <br />
-        <div class="row">
-            <div class="col-sm-6 col-lg-12">
-                <div class="panel panel-primary" *ngFor="let e of employees">
-                    <div class="panel-heading">
-                        <h4 class="text-center">User Profile<span class="glyphicon glyphicon-user pull-right"></span></h4>
+    <div class="row">
+        <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+            <ul class="event-list" *ngFor="let e of employees">
+                <li>
+                    <time datetime="2014-07-20">
+                        <!--Here user Pic will go-->
+                        <!--<span class="day">{{e.employeeId}}</span>-->
+                        <!--<span class="month">Jul</span>
+                        <span class="year">2014</span>
+                        <span class="time">ALL DAY</span>-->
+                    </time>
+                    <!--<img alt="Independence Day" src="https://farm4.staticflickr.com/3100/2693171833_3545fb852c_q.jpg" />-->
+                    <div class="info">
+                        <h2 class="title">{{e.employeeName}}</h2>
+                        <p class="desc">{{e.employeeId}}</p>
+                        <p class="desc">{{e.designation}}</p>
+
+                        <ul>
+                            <li style="width:50%;"><a href="#"><span class="fa fa-globe"></span> More Info</a></li>
+                            <li style="width:50%;"><span class="fa fa-user"></span> {{e.reportingManager}}</li>
+                        </ul>
                     </div>
-                    <div class="panel-body text-center">
-                        <p class="lead">
-                            <strong>{{e.employeeName}}</strong>
-                        </p>
+                    <div class="social">
+                        <ul>
+                            <li class="facebook" style="width:33%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>
+                            <li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
+                            <li class="google-plus" style="width:33%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>
+                        </ul>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item liitem">
-                            <strong>Position:</strong>
-                            <span class="pull-right">{{e.designation}}</span>
-                        </li>
-                        <li class="list-group-item liitem">
-                            <strong>Email:</strong>
-                            <span class="pull-right">{{e.email}}</span>
-                        </li>
-                           <li class="list-group-item liitem"><strong>Skill-Set:</strong>
-                            <span class="pull-right">{{e.skillSet}}</span>
-                        </li>
-                        <li class="list-group-item liitem">
-                            <strong>Reporting Manager:</strong>
-                            <span class="pull-right">{{e.reportingManager}}</span>
-                        </li>
-                    </ul>
-                    <div class="panel-footer">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-3 col-md-4 col-lg-2">
-                            </div>
-                            <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4" id="qr1">
-                            </div>
-                            <div class="col-xs-6 col-sm-5 col-md-4 col-lg-6">
-                            </div>
-                        </div>
+                </li>
+
+             <!--   <li>
+                    <time datetime="2014-07-20 0000">
+                        <span class="day">8</span>
+                        <span class="month">Jul</span>
+                        <span class="year">2014</span>
+                        <span class="time">12:00 AM</span>
+                    </time>
+                    <div class="info">
+                        <h2 class="title">One Piece Unlimited World Red</h2>
+                        <p class="desc">PS Vita</p>
+                        <ul>
+                            <li style="width:50%;"><a href="#website"><span class="fa fa-globe"></span> Website</a></li>
+                            <li style="width:50%;"><span class="fa fa-money"></span> $39.99</li>
+                        </ul>
                     </div>
-                </div>
-            </div>
-            <!-- <div class="col-sm-6 col-lg-3">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h4 class="text-center">Skills<span class="glyphicon glyphicon-saved pull-right"></span></h4>
+                    <div class="social">
+                        <ul>
+                            <li class="facebook" style="width:33%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>
+                            <li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
+                            <li class="google-plus" style="width:33%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>
+                        </ul>
                     </div>
-                    <div class="panel-body text-center">
-                        <p class="lead">
-                            <strong>Technology Overview</strong>
-                        </p>
+                </li>
+
+                <li>
+                    <time datetime="2014-07-20 2000">
+                        <span class="day">20</span>
+                        <span class="month">Jan</span>
+                        <span class="year">2014</span>
+                        <span class="time">8:00 PM</span>
+                    </time>
+                    <img alt="My 24th Birthday!" src="https://farm5.staticflickr.com/4150/5045502202_1d867c8a41_q.jpg" />
+                    <div class="info">
+                        <h2 class="title">Mouse0270's 24th Birthday!</h2>
+                        <p class="desc">Bar Hopping in Erie, Pa.</p>
+                        <ul>
+                            <li style="width:33%;">1 <span class="glyphicon glyphicon-ok"></span></li>
+                            <li style="width:34%;">3 <span class="fa fa-question"></span></li>
+                            <li style="width:33%;">103 <span class="fa fa-envelope"></span></li>
+                        </ul>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item liitem">
-                            <div class="skillLineDefault">
-                                <div class="skill pull-left text-center">HTML5</div>
-                                <div class="rating" id="rate1"></div>
-                            </div>
-                        </li>
-                        <li class="list-group-item liitem">
-                            <div class="skillLineDefault">
-                                <div class="skill pull-left text-center">CSS</div>
-                                <div class="rating" id="rate2"></div>
-                            </div>
-                        </li>
-                        <li class="list-group-item liitem">
-                            <div class="skillLineDefault">
-                                <div class="skill pull-left text-center">jQuery</div>
-                                <div class="rating" id="rate3"></div>
-                            </div>
-                        </li>
-                        <li class="list-group-item liitem">
-                            <div class="skillLineDefault">
-                                <div class="skill pull-left text-center">C#</div>
-                                <div class="rating" id="rate4"></div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="panel-footer">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-3 col-md-4 col-lg-2">
-                            </div>
-                            <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4" id="qr2">
-                            </div>
-                            <div class="col-xs-6 col-sm-5 col-md-4 col-lg-6">
-                            </div>
-                        </div>
+                    <div class="social">
+                        <ul>
+                            <li class="facebook" style="width:33%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>
+                            <li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
+                            <li class="google-plus" style="width:33%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>
+                        </ul>
                     </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-12 col-lg-6">
-                <div class="panel panel-primary" style="height: 491px;">
-                    <div class="panel-heading">
-                        <h4 class="text-center">Quarterly Performance<span class="glyphicon glyphicon-screenshot pull-right"></span></h4>
+                </li>
+
+                <li>
+                    <time datetime="2014-07-31 1600">
+                        <span class="day">31</span>
+                        <span class="month">Jan</span>
+                        <span class="year">2014</span>
+                        <span class="time">4:00 PM</span>
+                    </time>
+                    <img alt="Disney Junior Live On Tour!" src="http://www.thechaifetzarena.com/images/main/DL13_PiratePrincess_thumb.jpg" />
+                    <div class="info">
+                        <h2 class="title">Disney Junior Live On Tour!</h2>
+                        <p class="desc"> Pirate and Princess Adventure</p>
+                        <ul>
+                            <li style="width:33%;">$49.99 <span class="fa fa-male"></span></li>
+                            <li style="width:34%;">$29.99 <span class="fa fa-child"></span></li>
+                        </ul>
                     </div>
-                    <div id="chart1">
+                    <div class="social">
+                        <ul>
+                            <li class="facebook" style="width:33%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>
+                            <li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
+                            <li class="google-plus" style="width:33%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>
+                        </ul>
                     </div>
-                </div>
-            </div> -->
+                </li>-->
+            </ul>
         </div>
     </div>
 </div>
-
-<link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/shieldui-all.min.css" />
-<link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light/all.min.css" />
-<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
-
-<script type="text/javascript">
-    initializeRatings();
-    initializeQR1();
-    initializeQR2();
-    initializeChart1();
-
-    function initializeChart1() {
-        var data1 = getRandomArray(20, 1, 50);
-        var data2 = getRandomArray(20, 20, 70);
-
-        $("#chart1").shieldChart({
-            theme: "light",
-            exportOptions: {
-                image: false,
-                print: false
-            },
-            primaryHeader: {
-                text: "Performance Data"
-            },
-            tooltipSettings: {
-                axisMarkers: {
-                    enabled: true,
-                    mode: 'x',
-                    width: 2,
-                    zIndex: 3,
-                    drawColor: "white"
-                }
-            },
-            dataSeries: [
-                {
-                    seriesType: 'bar',
-                    collectionAlias: 'Achieved',
-                    data: data1
-                },
-                {
-                    seriesType: 'line',
-                    collectionAlias: 'Target',
-                    data: data2
-                }
-            ]
-        });
-    }
-
-    function initializeQR1() {
-        $("#qr1").shieldQRcode({
-            mode: "byte",
-            size: 150,
-            value: "Mike Smith",
-            style: {
-                color: "#1E97E3"
-            }
-        });
-    }
-
-    function initializeQR1() {
-        $("#qr1").shieldQRcode({
-            mode: "byte",
-            size: 150,
-            value: "Mike Smith",
-            style: {
-                color: "#1E97E3"
-            }
-        });
-    }
-
-    function initializeQR2() {
-        $("#qr2").shieldQRcode({
-            mode: "byte",
-            size: 150,
-            value: "Avarage: 6.3",
-            style: {
-                color: "#1E97E3"
-            }
-        });
-    }
-
-    function initializeRatings() {
-
-        $('#rate1').shieldRating({
-            max: 7,
-            step: 0.1,
-            value: 6.3,
-            markPreset: false
-        });
-        $('#rate2').shieldRating({
-            max: 7,
-            step: 0.1,
-            value: 6,
-            markPreset: false
-        });
-        $('#rate3').shieldRating({
-            max: 7,
-            step: 0.1,
-            value: 4.5,
-            markPreset: false
-        });
-        $('#rate4').shieldRating({
-            max: 7,
-            step: 0.1,
-            value: 5,
-            markPreset: false
-        });
-    }
-
-    function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    function getRandomArray(length, min, max) {
-        var array = [];
-        for (var boudary = 0; boudary < length; boudary++) {
-            array.push(getRandomInt(min, max));
-        }
-
-        return array;
-    }
-</script>
-

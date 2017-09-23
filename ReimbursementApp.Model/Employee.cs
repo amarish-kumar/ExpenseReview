@@ -10,7 +10,7 @@ namespace ReimbursementApp.Model
         /*[DatabaseGenerated(DatabaseGeneratedOption.Identity)]*/
         public int Id { get; set; }
         //TODO on Expense page, EMP_Id and Approver name will get auto populated
-        public string EmployeeId { get; set; }
+        public int EmployeeId { get; set; }
         //This will get populated via windows login
         public string EmployeeName { get; set; }
         public string Gender { get; set; }

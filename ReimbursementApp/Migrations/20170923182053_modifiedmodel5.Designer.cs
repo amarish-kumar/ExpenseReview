@@ -12,9 +12,10 @@ using System;
 namespace ReimbursementApp.Migrations
 {
     [DbContext(typeof(ExpenseReviewDbContext))]
-    partial class ExpenseReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170923182053_modifiedmodel5")]
+    partial class modifiedmodel5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,9 +52,6 @@ namespace ReimbursementApp.Migrations
                     b.Property<string>("Remarks");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ExpenseId")
-                        .IsUnique();
 
                     b.ToTable("Approvers");
                 });
@@ -139,7 +137,11 @@ namespace ReimbursementApp.Migrations
 
                     b.Property<double>("Amount");
 
-                    b.Property<int?>("EmployeesId");
+                    b.Property<int>("ApproverId");
+
+                    b.Property<int?>("ApproversId");
+
+                    b.Property<int>("EmployeeId");
 
                     b.Property<int?>("ExpCategoryCategoryId");
 
@@ -149,6 +151,8 @@ namespace ReimbursementApp.Migrations
                     b.Property<string>("ExpenseDetails")
                         .IsRequired()
                         .HasMaxLength(500);
+
+                    b.Property<int>("QueueId");
 
                     b.Property<int?>("ReasonId");
 
@@ -161,7 +165,9 @@ namespace ReimbursementApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeesId");
+                    b.HasIndex("ApproversId");
+
+                    b.HasIndex("EmployeeId");
 
                     b.HasIndex("ExpCategoryCategoryId");
 
@@ -182,6 +188,16 @@ namespace ReimbursementApp.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("ExpenseCategories");
+                });
+
+            modelBuilder.Entity("ReimbursementApp.Model.Queue", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Queues");
                 });
 
             modelBuilder.Entity("ReimbursementApp.Model.Reason", b =>
@@ -212,19 +228,16 @@ namespace ReimbursementApp.Migrations
                     b.ToTable("TicketStatuses");
                 });
 
-            modelBuilder.Entity("ReimbursementApp.Model.Approver", b =>
-                {
-                    b.HasOne("ReimbursementApp.Model.Expense")
-                        .WithOne("Approvers")
-                        .HasForeignKey("ReimbursementApp.Model.Approver", "ExpenseId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("ReimbursementApp.Model.Expense", b =>
                 {
+                    b.HasOne("ReimbursementApp.Model.Approver", "Approvers")
+                        .WithMany()
+                        .HasForeignKey("ApproversId");
+
                     b.HasOne("ReimbursementApp.Model.Employee", "Employees")
                         .WithMany()
-                        .HasForeignKey("EmployeesId");
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ReimbursementApp.Model.ExpenseCategory", "ExpCategory")
                         .WithMany()

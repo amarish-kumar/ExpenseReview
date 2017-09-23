@@ -12,9 +12,10 @@ using System;
 namespace ReimbursementApp.Migrations
 {
     [DbContext(typeof(ExpenseReviewDbContext))]
-    partial class ExpenseReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170923153228_Relationship")]
+    partial class Relationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,7 +102,7 @@ namespace ReimbursementApp.Migrations
 
                     b.Property<string>("EmergencyContactRelation");
 
-                    b.Property<int>("EmployeeId");
+                    b.Property<string>("EmployeeId");
 
                     b.Property<string>("EmployeeName");
 
