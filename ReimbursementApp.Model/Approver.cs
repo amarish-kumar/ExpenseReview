@@ -5,8 +5,10 @@ namespace ReimbursementApp.Model
 {
    public class Approver
     {
-        /*[DatabaseGenerated(DatabaseGeneratedOption.Identity)]*/
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ApproverId { get; set; }
         public string Name { get; set; }
         public string Remarks { get; set; }

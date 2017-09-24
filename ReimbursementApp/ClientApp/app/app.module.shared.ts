@@ -13,6 +13,7 @@ import { CounterComponent } from './components/counter/counter.component';
 import { EmployeeComponent } from './components/employee/employee.component';
 import { NewEmployeeComponent } from './components/new-employee/new-employee.component';
 import { SearchEmployeeComponent } from './components/search-employee/search-employee.component';
+import { NewExpenseComponent } from './components/new-expense/new-expense.component';
 import { EmployeeService } from './services/employee.service';
 
 
@@ -25,7 +26,8 @@ import { EmployeeService } from './services/employee.service';
         HomeComponent,
         EmployeeComponent,
         NewEmployeeComponent,
-        SearchEmployeeComponent
+        SearchEmployeeComponent,
+        NewExpenseComponent
     ],
     imports: [
         CommonModule,
@@ -40,6 +42,7 @@ import { EmployeeService } from './services/employee.service';
             { path: 'employee', component: EmployeeComponent },
             { path: 'new-employee', component: NewEmployeeComponent },
             { path: 'search-employee', component: SearchEmployeeComponent },
+            { path: 'new-expense', component: NewExpenseComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ],

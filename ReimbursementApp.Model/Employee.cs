@@ -7,9 +7,10 @@ namespace ReimbursementApp.Model
     //TODO:- Sign info will present below screen. This is one time activity.
     public class Employee
     {
-        /*[DatabaseGenerated(DatabaseGeneratedOption.Identity)]*/
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         //TODO on Expense page, EMP_Id and Approver name will get auto populated
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int EmployeeId { get; set; }
         //This will get populated via windows login
         public string EmployeeName { get; set; }

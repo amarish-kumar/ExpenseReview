@@ -13,14 +13,14 @@ namespace ReimbursementApp.DbContext
         {
             Database.EnsureCreated();
         }
-        public DbSet<Expense> Expenses { get; set; }
-        public DbSet<Employee> Employees { get; set; }
-        public DbSet<Approver> Approvers { get; set; }
-        public DbSet<TicketStatus> TicketStatuses { get; set; }
-        public DbSet<ExpenseCategory> ExpenseCategories { get; set; }
-        public DbSet<Reason> Reasons { get; set; }
-        public DbSet<Bill> Bills  { get; set; }
-        public DbSet<Admin> Admins { get; set; }
+        public virtual DbSet<Expense> Expenses { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Approver> Approvers { get; set; }
+        public virtual DbSet<TicketStatus> TicketStatuses { get; set; }
+        public virtual DbSet<ExpenseCategory> ExpenseCategories { get; set; }
+        public virtual DbSet<Reason> Reasons { get; set; }
+        public virtual DbSet<Bill> Bills  { get; set; }
+        public virtual DbSet<Admin> Admins { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -38,21 +38,11 @@ namespace ReimbursementApp.DbContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /*modelBuilder.Entity<Expense>().HasOne(e => e.Employees);
-            modelBuilder.Entity<Expense>().HasOne(e => e.Approvers);
-            modelBuilder.Entity<Expense>().HasOne(e => e.ExpCategory);
-            modelBuilder.Entity<Expense>().HasOne(e => e.Approvers);
-            modelBuilder.Entity<Expense>().HasOne(e => e.ExpCategory);*/
-            //Setup The foreign Key relationship, especially for expense
-            //            modelBuilder.Entity<Expense>().HasOne(e => e.Employees).WithOne(d => d.EmployeeId);
-            /* modelBuilder.Entity<Employee>().HasKey(e => e.EmployeeId);
-             modelBuilder.Entity<Approver>().HasKey(a => a.ApproverId);*/
-            //TODO: Set Composite Keys here. Need to check for EF-Core.
-            /* _b = ((modelBuilder.Entity<Employee>().HasKey(e => new {e.Id, e.EmployeeId}).Metadata.Properties[0]
-                        .ValueGenerated & ValueGenerated.OnAdd) != 0);
- 
-             _c = (modelBuilder.Entity<Approver>().HasKey(e => new { e.Id, e.ApproverId }).Metadata.Properties[0]
-                       .ValueGenerated & ValueGenerated.OnAdd) != 0;*/
+            modelBuilder.Entity<Employee>().HasKey(a => new {a.EmployeeId, a.Id});
+            /*PropertyAccessMode(modelBuilder.Entity<Employee>())*/
+            /*modelBuilder.Entity<Employee>().HasOne(e=>e.EmployeeId)
+                .WithOne(i =>i ).HasForeignKey(p=>p.)*/
+            modelBuilder.Entity<Approver>().HasKey(a => a.ApproverId);
             base.OnModelCreating(modelBuilder);
         }
     }

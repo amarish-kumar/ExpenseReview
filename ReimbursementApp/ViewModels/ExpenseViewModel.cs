@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ReimbursementApp.Model;
 
 namespace ReimbursementApp.ViewModels
 {
@@ -18,6 +19,7 @@ namespace ReimbursementApp.ViewModels
         public double TotalAmount { get; set; }
         public string ExpenseDetails { get; set; }
         public string TicketStatus { get; set; }
+        public ExpenseCategory ExpCategory { get; set; }
         public int ExpenseId { get; set; }
 
     }

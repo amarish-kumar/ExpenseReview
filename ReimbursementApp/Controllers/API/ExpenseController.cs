@@ -34,6 +34,7 @@ namespace ReimbursementApp.Controllers.API
                         ApprovedDate = exp.Approvers.ApprovedDate,
                         Amount = exp.Amount,
                         TotalAmount = exp.TotalAmount,
+                        ExpCategory = exp.ExpCategory,
                         TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
                         ExpenseId = exp.Id
 
@@ -57,6 +58,7 @@ namespace ReimbursementApp.Controllers.API
                     ApprovedDate = exp.Approvers.ApprovedDate,
                     Amount = exp.Amount,
                     TotalAmount = exp.TotalAmount,
+                    ExpCategory = exp.ExpCategory,
                     TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
                     ExpenseId = exp.Id
 
@@ -80,7 +82,8 @@ namespace ReimbursementApp.Controllers.API
                 Status = new TicketStatus {State = TicketState.Submitted},
                 Approvers = new Approver {Name = expenseViewModel.ApproverName},
                 Employees = new Employee {EmployeeName = User.Identity.Name},
-                ExpenseDetails = expenseViewModel.ExpenseDetails
+                ExpenseDetails = expenseViewModel.ExpenseDetails,
+                ExpCategory = expenseViewModel.ExpCategory
             };
 
             UOW.Expenses.Add(ExpenseObj);
