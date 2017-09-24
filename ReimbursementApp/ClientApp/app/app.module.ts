@@ -3,7 +3,7 @@ import { ServerModule } from '@angular/platform-server';
 import { AppModuleShared } from './app.module.shared';
 import { AppComponent } from './components/app/app.component';
 import { EmployeeService } from './services/employee.service';
-
+import { ExpenseService } from './services/expense.service';
 
 //TODO:- URL Refresh issue needs to be fixed. Base URL needs to explored more
 @NgModule({
@@ -12,7 +12,7 @@ import { EmployeeService } from './services/employee.service';
         ServerModule,
         AppModuleShared
     ],
-    providers:[EmployeeService]
+    providers:[EmployeeService, ExpenseService]
 })
 export class AppModule {
 }
