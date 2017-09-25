@@ -164,8 +164,7 @@ export class SearchEmployeeComponent implements OnInit {
                                 });
                                 this.router.navigate(['/']);
                             }
-                        }
-                        );
+                        });
                 }
                 //Checking Flag collection for not found scenario
                 if (!this.idflag && !this.desigFlag && !this.managerFlag && !this.nameFlag) {

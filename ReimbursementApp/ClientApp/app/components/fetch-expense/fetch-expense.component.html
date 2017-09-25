@@ -2,11 +2,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="input-group" id="adv-search">
-                <input type="text" class="form-control" placeholder="Search for expense by Id or Name or Designation or Manager" #empIdInput/>
+                <input type="text" class="form-control" placeholder="Search for expense by Id or Name or Designation or Manager" #expenseIdInput/>
                 <div class="input-group-btn">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-primary" (click)="searchEmployee()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                        <button type="button" class="btn btn-danger" (click)="clearEmployee()"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-primary" (click)="searchExpense()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-danger" (click)="clearExpense()"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></button>
                     </div>
                 </div>
             </div>
@@ -22,7 +22,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="empid">Employee ID</label>
             <div class="col-md-4">
-                <input id="empid" name="empid" placeholder="Employee ID" class="form-control input-md" required="" type="text">
+                <input id="empid" name="empid" placeholder="Employee ID" value="{{e.employeeId}}" class="form-control input-md" required="" type="text">
 
             </div>
         </div>
@@ -31,7 +31,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="name">Employee Name</label>
             <div class="col-md-4">
-                <input id="name" name="name" placeholder="Name" class="form-control input-md" required="" type="text">
+                <input id="name" name="name" placeholder="Name" value="{{e.employeeName}}" class="form-control input-md" required="" type="text">
 
             </div>
         </div>
@@ -40,7 +40,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="edob">Expense Date</label>
             <div class="col-md-4">
-                <input id="edob" name="edob" placeholder="Expense Date" class="form-control input-md" required="" type="text">
+                <input id="edob" name="edob" placeholder="Expense Date" value="{{e.expenseDate}}" class="form-control input-md" required="" type="text">
                 <span class="help-block">format :DD/MM/YYYY</span>
             </div>
         </div>
@@ -48,7 +48,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="sdob">Submit Date</label>
             <div class="col-md-4">
-                <input id="sdob" name="sdob" placeholder="Submit Date" class="form-control input-md" required="" type="text">
+                <input id="sdob" name="sdob" placeholder="Submit Date" value="{{e.submitDate}}" class="form-control input-md" required="" type="text">
                 <span class="help-block">format :DD/MM/YYYY</span>
             </div>
         </div>
@@ -56,7 +56,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="adob">Approved Date</label>
             <div class="col-md-4">
-                <input id="adob" name="adob" placeholder="Approved Date" readonly class="form-control input-md" required="" type="text">
+                <input id="adob" name="adob" placeholder="Approved Date" value="{{e.approvedDate}}" readonly class="form-control input-md" required="" type="text">
                 <span class="help-block">format :DD/MM/YYYY</span>
             </div>
         </div>
@@ -65,35 +65,33 @@
             <label class="col-md-4 control-label" for="selectExpCategory">Expense Category</label>
             <div class="col-md-4">
                 <select id="selectExpCategory" name="selectExpCategory" class="form-control">
-                    <option value="1">Visa</option>
-                    <option value="2">Party</option>
-                    <option value="3">Cab</option>
-                </select>
+                    <option value="{{e.expCategory.categoryId}}">{{e.expCategory.category}}</option>
+                   </select>
             </div>
         </div>
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="amount">Amount</label>
             <div class="col-md-4">
-                <input id="amount" name="amount" placeholder="Amount" class="form-control input-md" required="" type="text">
+                <input id="amount" name="amount" placeholder="Amount" value="{{e.amount}}" class="form-control input-md" required="" type="text">
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-4 control-label" for="totalamount">Total Amount</label>
             <div class="col-md-4">
-                <input id="totalamount" name="totalamount" placeholder="Total Amount" class="form-control input-md" required="" type="text">
+                <input id="totalamount" name="totalamount" value="{{e.totalAmount}}" placeholder="Total Amount" class="form-control input-md" required="" type="text">
             </div>
         </div>
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="expenseDetails">Expense Details</label>
             <div class="col-md-4">
-                <input id="expenseDetails" name="expenseDetails" placeholder="Expense Details" class="form-control input-md" required="" type="text">
+                <input id="expenseDetails" name="expenseDetails" placeholder="Expense Details" value="{{e.expenseDetails}}" class="form-control input-md" required="" type="text">
             </div>
         </div>
         <!-- Upload input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="expenseDetails">Upload Documents</label>
+            <label class="col-md-4 control-label" for="docupload">Upload Documents</label>
             <div class="col-md-4">
                 <input type="file" #fileInput />
             </div>
@@ -103,7 +101,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="approvername">Approver Name</label>
             <div class="col-md-4">
-                <input id="approvername" name="approvername" placeholder="Approver Name" class="form-control input-md" required="" type="text">
+                <input id="approvername" name="approvername" placeholder="Approver Name" value="{{e.approverName}}" class="form-control input-md" required="" type="text">
             </div>
         </div>
         
@@ -111,7 +109,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="reason">Reason</label>
             <div class="col-md-4">
-                <input id="reason" name="reason" placeholder="Reason" class="form-control input-md" required="" type="text">
+                <input id="reason" name="reason" placeholder="Reason" value="{{e.reason}}" class="form-control input-md" required="" type="text">
             </div>
         </div>
 

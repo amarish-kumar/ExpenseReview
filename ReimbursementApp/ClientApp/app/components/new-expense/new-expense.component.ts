@@ -1,7 +1,8 @@
 ﻿import { Component, OnInit, Inject } from '@angular/core';
-
+import { Expense } from './../../models/expense';
 import { Http } from '@angular/http';
-import { EmployeeService } from '../../services/employee.service';
+import { ExpenseService } from '../../services/expense.service';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -12,11 +13,15 @@ import { EmployeeService } from '../../services/employee.service';
 })
 
 export class NewExpenseComponent implements OnInit {
-    employees: any;
+    expense: Expense = new Expense();
 
-    constructor(private employeeService: EmployeeService) { }
+    constructor(private expenseService: ExpenseService) { }
 
     ngOnInit() {
 
+    }
+
+    onSubmit(form: NgForm) {
+        
     }
 }

@@ -1,104 +1,111 @@
-﻿<form class="form-horizontal">
-<fieldset>
-<!-- Form Name -->
-<legend>Submit Expense</legend>
+﻿<form class="form-horizontal" (ngSubmit)="onSubmit(f)" #f="ngForm" role="form">
+    <fieldset>
+        <!-- Form Name -->
+        <legend>Submit Expense</legend>
 
-<div class="form-group">
-    <label class="col-md-4 control-label" for="empid">Employee ID</label>
-    <div class="col-md-4">
-        <input id="empid" name="empid" placeholder="Employee ID" class="form-control input-md" required="" type="text">
-
-    </div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-    <label class="col-md-4 control-label" for="name">Employee Name</label>
-    <div class="col-md-4">
-        <input id="name" name="name" placeholder="Name" class="form-control input-md" required="" type="text">
-
-    </div>
-</div>
-
-<!-- Text input-->
-<div class="form-group">
-    <label class="col-md-4 control-label" for="edob">Expense Date</label>
-    <div class="col-md-4">
-        <input id="edob" name="edob" placeholder="Expense Date" class="form-control input-md" required="" type="text">
-        <span class="help-block">format :DD/MM/YYYY</span>
-    </div>
-</div>
-    <!-- Text input-->
-<div class="form-group">
-    <label class="col-md-4 control-label" for="sdob">Submit Date</label>
-    <div class="col-md-4">
-        <input id="sdob" name="sdob" placeholder="Submit Date" class="form-control input-md" required="" type="text">
-        <span class="help-block">format :DD/MM/YYYY</span>
-    </div>
-</div>
-<!--Readonly-->
-<div class="form-group">
-    <label class="col-md-4 control-label" for="adob">Approved Date</label>
-    <div class="col-md-4">
-        <input id="adob" name="adob" placeholder="Approved Date" readonly class="form-control input-md" required="" type="text">
-        <span class="help-block">format :DD/MM/YYYY</span>
-    </div>
-</div>
-<!-- Expense Category -->
-<div class="form-group">
-    <label class="col-md-4 control-label" for="selectExpCategory">Expense Category</label>
-    <div class="col-md-4">
-        <select id="selectExpCategory" name="selectExpCategory" class="form-control">
-            <option value="1">Visa</option>
-            <option value="2">Party</option>
-            <option value="3">Cab</option>
-        </select>
-    </div>
-</div>
-<!-- Text input-->
-<div class="form-group">
-    <label class="col-md-4 control-label" for="amount">Amount</label>
-    <div class="col-md-4">
-        <input id="amount" name="amount" placeholder="Amount" class="form-control input-md" required="" type="text">
-    </div>
-</div>
-<div class="form-group">
-    <label class="col-md-4 control-label" for="totalamount">Total Amount</label>
-    <div class="col-md-4">
-        <input id="totalamount" name="totalamount" placeholder="Total Amount" class="form-control input-md" required="" type="text">
-    </div>
-</div>
-<!-- Text input-->
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="expenseDetails">Expense Details</label>
-        <div class="col-md-4">
-            <input id="expenseDetails" name="expenseDetails" placeholder="Expense Details" class="form-control input-md" required="" type="text">
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="empid">Employee ID</label>
+            <div class="col-md-4">
+                <input id="empid" name="empid" placeholder="Employee ID" class="form-control input-md" [(ngModel)]="expense.employeeId" #employeeId="ngModel" required type="text">
+                <div class="alert alert-danger" *ngIf="employeeId.touched && !employeeId.valid">Please specify Employee ID!</div>
+            </div>
         </div>
-    </div>
-    <!-- Upload input-->
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="expenseDetails">Upload Documents</label>
-        <div class="col-md-4">
-            <input type="file" #fileInput />
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="name">Employee Name</label>
+            <div class="col-md-4">
+                <input id="name" name="name" placeholder="Employee Name" class="form-control input-md" [(ngModel)]="expense.employeeName" #employeeName="ngModel" required type="text">
+                <div class="alert alert-danger" *ngIf="employeeName.touched && !employeeName.valid">Please specify Employee Name!</div>
+            </div>
         </div>
-    </div>
-    
-<!-- Text input-->
-<div class="form-group">
-    <label class="col-md-4 control-label" for="approvername">Approver Name</label>
-    <div class="col-md-4">
-        <input id="approvername" name="approvername" placeholder="Approver Name" class="form-control input-md" required="" type="text">
-    </div>
-</div>
 
-<!-- Button -->
-<div class="form-group">
-    <label class="col-md-4 control-label" for="send">Submit/Edit</label>
-    <div class="col-md-4">
-        <button id="send" name="send" type="submit" class="btn btn-primary">Submit</button>
-        <button id="cancel" name="cancel" type="button" class="btn btn-warning">Back</button>
-    </div>
-</div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="edob">Expense Date</label>
+            <div class="col-md-4">
+                <input id="edob" name="edob" placeholder="Expense Date" class="form-control input-md" [(ngModel)]="expense.expenseDate" #expenseDate="ngModel" required type="text">
+                <span class="help-block">format :DD/MM/YYYY</span>
+                <div class="alert alert-danger" *ngIf="expenseDate.touched && !expenseDate.valid">Please specify Expense Date!</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="sdob">Submit Date</label>
+            <div class="col-md-4">
+                <input id="sdob" name="sdob" placeholder="Submit Date" class="form-control input-md" [(ngModel)]="expense.submitDate" #submitDate="ngModel" required type="text">
+                <span class="help-block">format :DD/MM/YYYY</span>
+                <div class="alert alert-danger" *ngIf="submitDate.touched && !submitDate.valid">Please specify Submit Date!</div>
+            </div>
+        </div>
+        <!--Readonly-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="adob">Approved Date</label>
+            <div class="col-md-4">
+                <input id="adob" name="adob" placeholder="Approved Date" readonly class="form-control input-md" type="text" [(ngModel)]="expense.approvedDate" #approvedDate="ngModel">
+                <span class="help-block">format :DD/MM/YYYY</span>
+                <div class="alert alert-danger" *ngIf="submitDate.touched && !submitDate.valid">Please specify Submit Date!</div>
+            </div>
+        </div>
+        <!-- Expense Category -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="selectExpCategory">Expense Category</label>
+            <div class="col-md-4">
+                <select id="selectExpCategory" name="selectExpCategory" [(ngModel)]="expense.expCategory.categoryId" class="form-control">
+                    <option value="1">Visa</option>
+                    <option value="2">Party</option>
+                    <option value="3">Cab</option>
+                </select>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="amount">Amount</label>
+            <div class="col-md-4">
+                <input id="amount" name="amount" placeholder="Amount" class="form-control input-md" required type="text" [(ngModel)]="expense.amount" #amount="ngModel">
+                <div class="alert alert-danger" *ngIf="amount.touched && !amount.valid">Please specify Amount!</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="totalAmount">Total Amount</label>
+            <div class="col-md-4">
+                <input id="totalAmount" name="totalAmount" placeholder="Total Amount" class="form-control input-md" required type="text" [(ngModel)]="expense.totalAmount" #totalAmount="ngModel">
+                <div class="alert alert-danger" *ngIf="totalAmount.touched && !totalAmount.valid">Please specify Total Amount!</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="expenseDetails">Expense Details</label>
+            <div class="col-md-4">
+                <input id="expenseDetails" name="expenseDetails" placeholder="Expense Details" class="form-control input-md" required type="text" [(ngModel)]="expense.expenseDetails" #amount="ngModel">
+                <div class="alert alert-danger" *ngIf="expenseDetails.touched && !expenseDetails.valid">Please specify Expense Details!</div>
+            </div>
+        </div>
+        <!-- Upload input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="expenseDetails">Upload Documents</label>
+            <div class="col-md-4">
+                <input type="file" #fileInput />
+            </div>
+        </div>
 
-</fieldset>
+        <!--TODO:- This should be drop down as well Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="approvername">Approver Name</label>
+            <div class="col-md-4">
+                <input id="approvername" name="approvername" placeholder="Approver Name" class="form-control input-md" required type="text" [(ngModel)]="expense.approverName" #amount="ngModel">
+                <div class="alert alert-danger" *ngIf="approverName.touched && !approverName.valid">Please specify Approver Name!</div>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="send">Submit/Edit</label>
+            <div class="col-md-4">
+                <button id="send" name="send" type="submit" class="btn btn-primary">Submit</button>
+                <button id="cancel" name="cancel" type="button" class="btn btn-warning">Back</button>
+            </div>
+        </div>
+
+    </fieldset>
 </form>

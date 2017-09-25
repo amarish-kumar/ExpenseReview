@@ -34,6 +34,7 @@ namespace ReimbursementApp.Controllers.API
                         ApprovedDate = exp.Approvers.ApprovedDate,
                         Amount = exp.Amount,
                         TotalAmount = exp.TotalAmount,
+                        ExpenseDetails = exp.ExpenseDetails,
                         ExpCategory = exp.ExpCategory,
                         TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
                         ExpenseId = exp.Id
@@ -58,6 +59,83 @@ namespace ReimbursementApp.Controllers.API
                     ApprovedDate = exp.Approvers.ApprovedDate,
                     Amount = exp.Amount,
                     TotalAmount = exp.TotalAmount,
+                    ExpenseDetails = exp.ExpenseDetails,
+                    ExpCategory = exp.ExpCategory,
+                    TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
+                    ExpenseId = exp.Id
+
+                });
+            return model;
+
+        }
+
+
+        // GET api/expense/GetByName/saket
+        [HttpGet("~/api/expense/GetByName/{EmployeeName}")]
+        public IQueryable GetByName(string EmployeeName)
+        {
+            var model = UOW.Expenses.GetAll().Where(e => e.Employees.EmployeeName.StartsWith(EmployeeName))
+                .Select(exp => new ExpenseViewModel
+                {
+                    EmployeeId = exp.Employees.EmployeeId,
+                    ApproverId = exp.Approvers.ApproverId,
+                    EmployeeName = exp.Employees.EmployeeName,
+                    ApproverName = exp.Approvers.Name,
+                    SubmitDate = exp.SubmitDate,
+                    ApprovedDate = exp.Approvers.ApprovedDate,
+                    Amount = exp.Amount,
+                    TotalAmount = exp.TotalAmount,
+                    ExpenseDetails = exp.ExpenseDetails,
+                    ExpCategory = exp.ExpCategory,
+                    TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
+                    ExpenseId = exp.Id
+
+                });
+            return model;
+
+        }
+
+        // GET api/expense/GetByDesignation/SDE
+        [HttpGet("~/api/expense/GetByDesignation/{Desig}")]
+        public IQueryable GetByDesignation(string Desig)
+        {
+            var model = UOW.Expenses.GetAll().Where(e => e.Employees.Designation.StartsWith(Desig))
+                .Select(exp => new ExpenseViewModel
+                {
+                    EmployeeId = exp.Employees.EmployeeId,
+                    ApproverId = exp.Approvers.ApproverId,
+                    EmployeeName = exp.Employees.EmployeeName,
+                    ApproverName = exp.Approvers.Name,
+                    SubmitDate = exp.SubmitDate,
+                    ApprovedDate = exp.Approvers.ApprovedDate,
+                    Amount = exp.Amount,
+                    TotalAmount = exp.TotalAmount,
+                    ExpenseDetails = exp.ExpenseDetails,
+                    ExpCategory = exp.ExpCategory,
+                    TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
+                    ExpenseId = exp.Id
+
+                });
+            return model;
+
+        }
+
+        // GET api/expense/GetByDesignation/SDE
+        [HttpGet("~/api/expense/GetByManager/{Manager}")]
+        public IQueryable GetByManager(string Manager)
+        {
+            var model = UOW.Expenses.GetAll().Where(e => e.Employees.ReportingManager.StartsWith(Manager))
+                .Select(exp => new ExpenseViewModel
+                {
+                    EmployeeId = exp.Employees.EmployeeId,
+                    ApproverId = exp.Approvers.ApproverId,
+                    EmployeeName = exp.Employees.EmployeeName,
+                    ApproverName = exp.Approvers.Name,
+                    SubmitDate = exp.SubmitDate,
+                    ApprovedDate = exp.Approvers.ApprovedDate,
+                    Amount = exp.Amount,
+                    TotalAmount = exp.TotalAmount,
+                    ExpenseDetails = exp.ExpenseDetails,
                     ExpCategory = exp.ExpCategory,
                     TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
                     ExpenseId = exp.Id

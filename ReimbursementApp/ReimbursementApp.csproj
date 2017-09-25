@@ -31,6 +31,8 @@
   <ItemGroup>
     <None Remove="ClientApp\app\components\new-employee\new-employee.component.ts" />
     <None Remove="ClientApp\app\components\search-employee\search-employee.component.ts" />
+    <None Remove="ClientApp\app\models\expCategory.ts" />
+    <None Remove="ClientApp\app\models\expense.ts" />
     <None Remove="ClientApp\app\services\expense.service.ts" />
     <None Remove="ClientApp\boot-server.ts" />
   </ItemGroup>
@@ -48,6 +50,8 @@
     <TypeScriptCompile Include="ClientApp\app\components\new-expense\new-expense.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\new-employee\new-employee.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\search-employee\search-employee.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\expCategory.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\expense.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\expense.service.ts" />
   </ItemGroup>
 
