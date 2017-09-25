@@ -13,6 +13,7 @@ namespace ReimbursementApp.Model
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int EmployeeId { get; set; }
         //This will get populated via windows login
+        public string UserName { get; set; }
         public string EmployeeName { get; set; }
         public string Gender { get; set; }
         public string Designation { get; set; }

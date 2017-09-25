@@ -5,6 +5,7 @@ import { AppComponent } from './components/app/app.component';
 import { EmployeeService } from './services/employee.service';
 import { ExpenseService } from './services/expense.service';
 import { ApproverService } from './services/approver.service';
+import { ExpCategoryService } from './services/expCategory.service';
 
 //TODO:- URL Refresh issue needs to be fixed. Base URL needs to explored more
 @NgModule({
@@ -13,7 +14,7 @@ import { ApproverService } from './services/approver.service';
         ServerModule,
         AppModuleShared
     ],
-    providers: [EmployeeService, ExpenseService, ApproverService]
+    providers: [EmployeeService, ExpenseService, ApproverService, ExpCategoryService]
 })
 export class AppModule {
 }

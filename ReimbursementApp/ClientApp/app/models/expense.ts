@@ -2,9 +2,9 @@
 
 export class Expense {
     public expenseId: number = null;
-    public employeeId: number = null;
+   // public employeeId: number = null;
     public approverId: number = null;
-    public employeeName: string = null;
+   // public employeeName: string = null;
     public approverName: string = null;
     public expenseDate: string = null;
     public submitDate: string = null;
@@ -13,7 +13,8 @@ export class Expense {
     public totalAmount: number = null;
     public expenseDetails: string = null;
     public ticketStatus: boolean = null;
-    public expCategory: ExpCategory={category:'dummy',categoryId:0};
+   // public expCategory: ExpCategory=null;
+    public expCategory: ExpCategory={};
 
 }
 

@@ -14,5 +14,6 @@ namespace ReimbursementApp.Data.Contracts
         IRepository<Expense> Expenses { get; }
         IRepository<Employee> Employees { get; }
         IRepository<Approver> Approvers { get; }
+        IRepository<ExpenseCategory> ExpCategories { get; }
     }
 }

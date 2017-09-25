@@ -18,7 +18,7 @@ import { FetchExpenseComponent } from './components/fetch-expense/fetch-expense.
 import { EmployeeService } from './services/employee.service';
 import { ExpenseService } from './services/expense.service';
 import { ApproverService } from './services/approver.service';
-
+import { ExpCategoryService } from './services/expCategory.service';
 
 @NgModule({
     declarations: [
@@ -51,7 +51,7 @@ import { ApproverService } from './services/approver.service';
             { path: '**', redirectTo: 'home' }
         ])
     ],
-    providers: [EmployeeService, ExpenseService, ApproverService]
+    providers: [EmployeeService, ExpenseService, ApproverService, ExpCategoryService]
 })
 export class AppModuleShared {
 }

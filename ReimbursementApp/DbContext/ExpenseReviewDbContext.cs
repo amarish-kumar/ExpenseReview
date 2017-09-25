@@ -42,7 +42,8 @@ namespace ReimbursementApp.DbContext
             /*PropertyAccessMode(modelBuilder.Entity<Employee>())*/
             /*modelBuilder.Entity<Employee>().HasOne(e=>e.EmployeeId)
                 .WithOne(i =>i ).HasForeignKey(p=>p.)*/
-            modelBuilder.Entity<Approver>().HasKey(a => a.ApproverId);
+            modelBuilder.Entity<Approver>().HasKey(a => new {a.ApproverId,a.Id});
+            modelBuilder.Entity<ExpenseCategory>().HasKey(e => new {e.CategoryId, e.Id});
             base.OnModelCreating(modelBuilder);
         }
     }

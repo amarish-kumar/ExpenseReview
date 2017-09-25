@@ -151,17 +151,23 @@ namespace ReimbursementApp.Controllers.API
         [HttpPost("")]
         public int Post([FromBody]ExpenseViewModel expenseViewModel)
         {
+           var approver= UOW.Approvers.GetAll().Where(app => app.ApproverId == expenseViewModel.ApproverId);
+            string approverName = approver.FirstOrDefault().Name;
+            //TODO: Fetch EmployeeID and name from employees via login name and then send down the line
+            //var employee
             var ExpenseObj = new Expense
             {
-                Amount = expenseViewModel.TotalAmount,
+                Amount = expenseViewModel.Amount,
                 TotalAmount = expenseViewModel.TotalAmount,
                 ExpenseDate = expenseViewModel.ExpenseDate,
                 SubmitDate = expenseViewModel.SubmitDate,
                 Status = new TicketStatus {State = TicketState.Submitted},
-                Approvers = new Approver {Name = expenseViewModel.ApproverName},
-                Employees = new Employee {EmployeeName = User.Identity.Name},
+                Approvers = new Approver {ApproverId = expenseViewModel.ApproverId,Name = approverName},
+                //Fetch employee id and name via service and then push the same here
+                Employees = new Employee {EmployeeId = expenseViewModel.EmployeeId, EmployeeName = User.Identity.Name},
                 ExpenseDetails = expenseViewModel.ExpenseDetails,
-                ExpCategory = expenseViewModel.ExpCategory
+                ExpCategory = expenseViewModel.ExpCategory,
+                Reason = new Reason { EmployeeId = expenseViewModel.EmployeeId,Reasoning = "Expense submitted by -"+expenseViewModel.EmployeeName}
             };
 
             UOW.Expenses.Add(ExpenseObj);

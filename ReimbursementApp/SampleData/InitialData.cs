@@ -26,6 +26,7 @@ namespace ReimbursementApp.SampleData
                     Amount = 5200,
                     Employees = new Employee
                     {
+                        UserName = "User 1",
                         EmployeeName = "Saket Kumar",
                         Gender = "M",
                         Designation = "SDE 1",
@@ -68,7 +69,7 @@ namespace ReimbursementApp.SampleData
 
                     },
                     Status = new TicketStatus { State = TicketState.ApprovedFromFinance,Reason = "Claim Approved"},
-                    Reason = new Reason { Reasoning = "Approved From Finance",EmployeeId = "93865" }
+                    Reason = new Reason { Reasoning = "Approved From Finance",EmployeeId = 93865 }
 
                 };
                 _dbContext.Expenses.Add(expense);
@@ -83,6 +84,7 @@ namespace ReimbursementApp.SampleData
                     Amount = 5300,
                     Employees = new Employee
                     {
+                        UserName = "User 2",
                         EmployeeName = "Shyam Sinha",
                         Gender = "M",
                         Designation = "SDE 2",
@@ -124,7 +126,7 @@ namespace ReimbursementApp.SampleData
 
                     },
                     Status = new TicketStatus { State = TicketState.PendingWithFinanace, Reason = "Claim Pending for document submission." },
-                    Reason = new Reason { Reasoning = "Pending From Finance", EmployeeId = "93868" }
+                    Reason = new Reason { Reasoning = "Pending From Finance", EmployeeId = 93868 }
                 };
                 _dbContext.Expenses.Add(expense1);
                 _dbContext.Employees.AddRange(expense1.Employees);
@@ -138,6 +140,7 @@ namespace ReimbursementApp.SampleData
                     Amount = 5400,
                     Employees = new Employee
                     {
+                        UserName = "User 3",
                         EmployeeName = "Sheena Kumari",
                         Gender = "F",
                         Designation = "Developer",
@@ -179,7 +182,7 @@ namespace ReimbursementApp.SampleData
 
                     },
                     Status = new TicketStatus { State = TicketState.Submitted, Reason = "Claim Submitted!" },
-                    Reason = new Reason { Reasoning = "Claim Submitted", EmployeeId = "93869" }
+                    Reason = new Reason { Reasoning = "Claim Submitted", EmployeeId = 93869 }
 
                 };
                 _dbContext.Expenses.Add(expense2);
