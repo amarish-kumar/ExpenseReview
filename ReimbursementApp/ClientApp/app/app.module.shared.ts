@@ -17,6 +17,7 @@ import { NewExpenseComponent } from './components/new-expense/new-expense.compon
 import { FetchExpenseComponent } from './components/fetch-expense/fetch-expense.component';
 import { EmployeeService } from './services/employee.service';
 import { ExpenseService } from './services/expense.service';
+import { ApproverService } from './services/approver.service';
 
 
 @NgModule({
@@ -50,7 +51,7 @@ import { ExpenseService } from './services/expense.service';
             { path: '**', redirectTo: 'home' }
         ])
     ],
-    providers: [EmployeeService, ExpenseService]
+    providers: [EmployeeService, ExpenseService, ApproverService]
 })
 export class AppModuleShared {
 }

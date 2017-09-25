@@ -13,7 +13,7 @@ export class Expense {
     public totalAmount: number = null;
     public expenseDetails: string = null;
     public ticketStatus: boolean = null;
-    public expCategory: ExpCategory=null;
+    public expCategory: ExpCategory={category:'dummy',categoryId:0};
 
 }
 

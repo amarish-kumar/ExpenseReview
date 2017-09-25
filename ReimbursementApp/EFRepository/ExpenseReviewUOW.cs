@@ -17,6 +17,7 @@ namespace ReimbursementApp.EFRepository
 
         public IRepository<Expense> Expenses { get { return GetStandardRepo<Expense>(); } }
         public IRepository<Employee> Employees { get { return GetStandardRepo<Employee>(); } }
+        public IRepository<Approver> Approvers { get { return GetStandardRepo<Approver>(); } }
 
         public IRepository<Admin> Admins { get { return GetStandardRepo<Admin>(); } }
 

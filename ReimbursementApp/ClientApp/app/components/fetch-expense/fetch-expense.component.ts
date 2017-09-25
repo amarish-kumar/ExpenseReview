@@ -73,7 +73,7 @@ export class FetchExpenseComponent implements OnInit {
                                         //Search by Manager Name
                                         if (desig.length == 0) {
                                             this.expenseService
-                                                .getExpenseByDesig(this.expenseIdInput.nativeElement.value)
+                                                .getExpenseByManager(this.expenseIdInput.nativeElement.value)
                                                 .subscribe(manager => {
                                                     this.expenses = manager;
                                                     if (manager.length > 0) {

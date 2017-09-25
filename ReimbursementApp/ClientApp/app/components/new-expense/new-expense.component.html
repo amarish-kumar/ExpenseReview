@@ -39,14 +39,14 @@
             </div>
         </div>
         <!--Readonly-->
-        <div class="form-group">
+        <!--<div class="form-group">
             <label class="col-md-4 control-label" for="adob">Approved Date</label>
             <div class="col-md-4">
                 <input id="adob" name="adob" placeholder="Approved Date" readonly class="form-control input-md" type="text" [(ngModel)]="expense.approvedDate" #approvedDate="ngModel">
                 <span class="help-block">format :DD/MM/YYYY</span>
                 <div class="alert alert-danger" *ngIf="submitDate.touched && !submitDate.valid">Please specify Submit Date!</div>
             </div>
-        </div>
+        </div>-->
         <!-- Expense Category -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="selectExpCategory">Expense Category</label>
@@ -77,13 +77,13 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="expenseDetails">Expense Details</label>
             <div class="col-md-4">
-                <input id="expenseDetails" name="expenseDetails" placeholder="Expense Details" class="form-control input-md" required type="text" [(ngModel)]="expense.expenseDetails" #amount="ngModel">
+                <input id="expenseDetails" name="expenseDetails" placeholder="Expense Details" class="form-control input-md" required type="text" [(ngModel)]="expense.expenseDetails" #expenseDetails="ngModel">
                 <div class="alert alert-danger" *ngIf="expenseDetails.touched && !expenseDetails.valid">Please specify Expense Details!</div>
             </div>
         </div>
         <!-- Upload input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="expenseDetails">Upload Documents</label>
+            <label class="col-md-4 control-label" for="uploadDoc">Upload Documents</label>
             <div class="col-md-4">
                 <input type="file" #fileInput />
             </div>
@@ -91,10 +91,11 @@
 
         <!--TODO:- This should be drop down as well Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="approvername">Approver Name</label>
+            <label class="col-md-4 control-label" for="selectExpCategory">Reporting Manager</label>
             <div class="col-md-4">
-                <input id="approvername" name="approvername" placeholder="Approver Name" class="form-control input-md" required type="text" [(ngModel)]="expense.approverName" #amount="ngModel">
-                <div class="alert alert-danger" *ngIf="approverName.touched && !approverName.valid">Please specify Approver Name!</div>
+                <select id="selectExpCategory" name="selectExpCategory" [(ngModel)]="expense.expCategory.categoryId" class="form-control">
+                    <option *ngFor="let a of approvers" value="{{a.approverId}}">{{a.name}}</option>
+                </select>
             </div>
         </div>
 
