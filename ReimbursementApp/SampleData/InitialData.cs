@@ -230,6 +230,44 @@ namespace ReimbursementApp.SampleData
                 _dbContext.ExpenseCategorySets.Add(expenseCat4);
                 _dbContext.SaveChanges();
             }
+
+            //Seed Approver Lists
+            if (!_dbContext.ApproverLists.Any())
+            {
+                //Add New Set of Expense Category
+                var approverCat = new ApproverList
+                {
+                    ApproverId = 1234,
+                    Name = "Dhaval",
+                   
+                };
+                _dbContext.ApproverLists.Add(approverCat);
+                _dbContext.SaveChanges();
+                var approverCat2 = new ApproverList
+                {
+                    ApproverId = 2345,
+                    Name = "Deepak",
+
+                };
+                _dbContext.ApproverLists.Add(approverCat2);
+                _dbContext.SaveChanges();
+                var approverCat3 = new ApproverList
+                {
+                    ApproverId = 3456,
+                    Name = "Mrinal",
+
+                };
+                _dbContext.ApproverLists.Add(approverCat3);
+                _dbContext.SaveChanges();
+                var approverCat4 = new ApproverList
+                {
+                    ApproverId = 4567,
+                    Name = "Vesta",
+
+                };
+                _dbContext.ApproverLists.Add(approverCat4);
+                _dbContext.SaveChanges();
+            }
         }
     }
 }

@@ -20,6 +20,7 @@ namespace ReimbursementApp.Controllers.API
         }
 
         // GET api/expense
+        //TODO:- Search all is not working. Need to check
         [HttpGet("")]
         public IQueryable Get()
         {
@@ -30,6 +31,7 @@ namespace ReimbursementApp.Controllers.API
                         ApproverId = exp.Approvers.ApproverId,
                         EmployeeName = exp.Employees.EmployeeName,
                         ApproverName = exp.Approvers.Name,
+                        ExpenseDate = exp.ExpenseDate,
                         SubmitDate = exp.SubmitDate,
                         ApprovedDate = exp.Approvers.ApprovedDate,
                         Amount = exp.Amount,
@@ -55,6 +57,7 @@ namespace ReimbursementApp.Controllers.API
                     ApproverId = exp.Approvers.ApproverId,
                     EmployeeName = exp.Employees.EmployeeName,
                     ApproverName = exp.Approvers.Name,
+                    ExpenseDate = exp.ExpenseDate,
                     SubmitDate = exp.SubmitDate,
                     ApprovedDate = exp.Approvers.ApprovedDate,
                     Amount = exp.Amount,
@@ -74,24 +77,29 @@ namespace ReimbursementApp.Controllers.API
         [HttpGet("~/api/expense/GetByName/{EmployeeName}")]
         public IQueryable GetByName(string EmployeeName)
         {
-            var model = UOW.Expenses.GetAll().Where(e => e.Employees.EmployeeName.StartsWith(EmployeeName))
-                .Select(exp => new ExpenseViewModel
-                {
-                    EmployeeId = exp.Employees.EmployeeId,
-                    ApproverId = exp.Approvers.ApproverId,
-                    EmployeeName = exp.Employees.EmployeeName,
-                    ApproverName = exp.Approvers.Name,
-                    SubmitDate = exp.SubmitDate,
-                    ApprovedDate = exp.Approvers.ApprovedDate,
-                    Amount = exp.Amount,
-                    TotalAmount = exp.TotalAmount,
-                    ExpenseDetails = exp.ExpenseDetails,
-                    ExpCategory = exp.ExpCategory,
-                    TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
-                    ExpenseId = exp.Id
+           /* var model = UOW.Expenses.GetAll().Where(e => e.Employees.EmployeeName.StartsWith(EmployeeName));
+            return model;*/
+             var model = UOW.Expenses.GetAll().Where(e => e.Employees.EmployeeName.StartsWith(EmployeeName))
+                 .Select(exp => new ExpenseViewModel
+                 {
+                     EmployeeId = exp.Employees.EmployeeId,
+                     ApproverId = exp.Approvers.ApproverId,
+                     ApprovedDate = exp.Approvers.ApprovedDate,
+                     EmployeeName = exp.Employees.EmployeeName,
+                     ApproverName = exp.Approvers.Name,
+                     ExpenseDate = exp.ExpenseDate,
+                     SubmitDate = exp.SubmitDate,
+                     ExpCategory = exp.ExpCategory,
+                     Amount = exp.Amount,
+                     TotalAmount = exp.TotalAmount,
+                     ExpenseDetails = exp.ExpenseDetails,
+                     TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
+                     ExpenseId = exp.Id
 
-                });
-            return model;
+             
+
+                 });
+             return model;
 
         }
 
@@ -106,6 +114,7 @@ namespace ReimbursementApp.Controllers.API
                     ApproverId = exp.Approvers.ApproverId,
                     EmployeeName = exp.Employees.EmployeeName,
                     ApproverName = exp.Approvers.Name,
+                    ExpenseDate = exp.ExpenseDate,
                     SubmitDate = exp.SubmitDate,
                     ApprovedDate = exp.Approvers.ApprovedDate,
                     Amount = exp.Amount,
@@ -131,6 +140,7 @@ namespace ReimbursementApp.Controllers.API
                     ApproverId = exp.Approvers.ApproverId,
                     EmployeeName = exp.Employees.EmployeeName,
                     ApproverName = exp.Approvers.Name,
+                    ExpenseDate = exp.ExpenseDate,
                     SubmitDate = exp.SubmitDate,
                     ApprovedDate = exp.Approvers.ApprovedDate,
                     Amount = exp.Amount,
@@ -165,9 +175,9 @@ namespace ReimbursementApp.Controllers.API
                 TotalAmount = expenseViewModel.TotalAmount,
                 ExpenseDate = expenseViewModel.ExpenseDate,
                 SubmitDate = expenseViewModel.SubmitDate,
-                Status = new TicketStatus {State = TicketState.Submitted},
-                Approvers = approver.FirstOrDefault(),//{ApproverId = expenseViewModel.ApproverId,Name = approverName},
-                Employees = employee.FirstOrDefault(),//new Employee {EmployeeId = empId, EmployeeName = emplName},
+                Status = new TicketStatus {State = TicketState.Submitted, Reason = "Expense submitted by -" + emplName },
+                Approvers = new Approver{ApproverId = expenseViewModel.ApproverId,Name = approverName},// approver.FirstOrDefault(),
+                Employees = employee.FirstOrDefault(),
                 ExpenseDetails = expenseViewModel.ExpenseDetails,
                 ExpCategory = new ExpenseCategory { CategoryId = expenseViewModel.ExpCategory.CategoryId,Category = catName},
                 Reason = new Reason { EmployeeId = empId,Reasoning = "Expense submitted by -"+emplName}

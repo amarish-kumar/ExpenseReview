@@ -22,6 +22,7 @@ namespace ReimbursementApp.DbContext
         public virtual DbSet<Bill> Bills  { get; set; }
         public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<ExpenseCategorySet> ExpenseCategorySets { get; set; }
+        public virtual DbSet<ApproverList> ApproverLists { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

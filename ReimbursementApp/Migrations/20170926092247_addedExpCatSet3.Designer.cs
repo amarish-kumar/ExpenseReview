@@ -12,9 +12,10 @@ using System;
 namespace ReimbursementApp.Migrations
 {
     [DbContext(typeof(ExpenseReviewDbContext))]
-    partial class ExpenseReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170926092247_addedExpCatSet3")]
+    partial class addedExpCatSet3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,20 +57,6 @@ namespace ReimbursementApp.Migrations
                         .IsUnique();
 
                     b.ToTable("Approvers");
-                });
-
-            modelBuilder.Entity("ReimbursementApp.Model.ApproverList", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("ApproverId");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ApproverLists");
                 });
 
             modelBuilder.Entity("ReimbursementApp.Model.Bill", b =>

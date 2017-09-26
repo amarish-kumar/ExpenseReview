@@ -32,6 +32,7 @@ import { ExpCategoryService } from './services/expCategory.service';
         SearchEmployeeComponent,
         NewExpenseComponent,
         FetchExpenseComponent
+        
     ],
     imports: [
         CommonModule,
