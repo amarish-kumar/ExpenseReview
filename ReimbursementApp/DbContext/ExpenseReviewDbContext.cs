@@ -21,6 +21,7 @@ namespace ReimbursementApp.DbContext
         public virtual DbSet<Reason> Reasons { get; set; }
         public virtual DbSet<Bill> Bills  { get; set; }
         public virtual DbSet<Admin> Admins { get; set; }
+        public virtual DbSet<ExpenseCategorySet> ExpenseCategorySets { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -44,6 +45,7 @@ namespace ReimbursementApp.DbContext
                 .WithOne(i =>i ).HasForeignKey(p=>p.)*/
             modelBuilder.Entity<Approver>().HasKey(a => new {a.ApproverId,a.Id});
             modelBuilder.Entity<ExpenseCategory>().HasKey(e => new {e.CategoryId, e.Id});
+            modelBuilder.Entity<ExpenseCategorySet>().HasKey(e => new { e.CategoryId, e.Id });
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -26,7 +26,7 @@ namespace ReimbursementApp.SampleData
                     Amount = 5200,
                     Employees = new Employee
                     {
-                        UserName = "User 1",
+                        UserName = "KONGSBERG\\rahuls",
                         EmployeeName = "Saket Kumar",
                         Gender = "M",
                         Designation = "SDE 1",
@@ -57,7 +57,8 @@ namespace ReimbursementApp.SampleData
                     TotalAmount = 5200,
                     ExpCategory = new ExpenseCategory
                     {
-                      Category  = "Visa"
+                        CategoryId = 1,
+                        Category = "Visa"
                     },
                     Approvers = new Approver
                     {
@@ -68,8 +69,8 @@ namespace ReimbursementApp.SampleData
                         Remarks = "Approved"
 
                     },
-                    Status = new TicketStatus { State = TicketState.ApprovedFromFinance,Reason = "Claim Approved"},
-                    Reason = new Reason { Reasoning = "Approved From Finance",EmployeeId = 93865 }
+                    Status = new TicketStatus { State = TicketState.ApprovedFromFinance, Reason = "Claim Approved" },
+                    Reason = new Reason { Reasoning = "Approved From Finance", EmployeeId = 93865 }
 
                 };
                 _dbContext.Expenses.Add(expense);
@@ -115,6 +116,7 @@ namespace ReimbursementApp.SampleData
                     TotalAmount = 5300,
                     ExpCategory = new ExpenseCategory
                     {
+                        CategoryId = 2,
                         Category = "Party"
                     },
                     Approvers = new Approver
@@ -171,6 +173,7 @@ namespace ReimbursementApp.SampleData
                     TotalAmount = 5400,
                     ExpCategory = new ExpenseCategory
                     {
+                        CategoryId = 3,
                         Category = "Cab"
                     },
                     Approvers = new Approver
@@ -190,6 +193,44 @@ namespace ReimbursementApp.SampleData
                 _dbContext.Approvers.AddRange(expense2.Approvers);
                 _dbContext.SaveChanges();
             }
+            //Seed Expense CategorySet
+            if (!_dbContext.ExpenseCategorySets.Any())
+            {
+                //Add New Set of Expense Category
+                var expenseCat = new ExpenseCategorySet
+                {
+                   CategoryId = 1,
+                   Category = "Visa"
+
+                };
+                _dbContext.ExpenseCategorySets.Add(expenseCat);
+                _dbContext.SaveChanges();
+
+                var expenseCat2 = new ExpenseCategorySet
+                {
+                    CategoryId = 2,
+                    Category = "Party"
+                };
+                _dbContext.ExpenseCategorySets.Add(expenseCat2);
+                _dbContext.SaveChanges();
+                var expenseCat3 = new ExpenseCategorySet
+                {
+                    CategoryId = 3,
+                    Category = "Cab"
+
+                };
+                _dbContext.ExpenseCategorySets.Add(expenseCat3);
+                _dbContext.SaveChanges();
+                var expenseCat4 = new ExpenseCategorySet
+                {
+                    CategoryId = 4,
+                    Category = "OnSite-Kit"
+
+                };
+                _dbContext.ExpenseCategorySets.Add(expenseCat4);
+                _dbContext.SaveChanges();
+            }
         }
     }
 }
+

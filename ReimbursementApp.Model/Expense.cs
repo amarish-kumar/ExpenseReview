@@ -40,9 +40,8 @@ namespace ReimbursementApp.Model
         {
           //  Employees= new Employee();
            // Approvers= new Approver();
-            Status = new TicketStatus();
-            ExpCategory= new ExpenseCategory();
-            Reason= new Reason();
+          //  Status = new TicketStatus();
+            //Reason= new Reason();
         }
         
     }

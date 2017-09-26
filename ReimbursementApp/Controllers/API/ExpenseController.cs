@@ -152,9 +152,13 @@ namespace ReimbursementApp.Controllers.API
         public int Post([FromBody]ExpenseViewModel expenseViewModel)
         {
            var approver= UOW.Approvers.GetAll().Where(app => app.ApproverId == expenseViewModel.ApproverId);
-            string approverName = approver.FirstOrDefault().Name;
-            //TODO: Fetch EmployeeID and name from employees via login name and then send down the line
-            //var employee
+            var approverName = approver.FirstOrDefault().Name;
+            var employee = UOW.Employees.GetAll().Where(emp => emp.UserName.Equals(User.Identity.Name));
+            var emplName = employee.FirstOrDefault().EmployeeName;
+            var empId = employee.FirstOrDefault().EmployeeId;
+            var expCategory = UOW.ExpenseCategorySets.GetAll()
+                .Where(exp => exp.CategoryId == expenseViewModel.ExpCategory.CategoryId);
+            var catName = expCategory.FirstOrDefault().Category;
             var ExpenseObj = new Expense
             {
                 Amount = expenseViewModel.Amount,
@@ -162,12 +166,11 @@ namespace ReimbursementApp.Controllers.API
                 ExpenseDate = expenseViewModel.ExpenseDate,
                 SubmitDate = expenseViewModel.SubmitDate,
                 Status = new TicketStatus {State = TicketState.Submitted},
-                Approvers = new Approver {ApproverId = expenseViewModel.ApproverId,Name = approverName},
-                //Fetch employee id and name via service and then push the same here
-                Employees = new Employee {EmployeeId = expenseViewModel.EmployeeId, EmployeeName = User.Identity.Name},
+                Approvers = approver.FirstOrDefault(),//{ApproverId = expenseViewModel.ApproverId,Name = approverName},
+                Employees = employee.FirstOrDefault(),//new Employee {EmployeeId = empId, EmployeeName = emplName},
                 ExpenseDetails = expenseViewModel.ExpenseDetails,
-                ExpCategory = expenseViewModel.ExpCategory,
-                Reason = new Reason { EmployeeId = expenseViewModel.EmployeeId,Reasoning = "Expense submitted by -"+expenseViewModel.EmployeeName}
+                ExpCategory = new ExpenseCategory { CategoryId = expenseViewModel.ExpCategory.CategoryId,Category = catName},
+                Reason = new Reason { EmployeeId = empId,Reasoning = "Expense submitted by -"+emplName}
             };
 
             UOW.Expenses.Add(ExpenseObj);

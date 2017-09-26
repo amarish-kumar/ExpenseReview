@@ -12,9 +12,10 @@ using System;
 namespace ReimbursementApp.Migrations
 {
     [DbContext(typeof(ExpenseReviewDbContext))]
-    partial class ExpenseReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170926041759_addedUserName")]
+    partial class addedUserName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -190,20 +191,6 @@ namespace ReimbursementApp.Migrations
                     b.HasKey("CategoryId", "Id");
 
                     b.ToTable("ExpenseCategories");
-                });
-
-            modelBuilder.Entity("ReimbursementApp.Model.ExpenseCategorySet", b =>
-                {
-                    b.Property<int>("CategoryId");
-
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Category");
-
-                    b.HasKey("CategoryId", "Id");
-
-                    b.ToTable("ExpenseCategorySets");
                 });
 
             modelBuilder.Entity("ReimbursementApp.Model.Reason", b =>
