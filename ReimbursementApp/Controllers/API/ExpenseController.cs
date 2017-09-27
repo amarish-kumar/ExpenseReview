@@ -132,7 +132,7 @@ namespace ReimbursementApp.Controllers.API
 
         }
 
-        // GET api/expense/GetByDesignation/SDE
+        // GET api/expense/GetByManager/Dhaval
         [HttpGet("~/api/expense/GetByManager/{Manager}")]
         public IQueryable GetByManager(string Manager)
         {
@@ -158,6 +158,31 @@ namespace ReimbursementApp.Controllers.API
 
         }
 
+        // GET api/expense/GetByManager/Dhaval
+        [HttpGet("~/api/expense/MyExpenses/")]
+        public IQueryable MyExpenses()
+        {
+            var model = UOW.Expenses.GetAll().Where(e => e.Employees.UserName.Equals(User.Identity.Name))
+                .Select(exp => new ExpenseViewModel
+                {
+                    EmployeeId = exp.Employees.EmployeeId,
+                    ApproverId = exp.Approvers.ApproverId,
+                    EmployeeName = exp.Employees.EmployeeName,
+                    ApproverName = exp.Approvers.Name,
+                    ExpenseDate = exp.ExpenseDate,
+                    SubmitDate = exp.SubmitDate,
+                    ApprovedDate = exp.Approvers.ApprovedDate,
+                    Amount = exp.Amount,
+                    TotalAmount = exp.TotalAmount,
+                    ExpenseDetails = exp.ExpenseDetails,
+                    ExpCategory = exp.ExpCategory,
+                    TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
+                    ExpenseId = exp.Id,
+                    reason = exp.Reason.Reasoning
+                });
+            return model;
+
+        }
         // Post a new Expense
         // POST /api/expense
         //TODO: Need to think on populating Employee and Approver Id

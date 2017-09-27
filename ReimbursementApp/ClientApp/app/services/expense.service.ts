@@ -14,6 +14,11 @@ export class ExpenseService {
             .map(res => res.json());
     }
 
+    myExpenses() {
+        return this.http.get(this.originUrl + 'api/expense/myexpenses')
+            //Once, we get the response back, it has to get mapped to json
+            .map(res => res.json());
+    }
     submitExpense(expense) {
         return this.http.post(this.originUrl + 'api/expense',expense)
             //Once, we get the response back, it has to get mapped to json
