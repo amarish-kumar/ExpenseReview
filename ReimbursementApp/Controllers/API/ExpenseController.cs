@@ -28,7 +28,7 @@ namespace ReimbursementApp.Controllers.API
             var model = UOW.Expenses.GetAll().OrderByDescending(exp => exp.TotalAmount)
                     .Select(exp => new ExpenseViewModel
                     {
-                        EmployeeId=exp.Employees.EmployeeId,
+                        EmployeeId = exp.Employees.EmployeeId,
                         ApproverId = exp.Approvers.ApproverId,
                         EmployeeName = exp.Employees.EmployeeName,
                         ApproverName = exp.Approvers.Name,
@@ -80,28 +80,28 @@ namespace ReimbursementApp.Controllers.API
         [HttpGet("~/api/expense/GetByName/{EmployeeName}")]
         public IQueryable GetByName(string EmployeeName)
         {
-           /* var model = UOW.Expenses.GetAll().Where(e => e.Employees.EmployeeName.StartsWith(EmployeeName));
-            return model;*/
-             var model = UOW.Expenses.GetAll().Where(e => e.Employees.EmployeeName.StartsWith(EmployeeName))
-                 .Select(exp => new ExpenseViewModel
-                 {
-                     EmployeeId = exp.Employees.EmployeeId,
-                     ApproverId = exp.Approvers.ApproverId,
-                     ApprovedDate = exp.Approvers.ApprovedDate,
-                     EmployeeName = exp.Employees.EmployeeName,
-                     ApproverName = exp.Approvers.Name,
-                     ExpenseDate = exp.ExpenseDate,
-                     SubmitDate = exp.SubmitDate,
-                     ExpCategory = exp.ExpCategory,
-                     Amount = exp.Amount,
-                     TotalAmount = exp.TotalAmount,
-                     ExpenseDetails = exp.ExpenseDetails,
-                     TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
-                     ExpenseId = exp.Id,
-                     reason = exp.Reason.Reasoning
-                     
-                 });
-             return model;
+            /* var model = UOW.Expenses.GetAll().Where(e => e.Employees.EmployeeName.StartsWith(EmployeeName));
+             return model;*/
+            var model = UOW.Expenses.GetAll().Where(e => e.Employees.EmployeeName.StartsWith(EmployeeName))
+                .Select(exp => new ExpenseViewModel
+                {
+                    EmployeeId = exp.Employees.EmployeeId,
+                    ApproverId = exp.Approvers.ApproverId,
+                    ApprovedDate = exp.Approvers.ApprovedDate,
+                    EmployeeName = exp.Employees.EmployeeName,
+                    ApproverName = exp.Approvers.Name,
+                    ExpenseDate = exp.ExpenseDate,
+                    SubmitDate = exp.SubmitDate,
+                    ExpCategory = exp.ExpCategory,
+                    Amount = exp.Amount,
+                    TotalAmount = exp.TotalAmount,
+                    ExpenseDetails = exp.ExpenseDetails,
+                    TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
+                    ExpenseId = exp.Id,
+                    reason = exp.Reason.Reasoning
+
+                });
+            return model;
 
         }
 
@@ -164,8 +164,9 @@ namespace ReimbursementApp.Controllers.API
         [HttpPost("")]
         public int Post([FromBody]ExpenseViewModel expenseViewModel)
         {
-           var approver= UOW.Approvers.GetAll().Where(app => app.ApproverId == expenseViewModel.ApproverId);
+            var approver = UOW.Approvers.GetAll().Where(app => app.ApproverId == expenseViewModel.ApproverId);
             var approverName = approver.FirstOrDefault().Name;
+            //This is to make sure that employee is submitting his/her expense only. Not on behalve
             var employee = UOW.Employees.GetAll().Where(emp => emp.UserName.Equals(User.Identity.Name));
             var emplName = employee.FirstOrDefault().EmployeeName;
             var empId = employee.FirstOrDefault().EmployeeId;
@@ -178,12 +179,12 @@ namespace ReimbursementApp.Controllers.API
                 TotalAmount = expenseViewModel.TotalAmount,
                 ExpenseDate = expenseViewModel.ExpenseDate,
                 SubmitDate = expenseViewModel.SubmitDate,
-                Status = new TicketStatus {State = TicketState.Submitted, Reason = "Expense submitted by -" + emplName },
-                Approvers = new Approver{ApproverId = expenseViewModel.ApproverId,Name = approverName},// approver.FirstOrDefault(),
+                Status = new TicketStatus { State = TicketState.Submitted, Reason = "Expense submitted by -" + emplName },
+                Approvers = new Approver { ApproverId = expenseViewModel.ApproverId, Name = approverName },// approver.FirstOrDefault(),
                 Employees = employee.FirstOrDefault(),
                 ExpenseDetails = expenseViewModel.ExpenseDetails,
-                ExpCategory = new ExpenseCategory { CategoryId = expenseViewModel.ExpCategory.CategoryId,Category = catName},
-                Reason = new Reason { EmployeeId = empId,Reasoning = "Expense submitted by -"+emplName}
+                ExpCategory = new ExpenseCategory { CategoryId = expenseViewModel.ExpCategory.CategoryId, Category = catName },
+                Reason = new Reason { EmployeeId = empId, Reasoning = "Expense submitted by -" + emplName }
             };
 
             UOW.Expenses.Add(ExpenseObj);
@@ -191,7 +192,7 @@ namespace ReimbursementApp.Controllers.API
             return Response.StatusCode = (int)HttpStatusCode.Created;
         }
 
-       [HttpPut("")]
+        [HttpPut("")]
         public HttpResponseMessage Put([FromBody]ExpenseViewModel expense)
         {
             var expenseFetched = UOW.Expenses.GetAll().Where(exp => exp.Id == expense.ExpenseId)
@@ -201,20 +202,37 @@ namespace ReimbursementApp.Controllers.API
                 .Include(expense4 => expense4.Reason)
                 .Include(expense5 => expense5.Status);
 
-           var expObj= expenseFetched.FirstOrDefault();
-            expObj.Status.State = TicketState.ApprovedFromManager;
-            //Check for current state.
-            //some function, which will check current state and then it will set to next state.
+            var expObj = expenseFetched.FirstOrDefault();
+            //Update status flow
+            UpdateStatus(expObj.Status, expense.reason);
             expObj.Approvers.ApprovedDate = expense.ApprovedDate;
             expObj.Approvers.Remarks = expense.reason;
-           expObj.Reason = new Reason {EmployeeId = expense.EmployeeId, Reasoning = expense.reason};
-            
-       
-             UOW.Expenses.Update(expObj);
-             UOW.Commit();
+            expObj.Reason = new Reason { EmployeeId = expense.EmployeeId, Reasoning = expense.reason };
+            UOW.Commit();
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 
+        private static void UpdateStatus(TicketStatus expObjStatus, string expenseReason)
+        {
+            switch (expObjStatus.State)
+            {
+                //TODO: Reject, Close
+                case TicketState.Submitted:
+                    expObjStatus.State = TicketState.ApprovedFromManager;
+                    expObjStatus.Reason = expenseReason;
+                    break;
+                case TicketState.ApprovedFromManager:
+                    expObjStatus.State = TicketState.ApprovedFromAdmin;
+                    expObjStatus.Reason = expenseReason;
+                    break;
+                case TicketState.ApprovedFromAdmin:
+                    expObjStatus.State = TicketState.ApprovedFromFinance;
+                    expObjStatus.Reason = expenseReason;
+                    break;
+            }
+        }
+
+  
         // DELETE api/expense/5
         [HttpDelete("{Id}")]
         public HttpResponseMessage Delete(int Id)

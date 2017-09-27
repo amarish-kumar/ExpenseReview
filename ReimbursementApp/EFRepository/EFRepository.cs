@@ -46,7 +46,7 @@ namespace ReimbursementApp.EFRepository
             return DbSet.Find(id);
         }
 
-      
+
         public virtual void Add(T entity)
         {
             EntityEntry<T> dbEntityEntry = DbContext.Entry(entity);
