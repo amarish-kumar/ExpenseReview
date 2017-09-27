@@ -15,6 +15,7 @@ import { NewEmployeeComponent } from './components/new-employee/new-employee.com
 import { SearchEmployeeComponent } from './components/search-employee/search-employee.component';
 import { NewExpenseComponent } from './components/new-expense/new-expense.component';
 import { FetchExpenseComponent } from './components/fetch-expense/fetch-expense.component';
+import { MyExpensesComponent } from './components/my-expenses/my-expenses.component';
 import { EmployeeService } from './services/employee.service';
 import { ExpenseService } from './services/expense.service';
 import { ApproverService } from './services/approver.service';
@@ -31,8 +32,8 @@ import { ExpCategoryService } from './services/expCategory.service';
         NewEmployeeComponent,
         SearchEmployeeComponent,
         NewExpenseComponent,
-        FetchExpenseComponent
-        
+        FetchExpenseComponent,
+        MyExpensesComponent
     ],
     imports: [
         CommonModule,
@@ -49,6 +50,7 @@ import { ExpCategoryService } from './services/expCategory.service';
             { path: 'search-employee', component: SearchEmployeeComponent },
             { path: 'new-expense', component: NewExpenseComponent },
             { path: 'fetch-expense', component: FetchExpenseComponent },
+            { path: 'my-expenses', component: MyExpensesComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ],

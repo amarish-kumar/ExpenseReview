@@ -12,17 +12,15 @@ namespace ReimbursementApp.Model
         //Need to create two flows for admin and Bills
         Submitted = 1,
 
-        PendingWithManager = 2, //either from admin, finance, manager, reason also required, different pendings
+        ApprovedFromManager = 2, //either from admin, finance, manager, reason also required, different pendings
 
-        ApprovedFromManager = 3, //different approvals with reason
+        ApprovedFromAdmin = 3, //different approvals with reason
 
-        PendingWithAdmin = 4,
+        ApprovedFromFinance = 4,
 
-        ApprovedFromAdmin = 5,
+        Rejected = 5,
 
-        PendingWithFinanace = 6,
-
-        ApprovedFromFinance = 7
+        Closed = 6
         
        //Expense categories. Let it open, so that admin can add new category.
         //Categories won't have enum types as this will be generic 

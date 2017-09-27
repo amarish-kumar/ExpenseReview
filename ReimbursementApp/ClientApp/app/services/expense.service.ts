@@ -21,17 +21,21 @@ export class ExpenseService {
     }
 
     approveExpense(id, reason, approvedDate, expense) {
-        let form = new FormData();
-        form.append('id', id);
-        form.append('reason', reason);
         expense[0].reason = reason;
         expense[0].approvedDate = approvedDate;
         const body = JSON.stringify(expense[0]);
         const headers = new Headers({ 'Content-Type': 'application/json' });
-        //const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         return this.http.put(this.originUrl + 'api/expense/', body, { headers: headers })
-      //  return this.http.put(this.originUrl + 'api/expense', form, { headers: headers })
-            //Once, we get the response back, it has to get mapped to json
+        .map(res => res.json());
+    }
+
+    rejectExpense(id, reason, approvedDate, expense) {
+        expense[0].reason = reason;
+        expense[0].approvedDate = approvedDate;
+        expense[0].rejectedFlag = "Rejected";
+        const body = JSON.stringify(expense[0]);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        return this.http.put(this.originUrl + 'api/expense/', body, { headers: headers })
             .map(res => res.json());
     }
 

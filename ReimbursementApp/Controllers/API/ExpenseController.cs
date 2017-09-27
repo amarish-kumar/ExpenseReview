@@ -203,12 +203,24 @@ namespace ReimbursementApp.Controllers.API
                 .Include(expense5 => expense5.Status);
 
             var expObj = expenseFetched.FirstOrDefault();
-            //Update status flow
-            UpdateStatus(expObj.Status, expense.reason);
-            expObj.Approvers.ApprovedDate = expense.ApprovedDate;
-            expObj.Approvers.Remarks = expense.reason;
-            expObj.Reason = new Reason { EmployeeId = expense.EmployeeId, Reasoning = expense.reason };
-            UOW.Commit();
+            if (expense.rejectedFlag == "Rejected")
+            {
+                expObj.Status.State = TicketState.Rejected;
+                expObj.Status.Reason = expense.reason;
+                expObj.Approvers.ApprovedDate = expense.ApprovedDate;
+                expObj.Approvers.Remarks = expense.reason;
+                expObj.Reason = new Reason { EmployeeId = expense.EmployeeId, Reasoning = expense.reason };
+                UOW.Commit();
+            }
+            else
+            {
+                //Update status flow
+                UpdateStatus(expObj.Status, expense.reason);
+                expObj.Approvers.ApprovedDate = expense.ApprovedDate;
+                expObj.Approvers.Remarks = expense.reason;
+                expObj.Reason = new Reason { EmployeeId = expense.EmployeeId, Reasoning = expense.reason };
+                UOW.Commit();
+            }
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 
@@ -216,7 +228,11 @@ namespace ReimbursementApp.Controllers.API
         {
             switch (expObjStatus.State)
             {
-                //TODO: Reject, Close
+                //TODO: Reject flow needs to be designed 
+                case TicketState.Rejected:
+                    expObjStatus.State = TicketState.Submitted;
+                    expObjStatus.Reason = expenseReason;
+                    break;
                 case TicketState.Submitted:
                     expObjStatus.State = TicketState.ApprovedFromManager;
                     expObjStatus.Reason = expenseReason;
@@ -229,10 +245,15 @@ namespace ReimbursementApp.Controllers.API
                     expObjStatus.State = TicketState.ApprovedFromFinance;
                     expObjStatus.Reason = expenseReason;
                     break;
+                //TODO 
+                case TicketState.ApprovedFromFinance:
+                    expObjStatus.State = TicketState.Closed;
+                    expObjStatus.Reason = expenseReason;
+                    break;
             }
         }
 
-  
+
         // DELETE api/expense/5
         [HttpDelete("{Id}")]
         public HttpResponseMessage Delete(int Id)

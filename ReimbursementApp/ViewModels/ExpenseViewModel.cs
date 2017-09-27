@@ -22,5 +22,6 @@ namespace ReimbursementApp.ViewModels
         public ExpenseCategory ExpCategory { get; set; }
         public int ExpenseId { get; set; }
         public string reason { get; set; }
+        public string rejectedFlag { get; set; }
     }
 }

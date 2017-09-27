@@ -127,7 +127,7 @@ namespace ReimbursementApp.SampleData
                         Remarks = "nothing"
 
                     },
-                    Status = new TicketStatus { State = TicketState.PendingWithFinanace, Reason = "Claim Pending for document submission." },
+                    Status = new TicketStatus { State = TicketState.ApprovedFromAdmin, Reason = "Claim Pending for document submission." },
                     Reason = new Reason { Reasoning = "Pending From Finance", EmployeeId = 93868 }
                 };
                 _dbContext.Expenses.Add(expense1);

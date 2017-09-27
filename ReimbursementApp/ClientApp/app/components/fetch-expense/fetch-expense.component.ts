@@ -191,17 +191,9 @@ export class FetchExpenseComponent implements OnInit {
 
     //Approve expense based on expense id
     approveExpense(expIdInput, reasonInput, approvedDate) {
-        //Search by expense id first and then save the form value
-        //then call the api with search result and reason input
-       
-       /* this.expenseService.getExpenseById(this.expenseIdInput.nativeElement.value)
-            .subscribe(e => {
-                this.ExpenseObj = e;
-                console.log("Expense Value", this.expense);
-            });*/
         var data = JSON.parse(JSON.stringify(this.ExpenseObj || null));
         this.ExpenseObj.reason = reasonInput.value;
-        this.expenseService.approveExpense(this.expenseIdInput.nativeElement.value, reasonInput.value, approvedDate.value, this.ExpenseObj)
+        this.expenseService.approveExpense(expIdInput.value, reasonInput.value, approvedDate.value, this.ExpenseObj)
          .subscribe(e => {
                 this.toastyService.success({
                     title: 'Info',
@@ -222,8 +214,26 @@ export class FetchExpenseComponent implements OnInit {
          });
     }
 
-    rejectExpense() {
-        
+    rejectExpense(expIdInput, reasonInput, approvedDate) {
+        this.expenseService.rejectExpense(expIdInput.value, reasonInput.value, approvedDate.value, this.ExpenseObj)
+            .subscribe(e => {
+                this.toastyService.warning({
+                    title: 'Info',
+                    msg: 'Expense Rejected!',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
+                });
+            }, err => {
+                this.toastyService.error({
+                    title: 'Info',
+                    msg: 'Error occured while rejecting!',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
+                });
+
+            });
     }
 
 }

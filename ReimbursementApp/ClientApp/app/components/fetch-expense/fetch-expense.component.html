@@ -126,7 +126,7 @@
             <label class="col-md-4 control-label" for="send">Submit/Edit</label>
             <div class="col-md-4">
                 <button id="send" name="send" type="submit" (click)="approveExpense(expIdInput,reasonInput,approvedDate)" class="btn btn-primary">Approve</button>
-                <button id="cancel" name="cancel" type="button" class="btn btn-danger">Reject</button>
+                <button id="cancel" name="cancel" type="button" (click)="rejectExpense(expIdInput,reasonInput,approvedDate)" class="btn btn-danger">Reject</button>
             </div>
         </div>
         

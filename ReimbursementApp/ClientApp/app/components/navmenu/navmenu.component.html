@@ -38,6 +38,11 @@
                         <span class='glyphicon glyphicon-send'></span> Submit Expense
                     </a>
                 </li>
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/my-expenses']">
+                        <span class='glyphicon glyphicon-send'></span> My Expenses
+                    </a>
+                </li>
                 <li [routerLinkActive]="['link-active']" >
                     <a [routerLink]="['/fetch-expense']">
                         <span class='glyphicon glyphicon-search'></span> Fetch Expense
