@@ -1,5 +1,5 @@
 ﻿import { Injectable, Inject } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -16,6 +16,21 @@ export class ExpenseService {
 
     submitExpense(expense) {
         return this.http.post(this.originUrl + 'api/expense',expense)
+            //Once, we get the response back, it has to get mapped to json
+            .map(res => res.json());
+    }
+
+    approveExpense(id, reason, approvedDate, expense) {
+        let form = new FormData();
+        form.append('id', id);
+        form.append('reason', reason);
+        expense[0].reason = reason;
+        expense[0].approvedDate = approvedDate;
+        const body = JSON.stringify(expense[0]);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        //const headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        return this.http.put(this.originUrl + 'api/expense/', body, { headers: headers })
+      //  return this.http.put(this.originUrl + 'api/expense', form, { headers: headers })
             //Once, we get the response back, it has to get mapped to json
             .map(res => res.json());
     }

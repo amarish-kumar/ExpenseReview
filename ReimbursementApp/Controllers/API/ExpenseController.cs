@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ReimbursementApp.Data.Contracts;
 using ReimbursementApp.Model;
 using ReimbursementApp.ViewModels;
@@ -39,7 +40,8 @@ namespace ReimbursementApp.Controllers.API
                         ExpenseDetails = exp.ExpenseDetails,
                         ExpCategory = exp.ExpCategory,
                         TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
-                        ExpenseId = exp.Id
+                        ExpenseId = exp.Id,
+                        reason = exp.Reason.Reasoning
 
                     });
             return model;
@@ -65,7 +67,8 @@ namespace ReimbursementApp.Controllers.API
                     ExpenseDetails = exp.ExpenseDetails,
                     ExpCategory = exp.ExpCategory,
                     TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
-                    ExpenseId = exp.Id
+                    ExpenseId = exp.Id,
+                    reason = exp.Reason.Reasoning
 
                 });
             return model;
@@ -94,10 +97,9 @@ namespace ReimbursementApp.Controllers.API
                      TotalAmount = exp.TotalAmount,
                      ExpenseDetails = exp.ExpenseDetails,
                      TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
-                     ExpenseId = exp.Id
-
-             
-
+                     ExpenseId = exp.Id,
+                     reason = exp.Reason.Reasoning
+                     
                  });
              return model;
 
@@ -122,7 +124,8 @@ namespace ReimbursementApp.Controllers.API
                     ExpenseDetails = exp.ExpenseDetails,
                     ExpCategory = exp.ExpCategory,
                     TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
-                    ExpenseId = exp.Id
+                    ExpenseId = exp.Id,
+                    reason = exp.Reason.Reasoning
 
                 });
             return model;
@@ -148,8 +151,8 @@ namespace ReimbursementApp.Controllers.API
                     ExpenseDetails = exp.ExpenseDetails,
                     ExpCategory = exp.ExpCategory,
                     TicketStatus = exp.Status.State.ToString().GetMyEnum().ToString(),
-                    ExpenseId = exp.Id
-
+                    ExpenseId = exp.Id,
+                    reason = exp.Reason.Reasoning
                 });
             return model;
 
@@ -188,15 +191,27 @@ namespace ReimbursementApp.Controllers.API
             return Response.StatusCode = (int)HttpStatusCode.Created;
         }
 
-        // Update an existing expense
-        // PUT /api/expense/
-        //TODO:- Need to check if inifinite loop is happening,
-        //Also, delete and update functionality will be available to admins
-        [HttpPut("")]
-        public HttpResponseMessage Put([FromBody]Expense expense)
+       [HttpPut("")]
+        public HttpResponseMessage Put([FromBody]ExpenseViewModel expense)
         {
-            UOW.Expenses.Update(expense);
-            UOW.Commit();
+            var expenseFetched = UOW.Expenses.GetAll().Where(exp => exp.Id == expense.ExpenseId)
+                .Include(expense1 => expense1.Approvers)
+                .Include(expense2 => expense2.Employees)
+                .Include(expense3 => expense3.ExpCategory)
+                .Include(expense4 => expense4.Reason)
+                .Include(expense5 => expense5.Status);
+
+           var expObj= expenseFetched.FirstOrDefault();
+            expObj.Status.State = TicketState.ApprovedFromManager;
+            //Check for current state.
+            //some function, which will check current state and then it will set to next state.
+            expObj.Approvers.ApprovedDate = expense.ApprovedDate;
+            expObj.Approvers.Remarks = expense.reason;
+           expObj.Reason = new Reason {EmployeeId = expense.EmployeeId, Reasoning = expense.reason};
+            
+       
+             UOW.Expenses.Update(expObj);
+             UOW.Commit();
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 

@@ -1,4 +1,4 @@
-﻿<div class="container">
+﻿﻿<div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="input-group" id="adv-search">
@@ -18,6 +18,14 @@
     <fieldset *ngFor="let e of expenses">
         <!-- Form Name -->
         <legend>Fetched Expense</legend>
+        
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="expid">Expense ID</label>
+            <div class="col-md-4">
+                <input id="expid" name="expid" placeholder="Expense ID" value="{{e.expenseId}}" class="form-control input-md" required="" type="text" #expIdInput>
+
+            </div>
+        </div>
 
         <div class="form-group">
             <label class="col-md-4 control-label" for="empid">Employee ID</label>
@@ -56,7 +64,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="adob">Approved Date</label>
             <div class="col-md-4">
-                <input id="adob" name="adob" placeholder="Approved Date" value="{{e.approvedDate}}" required class="form-control input-md" required="" type="text">
+                <input id="adob" name="adob" placeholder="Approved Date" value="{{e.approvedDate}}" required class="form-control input-md" required="" type="text" #approvedDate>
                 <span class="help-block">format :DD/MM/YYYY</span>
             </div>
         </div>
@@ -66,7 +74,7 @@
             <div class="col-md-4">
                 <select id="selectExpCategory" name="selectExpCategory" class="form-control">
                     <option value="{{e.expCategory.categoryId}}">{{e.expCategory.category}}</option>
-                   </select>
+                </select>
             </div>
         </div>
         <!-- Text input-->
@@ -109,7 +117,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="reason">Reason</label>
             <div class="col-md-4">
-                <input id="reason" name="reason" placeholder="Reason" value="{{e.reason}}" class="form-control input-md" required="" type="text">
+                <input id="reason" name="reason" placeholder="Reason" class="form-control input-md" value="{{e.reason}}" required #reasonInput type="text">
             </div>
         </div>
 
@@ -117,10 +125,10 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="send">Submit/Edit</label>
             <div class="col-md-4">
-                <button id="send" name="send" type="submit" class="btn btn-primary">Approve</button>
+                <button id="send" name="send" type="submit" (click)="approveExpense(expIdInput,reasonInput,approvedDate)" class="btn btn-primary">Approve</button>
                 <button id="cancel" name="cancel" type="button" class="btn btn-danger">Reject</button>
             </div>
         </div>
         
-     </fieldset>
+    </fieldset>
 </form>

@@ -21,6 +21,6 @@ namespace ReimbursementApp.ViewModels
         public string TicketStatus { get; set; }
         public ExpenseCategory ExpCategory { get; set; }
         public int ExpenseId { get; set; }
-
+        public string reason { get; set; }
     }
 }

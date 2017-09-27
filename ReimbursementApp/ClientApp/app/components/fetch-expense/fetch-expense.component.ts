@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { ExpenseService } from '../../services/expense.service';
 import { ToastyService } from "ng2-toasty";
+import { Expense } from './../../models/expense';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-fetch-expense',
@@ -18,7 +20,9 @@ export class FetchExpenseComponent implements OnInit {
     desigFlag: boolean;
     nameFlag: boolean;
     managerFlag: boolean;
+    ExpenseObj;
     @ViewChild('expenseIdInput') expenseIdInput;
+    expense: Expense = new Expense();
     constructor(private router: Router, private expenseService: ExpenseService, private toastyService: ToastyService) { }
 
     ngOnInit() {
@@ -38,6 +42,7 @@ export class FetchExpenseComponent implements OnInit {
         this.expenseService.getExpenseById(this.expenseIdInput.nativeElement.value)
             .subscribe(e => {
                 this.expenses = e;
+                    this.ExpenseObj = e;
                 if (this.expenses.length == 0) {
                     this.idFlag = false;
                 }
@@ -183,4 +188,42 @@ export class FetchExpenseComponent implements OnInit {
                 }
             });
     }
+
+    //Approve expense based on expense id
+    approveExpense(expIdInput, reasonInput, approvedDate) {
+        //Search by expense id first and then save the form value
+        //then call the api with search result and reason input
+       
+       /* this.expenseService.getExpenseById(this.expenseIdInput.nativeElement.value)
+            .subscribe(e => {
+                this.ExpenseObj = e;
+                console.log("Expense Value", this.expense);
+            });*/
+        var data = JSON.parse(JSON.stringify(this.ExpenseObj || null));
+        this.ExpenseObj.reason = reasonInput.value;
+        this.expenseService.approveExpense(this.expenseIdInput.nativeElement.value, reasonInput.value, approvedDate.value, this.ExpenseObj)
+         .subscribe(e => {
+                this.toastyService.success({
+                    title: 'Info',
+                    msg: 'Expense Approved!',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
+                });
+            }, err => {
+                this.toastyService.error({
+                    title: 'Info',
+                    msg: 'Error occured while approving!',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
+                });
+             
+         });
+    }
+
+    rejectExpense() {
+        
+    }
+
 }
