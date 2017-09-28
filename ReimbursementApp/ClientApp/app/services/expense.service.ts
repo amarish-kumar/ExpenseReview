@@ -33,6 +33,12 @@ export class ExpenseService {
         return this.http.put(this.originUrl + 'api/expense/', body, { headers: headers })
         .map(res => res.json());
     }
+    editExpense(expense) {
+        const body = JSON.stringify(expense);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        return this.http.put(this.originUrl + 'api/expense/', body, { headers: headers })
+            .map(res => res.json());
+    }
 
     rejectExpense(id, reason, approvedDate, expense) {
         expense[0].reason = reason;

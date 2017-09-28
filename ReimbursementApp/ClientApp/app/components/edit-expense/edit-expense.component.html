@@ -1,0 +1,137 @@
+﻿<form  class="form-horizontal" (ngSubmit)="onSubmit(f)" #f="ngForm" role="form">
+    <fieldset>
+        <!-- Form Name -->
+        <legend>Fetched Expense</legend>
+        
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="expid">Expense ID</label>
+            <div class="col-md-4">
+                <input id="expid" name="expid" placeholder="Expense ID" [(ngModel)]="expenses.expenseId" #expenseId="ngModel" class="form-control input-md" readonly type="text" #expIdInput>
+                <div class="alert alert-danger" *ngIf="expenseId.touched && !expenseId.valid">Please specify Expense ID!</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="empid">Employee ID</label>
+            <div class="col-md-4">
+                <input id="empid" name="empid" placeholder="Employee ID" [(ngModel)]="expenses.employeeId" #employeeId="ngModel" class="form-control input-md" readonly type="text">
+                <div class="alert alert-danger" *ngIf="employeeId.touched && !employeeId.valid">Please specify Employee ID!</div>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="name">Employee Name</label>
+            <div class="col-md-4">
+                <input id="name" name="name" placeholder="Name" [(ngModel)]="expenses.employeeName" #employeeName="ngModel" class="form-control input-md" readonly type="text">
+                <div class="alert alert-danger" *ngIf="employeeName.touched && !employeeName.valid">Please specify Employee Name!</div>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="edob">Expense Date</label>
+            <div class="col-md-4">
+                <input id="edob" name="edob" placeholder="Expense Date" [(ngModel)]="expenses.expenseDate" #expenseDate="ngModel" class="form-control input-md" required="" type="text">
+                <span class="help-block">format :DD/MM/YYYY</span>
+                <div class="alert alert-danger" *ngIf="expenseDate.touched && !expenseDate.valid">Please specify Expense Date!</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="sdob">Submit Date</label>
+            <div class="col-md-4">
+                <input id="sdob" name="sdob" placeholder="Submit Date" [(ngModel)]="expenses.submitDate" #submitDate="ngModel" class="form-control input-md" required="" type="text">
+                <span class="help-block">format :DD/MM/YYYY</span>
+                <div class="alert alert-danger" *ngIf="submitDate.touched && !submitDate.valid">Please specify Submit Date!</div>
+            </div>
+        </div>
+        <!--Readonly-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="adob">Approved Date</label>
+            <div class="col-md-4">
+                <input id="adob" name="adob" placeholder="Approved Date" [(ngModel)]="expenses.approvedDate" #approvedDate="ngModel" readonly class="form-control input-md" required="" type="text" #approvedDate>
+                <span class="help-block">format :DD/MM/YYYY</span>
+                <div class="alert alert-danger" *ngIf="approvedDate.touched && !approvedDate.valid">Please specify Approved Date!</div>
+            </div>
+        </div>
+        <!-- Expense Category -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="selectExpCategory">Expense Category</label>
+            <div class="col-md-4">
+                <select id="selectExpCategory" name="selectExpCategory" [(ngModel)]="expense.expCategory.categoryId" class="form-control">
+                    <!--Employee can change expense category as well-->
+                    <!--<option selected value="{{expenses.expCategory.categoryId}}">{{expenses.expCategory.category}}</option>-->
+                    <option *ngFor="let e of expCategories" value="{{e.categoryId}}">{{e.category}}</option>
+                </select>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="amount">Amount</label>
+            <div class="col-md-4">
+                <input id="amount" name="amount" placeholder="Amount" [(ngModel)]="expenses.amount" #amount="ngModel" class="form-control input-md" required="" type="text">
+                <div class="alert alert-danger" *ngIf="amount.touched && !amount.valid">Please specify Amount!</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="totalamount">Total Amount</label>
+            <div class="col-md-4">
+                <input id="totalamount" name="totalamount" [(ngModel)]="expenses.totalAmount" #totalAmount="ngModel" placeholder="Total Amount" class="form-control input-md" required="" type="text">
+                <div class="alert alert-danger" *ngIf="totalAmount.touched && !totalAmount.valid">Please specify Total Amount!</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="expenseDetails">Expense Details</label>
+            <div class="col-md-4">
+                <input id="expenseDetails" name="expenseDetails" placeholder="Expense Details" [(ngModel)]="expenses.expenseDetails" #expenseDetails="ngModel" class="form-control input-md" required="" type="text">
+                <div class="alert alert-danger" *ngIf="expenseDetails.touched && !expenseDetails.valid">Please specify Expense Details!</div>
+            </div>
+        </div>
+        <!-- Upload input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="docupload">Upload Documents</label>
+            <div class="col-md-4">
+                <input type="file" #fileInput />
+            </div>
+        </div>
+    
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="approvername">Approver Name</label>
+            <div class="col-md-4">
+                <input id="approvername" name="approvername" placeholder="Approver Name" [(ngModel)]="expenses.approverName" #approverName="ngModel" class="form-control input-md" readonly type="text">
+                <div class="alert alert-danger" *ngIf="approverName.touched && !approverName.valid">Please specify Approver Name!</div>
+            </div>
+        </div>
+        
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="status">Ticket Status</label>
+            <div class="col-md-4">
+                <input id="status" name="status" placeholder="Ticket Status" class="form-control input-md" [(ngModel)]="expenses.ticketStatus" #ticketStatus="ngModel" readonly #reasonInput type="text">
+                <div class="alert alert-danger" *ngIf="ticketStatus.touched && !ticketStatus.valid">Please specify Ticket Status!</div>
+            </div>
+        </div>
+        
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="reason">Reason</label>
+            <div class="col-md-4">
+                <input id="reason" name="reason" placeholder="Reason" class="form-control input-md" [(ngModel)]="expenses.reason" #reason="ngModel" required #reasonInput type="text">
+                <div class="alert alert-danger" *ngIf="reason.touched && !reason.valid">Please specify Reason!</div>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="send">Submit/Edit</label>
+            <div class="col-md-4">
+                <button id="send" name="send" type="submit" class="btn btn-primary">Edit</button>
+                <a [routerLink]="['/my-expenses/']" class="btn btn-info"><i class="glyphicon glyphicon-backward"></i> Back</a>
+            </div>
+        </div>
+        
+    </fieldset>
+</form>

@@ -2,9 +2,9 @@
 
 export class Expense {
     public expenseId: number = null;
-   // public employeeId: number = null;
+    public employeeId:number=null;
+    public employeeName: string = null;
     public approverId: number = null;
-   // public employeeName: string = null;
     public approverName: string = null;
     public expenseDate: string = null;
     public submitDate: string = null;
@@ -15,8 +15,7 @@ export class Expense {
     public ticketStatus: boolean = null;
     public reason: string = null;
     public rejectedFlag:string=null;
-   // public expCategory: ExpCategory=null;
-    public expCategory: ExpCategory={};
+   public expCategory: ExpCategory={};
 
 }
 

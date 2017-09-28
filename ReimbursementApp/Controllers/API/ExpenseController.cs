@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -204,12 +205,12 @@ namespace ReimbursementApp.Controllers.API
                 TotalAmount = expenseViewModel.TotalAmount,
                 ExpenseDate = expenseViewModel.ExpenseDate,
                 SubmitDate = expenseViewModel.SubmitDate,
-                Status = new TicketStatus { State = TicketState.Submitted, Reason = "Expense submitted by -" + emplName },
+                Status = new TicketStatus { State = TicketState.Submitted, Reason = "Expense submitted by -" + User.Identity.Name + " - " + DateTime.Now },
                 Approvers = new Approver { ApproverId = expenseViewModel.ApproverId, Name = approverName },// approver.FirstOrDefault(),
                 Employees = employee.FirstOrDefault(),
                 ExpenseDetails = expenseViewModel.ExpenseDetails,
                 ExpCategory = new ExpenseCategory { CategoryId = expenseViewModel.ExpCategory.CategoryId, Category = catName },
-                Reason = new Reason { EmployeeId = empId, Reasoning = "Expense submitted by -" + emplName }
+                Reason = new Reason { EmployeeId = empId, Reasoning = "Expense submitted by -" + User.Identity.Name +" - "+ DateTime.Now }
             };
 
             UOW.Expenses.Add(ExpenseObj);
@@ -226,15 +227,34 @@ namespace ReimbursementApp.Controllers.API
                 .Include(expense3 => expense3.ExpCategory)
                 .Include(expense4 => expense4.Reason)
                 .Include(expense5 => expense5.Status);
-
+            
             var expObj = expenseFetched.FirstOrDefault();
+
+            //Check for Rejected Status. If status us is rejected, it means, employee has resubmitted the form
+            if (expObj.Status.State == TicketState.Rejected)
+            {
+                expObj.Status.State = TicketState.Submitted;
+                expObj.Status.Reason = expense.reason + "- Submitted by - " + User.Identity.Name + " - " + DateTime.Now;
+                expObj.ExpenseDate = expense.ExpenseDate;
+                expObj.SubmitDate = expense.SubmitDate;
+                expObj.ExpCategory.CategoryId = expense.ExpCategory.CategoryId;
+                expObj.ExpCategory.Category = expense.ExpCategory.Category;
+                expObj.Amount = expense.Amount;
+                expObj.TotalAmount = expense.TotalAmount;
+                expObj.ExpenseDetails = expense.ExpenseDetails;
+                expObj.Reason.Reasoning = expense.reason + "- Submitted by - " + User.Identity.Name + " - " + DateTime.Now;
+                UOW.Expenses.Update(expObj);
+                UOW.Commit();
+                return new HttpResponseMessage(HttpStatusCode.NoContent);
+            }
             if (expense.rejectedFlag == "Rejected")
             {
                 expObj.Status.State = TicketState.Rejected;
                 expObj.Status.Reason = expense.reason;
                 expObj.Approvers.ApprovedDate = expense.ApprovedDate;
-                expObj.Approvers.Remarks = expense.reason;
+                expObj.Approvers.Remarks = expense.reason + "- Submitted by - " + User.Identity.Name + " - " + DateTime.Now;
                 expObj.Reason = new Reason { EmployeeId = expense.EmployeeId, Reasoning = expense.reason };
+                UOW.Expenses.Update(expObj);
                 UOW.Commit();
             }
             else
@@ -242,8 +262,9 @@ namespace ReimbursementApp.Controllers.API
                 //Update status flow
                 UpdateStatus(expObj.Status, expense.reason);
                 expObj.Approvers.ApprovedDate = expense.ApprovedDate;
-                expObj.Approvers.Remarks = expense.reason;
+                expObj.Approvers.Remarks = expense.reason + "- Submitted by - " + User.Identity.Name;
                 expObj.Reason = new Reason { EmployeeId = expense.EmployeeId, Reasoning = expense.reason };
+                UOW.Expenses.Update(expObj);
                 UOW.Commit();
             }
             return new HttpResponseMessage(HttpStatusCode.NoContent);
@@ -254,10 +275,10 @@ namespace ReimbursementApp.Controllers.API
             switch (expObjStatus.State)
             {
                 //TODO: Reject flow needs to be designed 
-                case TicketState.Rejected:
+               /* case TicketState.Rejected:
                     expObjStatus.State = TicketState.Submitted;
                     expObjStatus.Reason = expenseReason;
-                    break;
+                    break;*/
                 case TicketState.Submitted:
                     expObjStatus.State = TicketState.ApprovedFromManager;
                     expObjStatus.Reason = expenseReason;

@@ -4,12 +4,12 @@
 </p>
 <hr/>
 <form class="form-horizontal">
-    <fieldset *ngFor="let e of expenses">
+    <fieldset>
         <!-- Form Name -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="expid">Expense ID</label>
             <div class="col-md-4">
-                <input id="expid" name="expid" placeholder="Expense ID" value="{{e.expenseId}}" class="form-control input-md" readonly type="text" #expIdInput>
+                <input id="expid" name="expid" placeholder="Expense ID" value="{{expenses.expenseId}}" class="form-control input-md" readonly type="text" #expIdInput>
 
             </div>
         </div>
@@ -17,7 +17,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="empid">Employee ID</label>
             <div class="col-md-4">
-                <input id="empid" name="empid" placeholder="Employee ID" value="{{e.employeeId}}" class="form-control input-md" readonly type="text">
+                <input id="empid" name="empid" placeholder="Employee ID" value="{{expenses.employeeId}}" class="form-control input-md" readonly type="text">
 
             </div>
         </div>
@@ -26,7 +26,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="name">Employee Name</label>
             <div class="col-md-4">
-                <input id="name" name="name" placeholder="Name" value="{{e.employeeName}}" class="form-control input-md" readonly type="text">
+                <input id="name" name="name" placeholder="Name" value="{{expenses.employeeName}}" class="form-control input-md" readonly type="text">
 
             </div>
         </div>
@@ -35,7 +35,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="edob">Expense Date</label>
             <div class="col-md-4">
-                <input id="edob" name="edob" placeholder="Expense Date" value="{{e.expenseDate}}" class="form-control input-md" readonly type="text">
+                <input id="edob" name="edob" placeholder="Expense Date" value="{{expenses.expenseDate}}" class="form-control input-md" readonly type="text">
                 <span class="help-block">format :DD/MM/YYYY</span>
             </div>
         </div>
@@ -43,7 +43,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="sdob">Submit Date</label>
             <div class="col-md-4">
-                <input id="sdob" name="sdob" placeholder="Submit Date" value="{{e.submitDate}}" class="form-control input-md" readonly type="text">
+                <input id="sdob" name="sdob" placeholder="Submit Date" value="{{expenses.submitDate}}" class="form-control input-md" readonly type="text">
                 <span class="help-block">format :DD/MM/YYYY</span>
             </div>
         </div>
@@ -51,7 +51,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="adob">Approved Date</label>
             <div class="col-md-4">
-                <input id="adob" name="adob" placeholder="Approved Date" value="{{e.approvedDate}}" required class="form-control input-md" readonly type="text" #approvedDate>
+                <input id="adob" name="adob" placeholder="Approved Date" value="{{expenses.approvedDate}}" required class="form-control input-md" readonly type="text" #approvedDate>
                 <span class="help-block">format :DD/MM/YYYY</span>
             </div>
         </div>
@@ -60,7 +60,7 @@
             <label class="col-md-4 control-label" for="selectExpCategory">Expense Category</label>
             <div class="col-md-4">
                 <select id="selectExpCategory" name="selectExpCategory" class="form-control">
-                    <option value="{{e.expCategory.categoryId}}">{{e.expCategory.category}}</option>
+                    <option value="{{expenses.expCategory.categoryId}}">{{expenses.expCategory.category}}</option>
                 </select>
             </div>
         </div>
@@ -68,20 +68,20 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="amount">Amount</label>
             <div class="col-md-4">
-                <input id="amount" name="amount" placeholder="Amount" value="{{e.amount}}" class="form-control input-md" readonly type="text">
+                <input id="amount" name="amount" placeholder="Amount" value="{{expenses.amount}}" class="form-control input-md" readonly type="text">
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-4 control-label" for="totalamount">Total Amount</label>
             <div class="col-md-4">
-                <input id="totalamount" name="totalamount" value="{{e.totalAmount}}" placeholder="Total Amount" class="form-control input-md" readonly type="text">
+                <input id="totalamount" name="totalamount" value="{{expenses.totalAmount}}" placeholder="Total Amount" class="form-control input-md" readonly type="text">
             </div>
         </div>
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="expenseDetails">Expense Details</label>
             <div class="col-md-4">
-                <input id="expenseDetails" name="expenseDetails" placeholder="Expense Details" value="{{e.expenseDetails}}" class="form-control input-md" readonly type="text">
+                <input id="expenseDetails" name="expenseDetails" placeholder="Expense Details" value="{{expenses.expenseDetails}}" class="form-control input-md" readonly type="text">
             </div>
         </div>
         <!-- Upload input-->
@@ -96,7 +96,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="approvername">Approver Name</label>
             <div class="col-md-4">
-                <input id="approvername" name="approvername" placeholder="Approver Name" value="{{e.approverName}}" class="form-control input-md" readonly type="text">
+                <input id="approvername" name="approvername" placeholder="Approver Name" value="{{expenses.approverName}}" class="form-control input-md" readonly type="text">
             </div>
         </div>
         
@@ -104,7 +104,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="status">Ticket Status</label>
             <div class="col-md-4">
-                <input id="status" name="status" placeholder="Ticket Status" class="form-control input-md" value="{{e.ticketStatus}}" readonly #reasonInput type="text">
+                <input id="status" name="status" placeholder="Ticket Status" class="form-control input-md" value="{{expenses.ticketStatus}}" readonly #reasonInput type="text">
             </div>
         </div>
 
@@ -112,7 +112,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="reason">Reason</label>
             <div class="col-md-4">
-                <input id="reason" name="reason" placeholder="Reason" class="form-control input-md" value="{{e.reason}}" readonly #reasonInput type="text">
+                <input id="reason" name="reason" placeholder="Reason" class="form-control input-md" value="{{expenses.reason}}" readonly #reasonInput type="text">
             </div>
         </div>
 

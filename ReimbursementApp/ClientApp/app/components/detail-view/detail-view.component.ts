@@ -14,14 +14,7 @@ import { NgForm } from '@angular/forms';
 })
 
 export class DetailViewComponent implements OnInit {
-    showHide: boolean;
     expenses;
-    idFlag: boolean;
-    desigFlag: boolean;
-    nameFlag: boolean;
-    managerFlag: boolean;
-    ExpenseObj;
-    @ViewChild('expenseIdInput') expenseIdInput;
     expense: Expense = new Expense();
     constructor(private router: Router,
         private route: ActivatedRoute,
@@ -35,7 +28,9 @@ export class DetailViewComponent implements OnInit {
     ngOnInit() {
         this.expenseService.getExpenseById(this.expense.expenseId)
             .subscribe(e => {
-                    this.expenses = e;
+                //Since, I am sending the component back as querable data from server.
+                //But, in case of ID, it will be only one.
+                this.expenses = e[0];
                     this.toastyService.success({
                         title: 'Success',
                         msg: 'Expense retieved successfully!',
