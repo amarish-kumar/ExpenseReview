@@ -16,6 +16,7 @@ import { SearchEmployeeComponent } from './components/search-employee/search-emp
 import { NewExpenseComponent } from './components/new-expense/new-expense.component';
 import { FetchExpenseComponent } from './components/fetch-expense/fetch-expense.component';
 import { MyExpensesComponent } from './components/my-expenses/my-expenses.component';
+import { DetailViewComponent } from './components/detail-view/detail-view.component';
 import { EmployeeService } from './services/employee.service';
 import { ExpenseService } from './services/expense.service';
 import { ApproverService } from './services/approver.service';
@@ -33,7 +34,8 @@ import { ExpCategoryService } from './services/expCategory.service';
         SearchEmployeeComponent,
         NewExpenseComponent,
         FetchExpenseComponent,
-        MyExpensesComponent
+        MyExpensesComponent,
+        DetailViewComponent
     ],
     imports: [
         CommonModule,
@@ -51,6 +53,7 @@ import { ExpCategoryService } from './services/expCategory.service';
             { path: 'new-expense', component: NewExpenseComponent },
             { path: 'fetch-expense', component: FetchExpenseComponent },
             { path: 'my-expenses', component: MyExpensesComponent },
+            { path: 'detail-view/:id', component: DetailViewComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ],

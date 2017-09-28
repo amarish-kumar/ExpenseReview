@@ -22,7 +22,7 @@
                 <td>{{e.totalAmount}}</td>
                 <td>{{e.approverName}}</td>
                 <td>{{e.ticketStatus}}</td>
-                <td class="text-center"><a class='btn btn-info btn-sm' href="#"><span class="glyphicon glyphicon-book"></span> Details</a></td>
+                <td class="text-center"><a [routerLink]="['/detail-view/', e.expenseId]"class='btn btn-info btn-sm'><span class="glyphicon glyphicon-book"></span> Details</a></td>
                 <td class="text-center"><a href="#" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a></td>
             </tr>
         </table>
