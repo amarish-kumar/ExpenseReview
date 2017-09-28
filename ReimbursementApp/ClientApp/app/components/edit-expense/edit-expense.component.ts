@@ -16,7 +16,7 @@ import { NgForm } from '@angular/forms';
 
 export class EditExpenseComponent implements OnInit {
     expenses;
-    ExpenseObj;
+    showHide:boolean;
     expCategories;
     expense: Expense = new Expense();
     constructor(private router: Router,
@@ -30,6 +30,8 @@ export class EditExpenseComponent implements OnInit {
     }
 
     ngOnInit() {
+        //TODO:-This makes sure that any flag other rejected is not allowed to be edited.
+        this.showHide = true;
         this.expCategoryService.getExpCategories()
             .subscribe(exp => {
                 this.expCategories = exp;
@@ -38,7 +40,11 @@ export class EditExpenseComponent implements OnInit {
             .subscribe(e => {
                     //Since, I am sending the component back as querable data from server.
                     //But, in case of ID, it will be only one.
-                    this.expenses = e[0];
+                this.expenses = e[0];
+               /* if (this.expense.ticketStatus.toString() !== 'Rejected') {
+                    console.log('Ticket Status:- ',this.expense.ticketStatus);
+                    this.showHide = false;
+                }*/
                     this.toastyService.success({
                         title: 'Success',
                         msg: 'Expense retieved successfully!',

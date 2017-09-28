@@ -6,7 +6,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="expid">Expense ID</label>
             <div class="col-md-4">
-                <input id="expid" name="expid" placeholder="Expense ID" [(ngModel)]="expenses.expenseId" #expenseId="ngModel" class="form-control input-md" readonly type="text" #expIdInput>
+                <input id="expid" name="expid" placeholder="Expense ID" [(ngModel)]="expenses.expenseId" #expenseId="ngModel" class="form-control input-md" readonly type="text">
                 <div class="alert alert-danger" *ngIf="expenseId.touched && !expenseId.valid">Please specify Expense ID!</div>
             </div>
         </div>

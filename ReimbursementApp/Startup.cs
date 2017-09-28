@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ReimbursementApp.Data.Contracts;
@@ -14,7 +10,6 @@ using ReimbursementApp.DatabaseHelpers;
 using ReimbursementApp.DbContext;
 using ReimbursementApp.EFRepository;
 using ReimbursementApp.SampleData;
-
 
 namespace ReimbursementApp
 {
@@ -46,6 +41,22 @@ namespace ReimbursementApp
             services.AddScoped<RepositoryFactories, RepositoryFactories>();
             services.AddScoped<IRepositoryProvider, RepositoryProvider>();
             services.AddScoped<IExpenseReviewUOW, ExpenseReviewUOW>();
+
+            //Setting up claims
+            services.AddAuthorization(configure =>
+            {
+                //TODO:- Setup list of users who are admins and allowed all API Access
+                var windowsGroup = Configuration.GetSection("WindowsGroup").GetSection("allowedUsers").Value;
+                configure.AddPolicy("Admin", policy =>
+              {
+                  //Access to Admin,Manager,Finance
+                  policy.RequireAuthenticatedUser();
+                  if (windowsGroup != null)
+                  {
+                      policy.RequireRole(windowsGroup);
+                  }
+              });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

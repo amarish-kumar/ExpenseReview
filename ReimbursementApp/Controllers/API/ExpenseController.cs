@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReimbursementApp.Data.Contracts;
@@ -23,6 +24,7 @@ namespace ReimbursementApp.Controllers.API
 
         // GET api/expense
         //TODO:- Search all is not working. Need to check
+        [Authorize(Policy = "Admin")]
         [HttpGet("")]
         public IQueryable Get()
         {
@@ -230,7 +232,7 @@ namespace ReimbursementApp.Controllers.API
             
             var expObj = expenseFetched.FirstOrDefault();
 
-            //Check for Rejected Status. If status us is rejected, it means, employee has resubmitted the form
+            //TODO: If status is anything other than rejected, he should not be able to edit
             if (expObj.Status.State == TicketState.Rejected)
             {
                 expObj.Status.State = TicketState.Submitted;
