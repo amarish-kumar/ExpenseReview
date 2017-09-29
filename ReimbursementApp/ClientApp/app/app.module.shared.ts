@@ -22,6 +22,8 @@ import { EmployeeService } from './services/employee.service';
 import { ExpenseService } from './services/expense.service';
 import { ApproverService } from './services/approver.service';
 import { ExpCategoryService } from './services/expCategory.service';
+import { MenuAccessService } from './services/menuAccess.service';
+
 
 @NgModule({
     declarations: [
@@ -60,7 +62,12 @@ import { ExpCategoryService } from './services/expCategory.service';
             { path: '**', redirectTo: 'home' }
         ])
     ],
-    providers: [EmployeeService, ExpenseService, ApproverService, ExpCategoryService]
+    providers: [EmployeeService,
+        ExpenseService,
+        ApproverService,
+        ExpCategoryService,
+        MenuAccessService
+       ]
 })
 export class AppModuleShared {
 }

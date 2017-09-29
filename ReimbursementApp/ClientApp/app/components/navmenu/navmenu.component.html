@@ -43,7 +43,7 @@
                         <span class='glyphicon glyphicon-send'></span> My Expenses
                     </a>
                 </li>
-                <li [routerLinkActive]="['link-active']" >
+                <li [routerLinkActive]="['link-active']" *ngIf="showhide">
                     <a [routerLink]="['/fetch-expense']">
                         <span class='glyphicon glyphicon-search'></span> Fetch Expense
                     </a>

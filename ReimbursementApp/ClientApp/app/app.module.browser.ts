@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppModuleShared } from './app.module.shared';
 import { AppComponent } from './components/app/app.component';
 import { EmployeeService } from './services/employee.service';
-
+import { MenuAccessService } from './services/menuAccess.service';
 
 
 @NgModule({

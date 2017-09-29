@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -46,7 +47,13 @@ namespace ReimbursementApp
             services.AddAuthorization(configure =>
             {
                 //TODO:- Setup list of users who are admins and allowed all API Access
-                var windowsGroup = Configuration.GetSection("WindowsGroup").GetSection("allowedUsers").Value;
+                //And also menus visibility
+               // var windowsGroup = Configuration.GetSection("WindowsGroup").GetSection("allowedUsers").Value;
+                var windowsGroup = Configuration.GetSection("WindowsGroup")
+                    .GetSection("allowedUsers")
+                    .GetChildren()
+                    .Select(x => x.Value).ToArray();
+
                 configure.AddPolicy("Admin", policy =>
               {
                   //Access to Admin,Manager,Finance
