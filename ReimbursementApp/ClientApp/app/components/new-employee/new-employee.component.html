@@ -199,9 +199,9 @@
             <label class="col-md-4 control-label" for="selectApprover">Reporting Manager</label>
             <div class="col-md-4">
                 <select id="selectApprover" name="selectApprover" class="form-control" [(ngModel)]="employee.reportingManager" #reportingManager="ngModel">
-                    <option *ngFor="let a of approvers" value="{{a.approverId}}">{{a.name}}</option>
+                    <option *ngFor="let a of approvers" value="{{a.name}}">{{a.name}}</option>
                 </select>
-                <div class="alert alert-danger" *ngIf="gender.touched && !gender.valid">Please specify Reporting Manager</div>
+                <div class="alert alert-danger" *ngIf="reportingManager.touched && !reportingManager.valid">Please specify Reporting Manager</div>
             </div>
         </div>
 
