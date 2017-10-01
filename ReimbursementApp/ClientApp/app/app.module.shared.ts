@@ -17,7 +17,8 @@ import { NewExpenseComponent } from './components/new-expense/new-expense.compon
 import { FetchExpenseComponent } from './components/fetch-expense/fetch-expense.component';
 import { MyExpensesComponent } from './components/my-expenses/my-expenses.component';
 import { DetailViewComponent } from './components/detail-view/detail-view.component';
-import { EditExpenseComponent  } from './components/edit-expense/edit-expense.component';
+import { EditExpenseComponent } from './components/edit-expense/edit-expense.component';
+import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
 import { EmployeeService } from './services/employee.service';
 import { ExpenseService } from './services/expense.service';
 import { ApproverService } from './services/approver.service';
@@ -39,7 +40,8 @@ import { MenuAccessService } from './services/menuAccess.service';
         FetchExpenseComponent,
         MyExpensesComponent,
         DetailViewComponent,
-        EditExpenseComponent
+        EditExpenseComponent,
+        EditEmployeeComponent
     ],
     imports: [
         CommonModule,
@@ -59,6 +61,7 @@ import { MenuAccessService } from './services/menuAccess.service';
             { path: 'my-expenses', component: MyExpensesComponent },
             { path: 'detail-view/:id', component: DetailViewComponent },
             { path: 'edit-expense/:id', component: EditExpenseComponent },
+            { path: 'edit-employee/:id', component: EditExpenseComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ],
@@ -67,7 +70,7 @@ import { MenuAccessService } from './services/menuAccess.service';
         ApproverService,
         ExpCategoryService,
         MenuAccessService
-       ]
+    ]
 })
 export class AppModuleShared {
 }

@@ -42,8 +42,6 @@ export class NewExpenseComponent implements OnInit {
     onSubmit(form: NgForm) {
         var formData = this.expense;
         formData.expenseId = 0;
-        // formData.employeeId = this.expense.employeeId;
-        // formData.employeeName = this.expense.employeeName;
         formData.approverId = this.expense.approverId;
         formData.approverName = this.expense.approverName;
         formData.expenseDate = this.expense.expenseDate;
