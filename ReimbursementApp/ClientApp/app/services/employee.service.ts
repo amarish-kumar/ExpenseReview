@@ -33,4 +33,9 @@ export class EmployeeService {
         return this.http.get(this.originUrl + 'api/employee/GetByManager/' + manager)
             .map(res => res.json());
     }
+
+    submitEmployee(employee) {
+        return this.http.post(this.originUrl + 'api/employee', employee)
+            .map(res => res.json());
+    }
 }

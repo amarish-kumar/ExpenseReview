@@ -41,6 +41,7 @@ namespace ReimbursementApp.DbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Employee>().HasKey(a => new {a.EmployeeId, a.Id});
+            modelBuilder.Entity<Employee>().HasIndex(e => e.EmployeeId).IsUnique();
             /*PropertyAccessMode(modelBuilder.Entity<Employee>())*/
             /*modelBuilder.Entity<Employee>().HasOne(e=>e.EmployeeId)
                 .WithOne(i =>i ).HasForeignKey(p=>p.)*/

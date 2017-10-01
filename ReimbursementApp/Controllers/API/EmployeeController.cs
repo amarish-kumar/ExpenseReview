@@ -62,9 +62,9 @@ namespace ReimbursementApp.Controllers.API
 
             var empObj = new Employee
             {
+                //TODO: User can upload image as well
                 EmployeeId = employee.EmployeeId,
-                //Below practice is good for login/logout/admin access stuffs
-                //EmployeeName = User.Identity.Name,
+                UserName = User.Identity.Name,
                 EmployeeName = employee.EmployeeName,
                 Gender = employee.Gender,
                 Designation = employee.Designation,
