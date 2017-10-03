@@ -47,6 +47,23 @@ namespace ReimbursementApp.Controllers.API
             return model;
         }
 
+        [HttpGet("~/api/employee/CheckUserLoginStatus/")]
+        public bool CheckUserLoginStatus()
+        {
+            bool flag = false;
+            var model = UOW.Employees.GetAll().Where(e => e.UserName.StartsWith(User.Identity.Name));
+            foreach (var i in model)
+            {
+                if (i.SignedUp == true)
+                {
+                    flag = true;
+                }
+
+            }
+            return flag;
+        }
+
+
         [HttpGet("~/api/employee/GetByDesignation/{Desig}")]
         public IQueryable<Employee> GetByDesignation(string Desig)
         {

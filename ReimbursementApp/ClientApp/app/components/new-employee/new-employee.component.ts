@@ -5,6 +5,7 @@ import { EmployeeService } from '../../services/employee.service';
 import { NgForm } from '@angular/forms';
 import { ToastyService } from "ng2-toasty";
 import { Employee } from './../../models/employee';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class NewEmployeeComponent implements OnInit {
     constructor(
         private employeeService: EmployeeService,
         private approverService: ApproverService,
-        private toastyService:ToastyService) { }
+        private toastyService: ToastyService,
+        private router: Router) { }
     
     ngOnInit() {
         //TODO:- Once empoloyee submitted, hide submi button and show edit button, based on signedUp flag
@@ -67,7 +69,8 @@ export class NewEmployeeComponent implements OnInit {
                         theme: 'bootstrap',
                         showClose: true,
                         timeout: 5000
-                    });
+                });
+                    this.router.navigate(['/edit-employee']);
                 },
                 err => {
                     this.toastyService.error({

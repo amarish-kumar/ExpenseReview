@@ -18,7 +18,7 @@ import { NgForm } from '@angular/forms';
 export class EditEmployeeComponent implements OnInit {
     employee: Employee = new Employee();
     approvers;
-  
+
 
     @ViewChild('empIdInput') empIdInput;
     constructor(
@@ -27,38 +27,36 @@ export class EditEmployeeComponent implements OnInit {
         private employeeService: EmployeeService,
         private approverService: ApproverService,
         private toastyService: ToastyService) {
-      
+
     }
 
     ngOnInit() {
         this.approverService.getApprovers()
             .subscribe(app => {
                 this.approvers = app;
-                console.log("Approvers",this.approvers);
             });
 
         this.employeeService.getEmployeeByUserName()
             .subscribe(e => {
                 this.employee = e[0];
-                    console.log("Employee", this.employee);
-                    this.toastyService.success({
-                        title: 'Success',
-                        msg: 'Employee Info Retrieved Successfully!',
-                        theme: 'bootstrap',
-                        showClose: true,
-                        timeout: 5000
-                    });
-                },
-                err => {
-                    this.toastyService.error({
-                        title: 'Error',
-                        msg: 'Error Occured while Fetching Details!',
-                        theme: 'bootstrap',
-                        showClose: true,
-                        timeout: 5000
-                    });
+                this.toastyService.success({
+                    title: 'Success',
+                    msg: 'Employee Info Retrieved Successfully!',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
                 });
-     }
+            },
+            err => {
+                this.toastyService.error({
+                    title: 'Error',
+                    msg: 'Error Occured while Fetching Details!',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
+                });
+            });
+    }
 
     onSubmit(form: NgForm) {
         var formData = this.employee;
@@ -89,25 +87,25 @@ export class EditEmployeeComponent implements OnInit {
         formData.emergencyContactDOB = this.employee.emergencyContactDOB;
         formData.reportingManager = this.employee.reportingManager;
 
-        this.employeeService.submitEmployee(formData)
+        this.employeeService.editEmployee(formData)
             .subscribe(e => {
-                    this.toastyService.success({
-                        title: 'Success',
-                        msg: 'Info Edited Successfully!',
-                        theme: 'bootstrap',
-                        showClose: true,
-                        timeout: 5000
-                    });
-                },
-                err => {
-                    this.toastyService.error({
-                        title: 'Error',
-                        msg: 'An unexpected error occured while editing details!',
-                        theme: 'bootstrap',
-                        showClose: true,
-                        timeout: 5000
-                    });
+                this.toastyService.success({
+                    title: 'Success',
+                    msg: 'Info Edited Successfully!',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
                 });
+            },
+            err => {
+                this.toastyService.error({
+                    title: 'Error',
+                    msg: 'An unexpected error occured while editing details!',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
+                });
+            });
     }
-  
+
 }

@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -29,8 +29,20 @@ export class EmployeeService {
             .map(res => res.json());
     }
 
+    checkLoginStatus() {
+        return this.http.get(this.originUrl + 'api/employee/CheckUserLoginStatus/')
+            .map(res => res.json());
+    }
+
     getEmployeeByDesig(desig) {
         return this.http.get(this.originUrl + 'api/employee/GetByDesignation/' + desig)
+            .map(res => res.json());
+    }
+
+    editEmployee(employee) {
+        const body = JSON.stringify(employee);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        return this.http.put(this.originUrl + 'api/employee/', body, { headers: headers })
             .map(res => res.json());
     }
 
