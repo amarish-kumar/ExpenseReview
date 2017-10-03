@@ -33,17 +33,17 @@
                         <span class='glyphicon glyphicon-registration-mark'></span> Employee SignUp
                     </a>
                 </li>
-                <li [routerLinkActive]="['link-active']">
+                <li [routerLinkActive]="['link-active']" *ngIf="signedUp">
                     <a [routerLink]="['/edit-employee']">
                         <span class='glyphicon glyphicon-registration-mark'></span> Edit Your Details
                     </a>
                 </li>
-                <li [routerLinkActive]="['link-active']">
+                <li [routerLinkActive]="['link-active']" *ngIf="signedUp">
                     <a [routerLink]="['/new-expense']">
                         <span class='glyphicon glyphicon-send'></span> Submit Expense
                     </a>
                 </li>
-                <li [routerLinkActive]="['link-active']">
+                <li [routerLinkActive]="['link-active']" *ngIf="signedUp">
                     <a [routerLink]="['/my-expenses']">
                         <span class='glyphicon glyphicon-send'></span> My Expenses
                     </a>

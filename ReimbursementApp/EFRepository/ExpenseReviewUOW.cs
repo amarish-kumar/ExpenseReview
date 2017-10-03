@@ -20,7 +20,8 @@ namespace ReimbursementApp.EFRepository
         public IRepository<Approver> Approvers { get { return GetStandardRepo<Approver>(); } }
         public IRepository<ExpenseCategory> ExpCategories { get { return GetStandardRepo<ExpenseCategory>(); } }
         public IRepository<ExpenseCategorySet> ExpenseCategorySets { get { return GetStandardRepo<ExpenseCategorySet>(); } }
-        public IRepository<ApproverList> ApproverLists { get { return GetStandardRepo<ApproverList>(); }}
+        public IRepository<ApproverList> ApproverLists { get { return GetStandardRepo<ApproverList>(); } }
+        public IRepository<Documents> DocumentLists { get { return GetStandardRepo<Documents>(); } }
 
         public IRepository<Admin> Admins { get { return GetStandardRepo<Admin>(); } }
 

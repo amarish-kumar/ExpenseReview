@@ -42,6 +42,9 @@ export class NewExpenseComponent implements OnInit {
     onSubmit(form: NgForm) {
         var formData = this.expense;
         formData.expenseId = 0;
+        //dummy data just to fill the object
+        formData.employeeId = 1;
+        formData.employeeName = "Dummy Empl";
         formData.approverId = this.expense.approverId;
         formData.approverName = this.expense.approverName;
         formData.expenseDate = this.expense.expenseDate;
@@ -52,7 +55,10 @@ export class NewExpenseComponent implements OnInit {
         formData.expenseDetails = this.expense.expenseDetails;
         formData.ticketStatus = this.expense.ticketStatus;
         formData.expCategory = this.expense.expCategory;
+        formData.reason = "";
+        formData.rejectedFlag = "";
 
+        console.log("Form Data:- ", formData);
         this.expenseService.submitExpense(formData)
             .subscribe(exp => {
                     this.toastyService.success({
