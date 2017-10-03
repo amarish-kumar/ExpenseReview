@@ -24,6 +24,11 @@ export class EmployeeService {
             .map(res => res.json());
     }
 
+    getEmployeeByUserName() {
+        return this.http.get(this.originUrl + 'api/employee/GetByUserName/')
+            .map(res => res.json());
+    }
+
     getEmployeeByDesig(desig) {
         return this.http.get(this.originUrl + 'api/employee/GetByDesignation/' + desig)
             .map(res => res.json());

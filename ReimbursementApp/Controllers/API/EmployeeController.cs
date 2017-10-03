@@ -40,6 +40,13 @@ namespace ReimbursementApp.Controllers.API
             return model;
         }
 
+        [HttpGet("~/api/employee/GetByUserName/")]
+        public IQueryable<Employee> GetByUserName()
+        {
+            IQueryable<Employee> model = UOW.Employees.GetAll().Where(e => e.UserName.StartsWith(User.Identity.Name));
+            return model;
+        }
+
         [HttpGet("~/api/employee/GetByDesignation/{Desig}")]
         public IQueryable<Employee> GetByDesignation(string Desig)
         {

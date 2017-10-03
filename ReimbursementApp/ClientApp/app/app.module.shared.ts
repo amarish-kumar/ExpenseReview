@@ -61,7 +61,7 @@ import { MenuAccessService } from './services/menuAccess.service';
             { path: 'my-expenses', component: MyExpensesComponent },
             { path: 'detail-view/:id', component: DetailViewComponent },
             { path: 'edit-expense/:id', component: EditExpenseComponent },
-            { path: 'edit-employee/:id', component: EditExpenseComponent },
+            { path: 'edit-employee', component: EditEmployeeComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ],

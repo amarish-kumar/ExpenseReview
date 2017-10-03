@@ -1,8 +1,11 @@
 ﻿import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
 import { EmployeeService } from '../../services/employee.service';
+import { ApproverService } from '../../services/approver.service';
 import { ToastyService } from "ng2-toasty";
+import { Employee } from './../../models/employee';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -13,181 +16,98 @@ import { ToastyService } from "ng2-toasty";
 })
 
 export class EditEmployeeComponent implements OnInit {
-    employees;
-    id: any;
-    showHide: boolean;
-    desigSearch: boolean;
-    idflag: boolean;
-    desigFlag: boolean;
-    nameFlag: boolean;
-    managerFlag: boolean;
+    employee: Employee = new Employee();
+    approvers;
+  
 
     @ViewChild('empIdInput') empIdInput;
-    constructor(private router: Router, private employeeService: EmployeeService, private toastyService: ToastyService) { }
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private employeeService: EmployeeService,
+        private approverService: ApproverService,
+        private toastyService: ToastyService) {
+      
+    }
 
     ngOnInit() {
-        this.showHide = false;
-        this.desigSearch = false;
-        this.idflag = true;
-        this.desigFlag = true;
-        this.nameFlag = true;
-        this.managerFlag = true;
-    }
-    clearEmployee() {
-        this.showHide = false;
-        this.empIdInput.nativeElement.value = "";
-    }
-    searchEmployee() {
-        //Search by Employee ID
-        this.employeeService.getEmployee(this.empIdInput.nativeElement.value)
+        this.approverService.getApprovers()
+            .subscribe(app => {
+                this.approvers = app;
+                console.log("Approvers",this.approvers);
+            });
+
+        this.employeeService.getEmployeeByUserName()
             .subscribe(e => {
-                this.employees = e;
-                console.log("Length:-", this.employees.length);
-                console.log("Employee Fetched:-", this.employees);
-                if (this.employees.length == 0) {
-                    this.idflag = false;
-                }
-                    if (this.employees.length == 1) {
+                this.employee = e[0];
+                    console.log("Employee", this.employee);
                     this.toastyService.success({
                         title: 'Success',
-                        msg: 'Employee Fetched!',
+                        msg: 'Employee Info Retrieved Successfully!',
                         theme: 'bootstrap',
                         showClose: true,
                         timeout: 5000
                     });
-                }
-                if (this.employees.length > 1) {
-                    this.toastyService.success({
-                        title: 'Success',
-                        msg: 'Employees Fetched!',
-                        theme: 'bootstrap',
-                        showClose: true,
-                        timeout: 5000
-                    });
-                }
-                this.showHide = true;
-                //Search by Employee Name
-                if (this.employees.length == 0) {
-                    this.employeeService.getEmployeeByName(this.empIdInput.nativeElement.value)
-                        .subscribe(name => {
-                            this.employees = name;
-                            if (name.length == 0) {
-                                //Search by Designation Name
-                                this.employeeService.getEmployeeByDesig(this.empIdInput.nativeElement.value)
-                                    .subscribe(desig => {
-                                        this.employees = desig;
-                                        //Search by Manager Name
-                                        if (desig.length == 0) {
-                                            this.employeeService
-                                                .getEmployeeByManager(this.empIdInput.nativeElement.value)
-                                                .subscribe(manager => {
-                                                    this.employees = manager;
-                                                    console.log("Emloyee Fetched via Manager:-", this.employees);
-                                                    if (manager.length > 0) {
-                                                        this.toastyService.success({
-                                                            title: 'Success',
-                                                            msg: 'Employee Fetched via Manager!',
-                                                            theme: 'bootstrap',
-                                                            showClose: true,
-                                                            timeout: 5000
-                                                        });
-                                                    }
-                                                    if (manager.length == 0) {
-                                                        this.managerFlag = false;
-                                                    }
-                                              },
-                                                err => {
-                                                    if (err.status == 404) {
-                                                        this.toastyService.error({
-                                                            title: 'Error',
-                                                            msg: 'An unexpected error while fetching the record!',
-                                                            theme: 'bootstrap',
-                                                            showClose: true,
-                                                            timeout: 5000
-                                                        });
-                                                        this.router.navigate(['/']);
-                                                    }
-                                                });
-                                        }
-                                        if (desig.length > 0) {
-                                            this.toastyService.success({
-                                                title: 'Success',
-                                                msg: 'Employee Fetched via designation!',
-                                                theme: 'bootstrap',
-                                                showClose: true,
-                                                timeout: 5000
-                                            });
-                                            console.log("Employee Fetched via designation:-", this.employees);
-                                        }
-                                        if (desig.length == 0) {
-                                            this.desigFlag = false;
-                                        }
-
-                                        },
-                                    err => {
-                                        if (err.status == 404) {
-                                            this.toastyService.error({
-                                                title: 'Error',
-                                                msg: 'An unexpected error while fetching the record!',
-                                                theme: 'bootstrap',
-                                                showClose: true,
-                                                timeout: 5000
-                                            });
-                                            this.router.navigate(['/']);
-                                        }
-                                    }
-                                    );
-
-                            }
-                            if (name.length > 0) {
-                                this.toastyService.success({
-                                    title: 'Success',
-                                    msg: 'Employee Fetched via name!',
-                                    theme: 'bootstrap',
-                                    showClose: true,
-                                    timeout: 5000
-                                });
-                                console.log("Employee Fetched via name:-", this.employees);
-                            }
-                            if (name.length == 0) {
-                                this.nameFlag = false;
-                            }
-
-                            }, err => {
-                            if (err.status == 404) {
-                                this.toastyService.error({
-                                    title: 'Error',
-                                    msg: 'An unexpected error while fetching the record!',
-                                    theme: 'bootstrap',
-                                    showClose: true,
-                                    timeout: 5000
-                                });
-                                this.router.navigate(['/']);
-                            }
-                        });
-                }
-                //Checking Flag collection for not found scenario
-                if (!this.idflag && !this.desigFlag && !this.managerFlag && !this.nameFlag) {
-                    this.toastyService.warning({
-                        title: 'Info',
-                        msg: 'Employee Not Found!',
-                        theme: 'bootstrap',
-                        showClose: true,
-                        timeout: 5000
-                    });
-                }
-            },
-            err => {
-                if (err.status == 404) {
+                },
+                err => {
                     this.toastyService.error({
                         title: 'Error',
-                        msg: 'An unexpected error while fetching the record!',
+                        msg: 'Error Occured while Fetching Details!',
                         theme: 'bootstrap',
                         showClose: true,
                         timeout: 5000
                     });
-                    this.router.navigate(['/']);
-                }
-            });
+                });
+     }
+
+    onSubmit(form: NgForm) {
+        var formData = this.employee;
+        formData.employeeId = this.employee.employeeId;
+        formData.userName = this.employee.userName;
+        formData.employeeName = this.employee.employeeName;
+        formData.gender = this.employee.gender;
+        formData.designation = this.employee.designation;
+        formData.skillSet = this.employee.skillSet;
+        formData.dob = this.employee.dob;
+        formData.email = this.employee.email;
+        formData.mobile = this.employee.mobile;
+        formData.alternateNumber = this.employee.alternateNumber;
+        formData.addressLine1 = this.employee.addressLine1;
+        formData.addressLine2 = this.employee.addressLine2;
+        formData.addressLine3 = this.employee.addressLine3;
+        formData.zipCode = this.employee.zipCode;
+        formData.country = this.employee.country;
+        formData.state = this.employee.state;
+        formData.fatherName = this.employee.fatherName;
+        formData.motherName = this.employee.motherName;
+        formData.fatherDob = this.employee.fatherDob;
+        formData.motherDob = this.employee.motherDob;
+        formData.signedUp = true;
+        formData.emergencyContactName = this.employee.emergencyContactName;
+        formData.emergencyContactRelation = this.employee.emergencyContactRelation;
+        formData.emergencyContactNumber = this.employee.emergencyContactNumber;
+        formData.emergencyContactDOB = this.employee.emergencyContactDOB;
+        formData.reportingManager = this.employee.reportingManager;
+
+        this.employeeService.submitEmployee(formData)
+            .subscribe(e => {
+                    this.toastyService.success({
+                        title: 'Success',
+                        msg: 'Info Edited Successfully!',
+                        theme: 'bootstrap',
+                        showClose: true,
+                        timeout: 5000
+                    });
+                },
+                err => {
+                    this.toastyService.error({
+                        title: 'Error',
+                        msg: 'An unexpected error occured while editing details!',
+                        theme: 'bootstrap',
+                        showClose: true,
+                        timeout: 5000
+                    });
+                });
     }
+  
 }
