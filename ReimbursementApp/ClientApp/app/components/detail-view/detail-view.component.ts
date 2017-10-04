@@ -6,6 +6,7 @@ import { DocsService } from '../../services/document.service';
 import { ToastyService } from "ng2-toasty";
 import { Expense } from './../../models/expense';
 import { NgForm } from '@angular/forms';
+import { SafeResourceUrl,DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-detail-view',
@@ -16,23 +17,36 @@ import { NgForm } from '@angular/forms';
 
 export class DetailViewComponent implements OnInit {
     expenses;
-    docs: any[];
+    docs: any[]=[];
+    pdfs:any[]=[];
     expense: Expense = new Expense();
     constructor(private router: Router,
         private route: ActivatedRoute,
         private expenseService: ExpenseService,
         private toastyService: ToastyService,
-        private docService: DocsService) {
+        private docService: DocsService,
+        private sanitizer: DomSanitizer) {
+        
         route.params.subscribe(p => {
             this.expense.expenseId = +p['id'];
         });
     }
 
     ngOnInit() {
-
+        //TODO:- If incoming type is pdf then logic needs to be changed
         this.docService.getDocs(this.expense.expenseId)
             .subscribe(doc => {
-                this.docs = doc[0];
+                for(var i=0;i<doc[0].length;i++){
+                if (doc[0][i].docName.endsWith(".pdf")) {
+                    //PDFs Collection
+                    doc[0][i].docName = this.sanitizer.bypassSecurityTrustResourceUrl('/uploads/'+doc[0][i].docName);
+                    this.pdfs.push(doc[0][i]);
+                    console.log("PDFs:- ", this.pdfs);
+                } else {
+                    //Images Collection
+                    this.docs.push(doc[0][i]);
+                    }
+                }
                 console.log("docs", this.docs);
             },err => {
                 console.log("Error Occured while fetching docs!");
