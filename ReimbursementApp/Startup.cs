@@ -10,6 +10,7 @@ using ReimbursementApp.Data.Contracts;
 using ReimbursementApp.DatabaseHelpers;
 using ReimbursementApp.DbContext;
 using ReimbursementApp.EFRepository;
+using ReimbursementApp.Model;
 using ReimbursementApp.SampleData;
 
 namespace ReimbursementApp
@@ -39,6 +40,7 @@ namespace ReimbursementApp
             //Initiating Seed Data
             services.AddTransient<InitialData>();
             //DI Setup
+            services.Configure<DocumentSettings>(Configuration.GetSection("DocumentSettings"));
             services.AddScoped<RepositoryFactories, RepositoryFactories>();
             services.AddScoped<IRepositoryProvider, RepositoryProvider>();
             services.AddScoped<IExpenseReviewUOW, ExpenseReviewUOW>();

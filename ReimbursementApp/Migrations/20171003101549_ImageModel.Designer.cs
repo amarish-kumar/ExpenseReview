@@ -12,9 +12,10 @@ using System;
 namespace ReimbursementApp.Migrations
 {
     [DbContext(typeof(ExpenseReviewDbContext))]
-    partial class ExpenseReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171003101549_ImageModel")]
+    partial class ImageModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,11 +96,7 @@ namespace ReimbursementApp.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<int>("ExpenseId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ExpenseId");
 
                     b.ToTable("Documentses");
                 });
@@ -175,6 +172,8 @@ namespace ReimbursementApp.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<double>("Amount");
+
+                    b.Property<string>("Docs");
 
                     b.Property<int?>("EmployeesEmployeeId");
 
@@ -274,14 +273,6 @@ namespace ReimbursementApp.Migrations
                     b.HasOne("ReimbursementApp.Model.Expense")
                         .WithOne("Approvers")
                         .HasForeignKey("ReimbursementApp.Model.Approver", "ExpenseId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ReimbursementApp.Model.Documents", b =>
-                {
-                    b.HasOne("ReimbursementApp.Model.Expense")
-                        .WithMany("Docs")
-                        .HasForeignKey("ExpenseId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

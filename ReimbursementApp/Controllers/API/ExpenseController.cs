@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using ReimbursementApp.Data.Contracts;
 using ReimbursementApp.Model;
 using ReimbursementApp.ViewModels;
@@ -15,11 +20,15 @@ namespace ReimbursementApp.Controllers.API
     public class ExpenseController : Controller
     {
         private IExpenseReviewUOW UOW;
+        private IHostingEnvironment Host;
+        private DocumentSettings Options;
 
 
-        public ExpenseController(IExpenseReviewUOW uow)
+        public ExpenseController(IExpenseReviewUOW uow, IHostingEnvironment host, IOptionsSnapshot<DocumentSettings> options)
         {
             UOW = uow;
+            Host = host;
+            Options = options.Value;
         }
 
         // GET api/expense
@@ -192,6 +201,7 @@ namespace ReimbursementApp.Controllers.API
         [HttpPost("")]
         public int Post([FromBody]ExpenseViewModel expenseViewModel)
         {
+           
             var approver = UOW.Approvers.GetAll().Where(app => app.ApproverId == expenseViewModel.ApproverId);
             var approverName = approver.FirstOrDefault().Name;
             //This is to make sure that employee is submitting his/her expense only. Not on behalve
@@ -213,6 +223,7 @@ namespace ReimbursementApp.Controllers.API
                 ExpenseDetails = expenseViewModel.ExpenseDetails,
                 ExpCategory = new ExpenseCategory { CategoryId = expenseViewModel.ExpCategory.CategoryId, Category = catName },
                 Reason = new Reason { EmployeeId = empId, Reasoning = "Expense submitted by -" + User.Identity.Name +" - "+ DateTime.Now }
+                
             };
 
             UOW.Expenses.Add(ExpenseObj);
@@ -220,6 +231,61 @@ namespace ReimbursementApp.Controllers.API
             return Response.StatusCode = (int)HttpStatusCode.Created;
         }
 
+/*        [HttpPost("")]
+        public IActionResult Post([FromBody]ExpenseViewModel expenseViewModel,IFormFile file)
+        {
+            //Make Upload arrangements
+            if (file == null) return BadRequest("File not valid");
+            if (file.Length == 0)  return BadRequest("Empty File");
+            if (file.Length > Options.MaxBytes) return BadRequest("File exceeded 10 MB size!");
+
+            if (!Options.IsSupported(file.FileName)) return BadRequest("Invalid File Type");
+            var uploadsFolder = Path.Combine(Host.WebRootPath, "uploads");
+
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            var filepath = Path.Combine(uploadsFolder, fileName);
+
+            using (var stream = new FileStream(filepath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+
+            var doc = new Documents { DocName = fileName };
+
+            var approver = UOW.Approvers.GetAll().Where(app => app.ApproverId == expenseViewModel.ApproverId);
+            var approverName = approver.FirstOrDefault().Name;
+           // This is to make sure that employee is submitting his / her expense only. Not on behalve
+              var employee = UOW.Employees.GetAll().Where(emp => emp.UserName.Equals(User.Identity.Name));
+            var emplName = employee.FirstOrDefault().EmployeeName;
+            var empId = employee.FirstOrDefault().EmployeeId;
+            var expCategory = UOW.ExpenseCategorySets.GetAll()
+                .Where(exp => exp.CategoryId == expenseViewModel.ExpCategory.CategoryId);
+            var catName = expCategory.FirstOrDefault().Category;
+            var ExpenseObj = new Expense
+            {
+                Amount = expenseViewModel.Amount,
+                TotalAmount = expenseViewModel.TotalAmount,
+                ExpenseDate = expenseViewModel.ExpenseDate,
+                SubmitDate = expenseViewModel.SubmitDate,
+                Status = new TicketStatus { State = TicketState.Submitted, Reason = "Expense submitted by -" + User.Identity.Name + " - " + DateTime.Now },
+                Approvers = new Approver { ApproverId = expenseViewModel.ApproverId, Name = approverName },// approver.FirstOrDefault(),
+                Employees = employee.FirstOrDefault(),
+                ExpenseDetails = expenseViewModel.ExpenseDetails,
+                ExpCategory = new ExpenseCategory { CategoryId = expenseViewModel.ExpCategory.CategoryId, Category = catName },
+                Reason = new Reason { EmployeeId = empId, Reasoning = "Expense submitted by -" + User.Identity.Name + " - " + DateTime.Now },
+                Docs = doc
+
+            };
+
+            UOW.Expenses.Add(ExpenseObj);
+            UOW.Commit();
+            return Ok(doc);
+        }*/
         [HttpPut("")]
         public HttpResponseMessage Put([FromBody]ExpenseViewModel expense)
         {
@@ -228,7 +294,8 @@ namespace ReimbursementApp.Controllers.API
                 .Include(expense2 => expense2.Employees)
                 .Include(expense3 => expense3.ExpCategory)
                 .Include(expense4 => expense4.Reason)
-                .Include(expense5 => expense5.Status);
+                .Include(expense5 => expense5.Status)
+                .Include(expense6 => expense6.Docs);
             
             var expObj = expenseFetched.FirstOrDefault();
 

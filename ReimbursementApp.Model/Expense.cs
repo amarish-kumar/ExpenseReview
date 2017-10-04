@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Mime;
 using System.Reflection.Metadata;
 using System.Text;
 
@@ -33,11 +34,13 @@ namespace ReimbursementApp.Model
         public virtual TicketStatus Status { get; set; }
 
         public virtual ExpenseCategory ExpCategory  { get; set; }
+        public virtual ICollection<Documents> Docs { get; set; }
 
         public virtual Reason Reason { get; set; }
 
         public Expense()
         {
+            Docs = new Collection<Documents>();
           //  Employees= new Employee();
            // Approvers= new Approver();
           //  Status = new TicketStatus();

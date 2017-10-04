@@ -12,9 +12,10 @@ using System;
 namespace ReimbursementApp.Migrations
 {
     [DbContext(typeof(ExpenseReviewDbContext))]
-    partial class ExpenseReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171004043120_ImageModel2")]
+    partial class ImageModel2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,7 +100,8 @@ namespace ReimbursementApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ExpenseId");
+                    b.HasIndex("ExpenseId")
+                        .IsUnique();
 
                     b.ToTable("Documentses");
                 });
@@ -280,8 +282,8 @@ namespace ReimbursementApp.Migrations
             modelBuilder.Entity("ReimbursementApp.Model.Documents", b =>
                 {
                     b.HasOne("ReimbursementApp.Model.Expense")
-                        .WithMany("Docs")
-                        .HasForeignKey("ExpenseId")
+                        .WithOne("Docs")
+                        .HasForeignKey("ReimbursementApp.Model.Documents", "ExpenseId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

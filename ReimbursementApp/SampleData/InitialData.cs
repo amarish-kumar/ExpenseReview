@@ -26,7 +26,7 @@ namespace ReimbursementApp.SampleData
                     Amount = 5200,
                     Employees = new Employee
                     {
-                        UserName = "KONGSBERG\\rahuls",
+                        UserName = "KONGSBERG\\saketk",
                         EmployeeName = "Saket Kumar",
                         Gender = "M",
                         Designation = "SDE 1",

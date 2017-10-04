@@ -11,6 +11,7 @@
                 <th>Approver Name</th>
                 <th>Status</th>
                 <th class="text-center">Details</th>
+                <th class="text-center">Upload Documents</th>
                 <th class="text-center">Edit</th>
             </tr>
             </thead>
@@ -23,6 +24,7 @@
                 <td>{{e.approverName}}</td>
                 <td>{{e.ticketStatus}}</td>
                 <td class="text-center"><a [routerLink]="['/detail-view/', e.expenseId]"class='btn btn-info btn-sm'><span class="glyphicon glyphicon-book"></span> Details</a></td>
+                <td class="text-center"><a [routerLink]="['/upload-document/', e.expenseId]"class='btn btn-info btn-sm'><span class="glyphicon glyphicon-book"></span> Upload Document</a></td>
                 <td class="text-center"><a [routerLink]="['/edit-expense/', e.expenseId]" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span> Edit</a></td>
             </tr>
         </table>

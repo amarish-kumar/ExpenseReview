@@ -23,6 +23,7 @@ namespace ReimbursementApp.DbContext
         public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<ExpenseCategorySet> ExpenseCategorySets { get; set; }
         public virtual DbSet<ApproverList> ApproverLists { get; set; }
+        public virtual DbSet<Documents> Documentses { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -42,6 +43,8 @@ namespace ReimbursementApp.DbContext
         {
             modelBuilder.Entity<Employee>().HasKey(a => new {a.EmployeeId, a.Id});
             modelBuilder.Entity<Employee>().HasIndex(e => e.EmployeeId).IsUnique();
+            //This means Multiple document can be uploaded against single expense id
+            modelBuilder.Entity<Documents>().HasIndex(documents => documents.ExpenseId).IsUnique(false);
             /*PropertyAccessMode(modelBuilder.Entity<Employee>())*/
             /*modelBuilder.Entity<Employee>().HasOne(e=>e.EmployeeId)
                 .WithOne(i =>i ).HasForeignKey(p=>p.)*/

@@ -13,5 +13,6 @@ namespace ReimbursementApp.Model
         [StringLength(255)]
         public string DocName { get; set; }
         public int ExpenseId { get; set; }
+
     }
 }

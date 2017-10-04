@@ -7,6 +7,7 @@ import { ExpenseService } from './services/expense.service';
 import { ApproverService } from './services/approver.service';
 import { ExpCategoryService } from './services/expCategory.service';
 import { MenuAccessService } from './services/menuAccess.service';
+import { DocsService } from './services/document.service';
 
 
 //TODO:- URL Refresh issue needs to be fixed. Base URL needs to explored more
@@ -20,7 +21,8 @@ import { MenuAccessService } from './services/menuAccess.service';
         ExpenseService,
         ApproverService,
         ExpCategoryService,
-        MenuAccessService
+        MenuAccessService,
+        DocsService
        ]
 })
 export class AppModule {

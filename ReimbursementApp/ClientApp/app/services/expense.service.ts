@@ -1,5 +1,5 @@
 ﻿import { Injectable, Inject } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -21,6 +21,17 @@ export class ExpenseService {
     }
     submitExpense(expense) {
         return this.http.post(this.originUrl + 'api/expense',expense)
+            //Once, we get the response back, it has to get mapped to json
+            .map(res => res.json());
+    }
+
+    submitExpenseWithFile(expense, doc) {
+        var formData = new FormData();
+       // formData.append('expense',expense);
+        formData.append('file', doc);
+        const headers = new Headers({});
+        let options = new RequestOptions({ headers});
+        return this.http.post(this.originUrl + 'api/expense', formData)
             //Once, we get the response back, it has to get mapped to json
             .map(res => res.json());
     }

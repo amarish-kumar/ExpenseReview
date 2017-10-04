@@ -23,5 +23,6 @@ namespace ReimbursementApp.ViewModels
         public int ExpenseId { get; set; }
         public string reason { get; set; }
         public string rejectedFlag { get; set; }
+        public string DocName { get; set; }
     }
 }

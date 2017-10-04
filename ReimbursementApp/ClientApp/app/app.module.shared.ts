@@ -19,11 +19,13 @@ import { MyExpensesComponent } from './components/my-expenses/my-expenses.compon
 import { DetailViewComponent } from './components/detail-view/detail-view.component';
 import { EditExpenseComponent } from './components/edit-expense/edit-expense.component';
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
+import { UploadDocumentComponent } from './components/upload-documents/upload-document.component';
 import { EmployeeService } from './services/employee.service';
 import { ExpenseService } from './services/expense.service';
 import { ApproverService } from './services/approver.service';
 import { ExpCategoryService } from './services/expCategory.service';
 import { MenuAccessService } from './services/menuAccess.service';
+import { DocsService } from './services/document.service';
 
 
 @NgModule({
@@ -41,7 +43,8 @@ import { MenuAccessService } from './services/menuAccess.service';
         MyExpensesComponent,
         DetailViewComponent,
         EditExpenseComponent,
-        EditEmployeeComponent
+        EditEmployeeComponent,
+        UploadDocumentComponent
     ],
     imports: [
         CommonModule,
@@ -62,6 +65,7 @@ import { MenuAccessService } from './services/menuAccess.service';
             { path: 'detail-view/:id', component: DetailViewComponent },
             { path: 'edit-expense/:id', component: EditExpenseComponent },
             { path: 'edit-employee', component: EditEmployeeComponent },
+            { path: 'upload-document/:id', component: UploadDocumentComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ],
@@ -69,7 +73,8 @@ import { MenuAccessService } from './services/menuAccess.service';
         ExpenseService,
         ApproverService,
         ExpCategoryService,
-        MenuAccessService
+        MenuAccessService,
+        DocsService
     ]
 })
 export class AppModuleShared {

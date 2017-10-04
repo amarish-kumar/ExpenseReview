@@ -1,8 +1,7 @@
 ﻿
 using System;
 using System.IO;
-using System.Net.Mime;
-using System.Runtime.CompilerServices;
+using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -47,7 +46,7 @@ namespace ReimbursementApp.Controllers.API
                 Directory.CreateDirectory(uploadsFolder);
             }
 
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
             var filepath = Path.Combine(uploadsFolder, fileName);
 
             using (var stream = new FileStream(filepath, FileMode.Create))
@@ -55,11 +54,10 @@ namespace ReimbursementApp.Controllers.API
                 file.CopyTo(stream);
             }
 
-            var image = new Documents {DocName = fileName};
-            //TODO: Expense is going to have the relationship with Documents as well, hence virtual key is required
-         //   expense.Images.Add(image);
+            var doc = new Documents {DocName = fileName};
+            expense.Docs.Add(doc);
             _uow.Commit();
-            return Ok(image);
+            return Ok(doc);
         }
     }
 

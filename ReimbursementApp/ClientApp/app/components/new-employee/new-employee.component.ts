@@ -65,7 +65,7 @@ export class NewEmployeeComponent implements OnInit {
             .subscribe(e => {
                     this.toastyService.success({
                         title: 'Success',
-                        msg: 'New Expense Created!',
+                        msg: 'New Employee Created!',
                         theme: 'bootstrap',
                         showClose: true,
                         timeout: 5000

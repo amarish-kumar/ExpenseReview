@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Inject } from '@angular/core';
+﻿import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
 import { Expense } from './../../models/expense';
 import { Http } from '@angular/http';
 import { ExpenseService } from '../../services/expense.service';
@@ -7,6 +7,7 @@ import { ExpCategoryService } from '../../services/expCategory.service';
 import { EmployeeService } from '../../services/employee.service';
 import { NgForm } from '@angular/forms';
 import { ToastyService } from "ng2-toasty";
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-new-expense',
@@ -16,6 +17,7 @@ import { ToastyService } from "ng2-toasty";
 })
 
 export class NewExpenseComponent implements OnInit {
+    //@ViewChild('fileInput') fileInput: ElementRef;
     expense: Expense = new Expense();
     approvers;
     expCategories;
@@ -24,7 +26,8 @@ export class NewExpenseComponent implements OnInit {
         private approverService: ApproverService,
         private expCategoryService: ExpCategoryService,
         private employeeService: EmployeeService,
-        private toastyService: ToastyService) { }
+        private toastyService: ToastyService,
+        private router: Router) { }
 
     ngOnInit() {
         this.expCategoryService.getExpCategories()
@@ -40,6 +43,7 @@ export class NewExpenseComponent implements OnInit {
     }
 
     onSubmit(form: NgForm) {
+        // var nativeElement: HTMLInputElement = this.fileInput.nativeElement;
         var formData = this.expense;
         formData.expenseId = 0;
         //dummy data just to fill the object
@@ -57,26 +61,29 @@ export class NewExpenseComponent implements OnInit {
         formData.expCategory = this.expense.expCategory;
         formData.reason = "";
         formData.rejectedFlag = "";
-
+        formData.docName = "";//nativeElement.files[0].name;//this.expense.docName;
         console.log("Form Data:- ", formData);
+
+
         this.expenseService.submitExpense(formData)
             .subscribe(exp => {
-                    this.toastyService.success({
-                        title: 'Success',
-                        msg: 'New Expense Created!',
-                        theme: 'bootstrap',
-                        showClose: true,
-                        timeout: 5000
-                    });
-                },
-                err => {
-                    this.toastyService.error({
-                        title: 'Error',
-                        msg: 'An unexpected error occured while creating new Expense!',
-                        theme: 'bootstrap',
-                        showClose: true,
-                        timeout: 5000
-                    });
+                this.toastyService.success({
+                    title: 'Success',
+                    msg: 'New Expense Created!',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
                 });
+                this.router.navigate(['/my-expenses']);
+            },
+            err => {
+                this.toastyService.error({
+                    title: 'Error',
+                    msg: 'An unexpected error occured while creating new Expense!',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
+                });
+            });
     }
 }
