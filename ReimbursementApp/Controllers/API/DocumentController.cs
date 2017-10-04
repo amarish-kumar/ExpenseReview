@@ -2,6 +2,9 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Mime;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -59,7 +62,16 @@ namespace ReimbursementApp.Controllers.API
             _uow.Commit();
             return Ok(doc);
         }
+
+        [HttpGet]
+        public IQueryable<Documents>[] Get(int id)
+        {
+            IQueryable<Documents>[] docs = new[] { _uow.DocumentLists.GetAll().Where(m => m.ExpenseId == id) };
+            if (docs != null) return docs;
+            throw new Exception(new HttpResponseMessage(HttpStatusCode.NotFound).ToString());
+        }
     }
+
 
    
 }

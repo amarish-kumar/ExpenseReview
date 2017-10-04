@@ -13,8 +13,8 @@ export class DocsService {
             .map(res => res.json());
     }
 
-    getImages(Id) {
-        return this.http.get(`/api/expense/${Id}/images`)
+    getDocs(Id) {
+        return this.http.get(`/api/expense/${Id}/files`)
             .map(res => res.json());
     }
 }

@@ -2,7 +2,7 @@
 <p class="bg-success" style="padding:10px;margin-top:20px;clear:both">
     <a [routerLink]="['/my-expenses/']" class="btn btn-info"><i class="glyphicon glyphicon-backward"></i> Back</a>
 </p>
-<hr/>
+<hr />
 <form class="form-horizontal">
     <fieldset>
         <!-- Form Name -->
@@ -10,27 +10,21 @@
             <label class="col-md-4 control-label" for="expid">Expense ID</label>
             <div class="col-md-4">
                 <input id="expid" name="expid" placeholder="Expense ID" value="{{expenses.expenseId}}" class="form-control input-md" readonly type="text" #expIdInput>
-
             </div>
         </div>
-
         <div class="form-group">
             <label class="col-md-4 control-label" for="empid">Employee ID</label>
             <div class="col-md-4">
                 <input id="empid" name="empid" placeholder="Employee ID" value="{{expenses.employeeId}}" class="form-control input-md" readonly type="text">
-
             </div>
         </div>
-
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="name">Employee Name</label>
             <div class="col-md-4">
                 <input id="name" name="name" placeholder="Name" value="{{expenses.employeeName}}" class="form-control input-md" readonly type="text">
-
             </div>
         </div>
-
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="edob">Expense Date</label>
@@ -84,14 +78,14 @@
                 <input id="expenseDetails" name="expenseDetails" placeholder="Expense Details" value="{{expenses.expenseDetails}}" class="form-control input-md" readonly type="text">
             </div>
         </div>
+
         <!-- Upload input-->
-   <!--     <div class="form-group">
-            <label class="col-md-4 control-label" for="docupload" >Upload Documents</label>
-            <div class="col-md-4">
-                <input type="file" #fileInput />
-            </div>
-        </div>-->
-    
+        <!--     <div class="form-group">
+                 <label class="col-md-4 control-label" for="docupload" >Upload Documents</label>
+                 <div class="col-md-4">
+                     <input type="file" #fileInput />
+                 </div>
+             </div>-->
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="approvername">Approver Name</label>
@@ -99,7 +93,7 @@
                 <input id="approvername" name="approvername" placeholder="Approver Name" value="{{expenses.approverName}}" class="form-control input-md" readonly type="text">
             </div>
         </div>
-        
+
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="status">Ticket Status</label>
@@ -107,7 +101,6 @@
                 <input id="status" name="status" placeholder="Ticket Status" class="form-control input-md" value="{{expenses.ticketStatus}}" readonly #reasonInput type="text">
             </div>
         </div>
-
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="reason">Reason</label>
@@ -115,6 +108,10 @@
                 <input id="reason" name="reason" placeholder="Reason" class="form-control input-md" value="{{expenses.reason}}" readonly #reasonInput type="text">
             </div>
         </div>
-
-     </fieldset>
+        <!--Doc View/Download -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="reason">Your Documents</label>
+            <img *ngFor="let doc of docs" src="/uploads/{{doc.docName}}" class="img-thumbnail" style="width: 200px; height: 200px;"/>
+        </div>
+    </fieldset>
 </form>
