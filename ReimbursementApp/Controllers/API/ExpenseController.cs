@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,7 @@ using ReimbursementApp.ViewModels;
 namespace ReimbursementApp.Controllers.API
 {
     [Route("api/[controller]")]
+    [EnableCors("CorsPolicy")]
     public class ExpenseController : Controller
     {
         private IExpenseReviewUOW UOW;

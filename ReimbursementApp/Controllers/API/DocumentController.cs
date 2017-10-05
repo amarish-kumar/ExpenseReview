@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Mime;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ using ReimbursementApp.Model;
 namespace ReimbursementApp.Controllers.API
 {
     [Route("/api/expense/{Id}/files")]
+    [EnableCors("CorsPolicy")]
     public class DocumentController :Controller
     {
         private IHostingEnvironment _host;

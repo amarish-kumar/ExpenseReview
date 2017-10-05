@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using ReimbursementApp.Data.Contracts;
 using ReimbursementApp.Model;
@@ -9,6 +10,7 @@ using ReimbursementApp.ViewModels;
 namespace ReimbursementApp.Controllers.API
 {
     [Route("api/[controller]")]
+    [EnableCors("CorsPolicy")]
     public class EmployeeController : Controller
     {
         private IExpenseReviewUOW UOW;

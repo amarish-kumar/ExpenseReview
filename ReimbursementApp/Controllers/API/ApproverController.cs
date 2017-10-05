@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using ReimbursementApp.Data.Contracts;
 
 namespace ReimbursementApp.Controllers.API
 {
     [Route("api/[controller]")]
+    [EnableCors("CorsPolicy")]
     public class ApproverController :Controller
     {
         private IExpenseReviewUOW UOW;

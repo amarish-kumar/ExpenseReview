@@ -36,6 +36,16 @@ namespace ReimbursementApp
                 .AddDbContext<ExpenseReviewDbContext>(options =>
                     options.UseSqlServer(Configuration["Data:ExpenseReviewSPA:ConnectionString"]));
 
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+            });
+
             services.AddMvc();
             //Initiating Seed Data
             services.AddTransient<InitialData>();
@@ -84,8 +94,9 @@ namespace ReimbursementApp
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseCors("CorsPolicy");
             app.UseStaticFiles();
-
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
