@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +15,9 @@ using Microsoft.Extensions.Options;
 using ReimbursementApp.Data.Contracts;
 using ReimbursementApp.Model;
 using ReimbursementApp.ViewModels;
+using MailKit.Net.Smtp;
+using MimeKit;
+using MailKit.Security;
 
 namespace ReimbursementApp.Controllers.API
 {
@@ -26,7 +30,10 @@ namespace ReimbursementApp.Controllers.API
         private DocumentSettings Options;
 
 
-        public ExpenseController(IExpenseReviewUOW uow, IHostingEnvironment host, IOptionsSnapshot<DocumentSettings> options)
+        public ExpenseController(
+            IExpenseReviewUOW uow, 
+            IHostingEnvironment host,
+            IOptionsSnapshot<DocumentSettings> options)
         {
             UOW = uow;
             Host = host;
@@ -199,7 +206,7 @@ namespace ReimbursementApp.Controllers.API
         }
         // Post a new Expense
         // POST /api/expense
-        //TODO: Need to think on populating Employee and Approver Id
+        //TODO: MailKit setup for sending mail notofication
         [HttpPost("")]
         public int Post([FromBody]ExpenseViewModel expenseViewModel)
         {
@@ -230,6 +237,10 @@ namespace ReimbursementApp.Controllers.API
 
             UOW.Expenses.Add(ExpenseObj);
             UOW.Commit();
+            //TODO:- Fetch approvers mail id and based on flow send the mail
+            var approverEmp = UOW.Employees.GetAll().Where(e => e.EmployeeId == expenseViewModel.ApproverId);
+            var approverMail = approverEmp.FirstOrDefault().Email;
+            SendEmailAsync(approverMail, "Ticket Submitted", "New Expense Request Submitted by:- " + emplName);
             return Response.StatusCode = (int)HttpStatusCode.Created;
         }
 
@@ -305,7 +316,7 @@ namespace ReimbursementApp.Controllers.API
             if (expObj.Status.State == TicketState.Rejected)
             {
                 expObj.Status.State = TicketState.Submitted;
-                expObj.Status.Reason = expense.reason + "- Submitted by - " + User.Identity.Name + " - " + DateTime.Now;
+                expObj.Status.Reason = expense.reason + "- Modified By - " + User.Identity.Name + " - " + DateTime.Now;
                 expObj.ExpenseDate = expense.ExpenseDate;
                 expObj.SubmitDate = expense.SubmitDate;
                 expObj.ExpCategory.CategoryId = expense.ExpCategory.CategoryId;
@@ -313,9 +324,15 @@ namespace ReimbursementApp.Controllers.API
                 expObj.Amount = expense.Amount;
                 expObj.TotalAmount = expense.TotalAmount;
                 expObj.ExpenseDetails = expense.ExpenseDetails;
-                expObj.Reason.Reasoning = expense.reason + "- Submitted by - " + User.Identity.Name + " - " + DateTime.Now;
+                expObj.Reason.Reasoning = expense.reason + "- Modified By - " + User.Identity.Name + " - " + DateTime.Now;
                 UOW.Expenses.Update(expObj);
                 UOW.Commit();
+                //Mail needs to be triggered here
+                var employee = UOW.Employees.GetAll().Where(emp => emp.UserName.Equals(User.Identity.Name));
+                var emplName = employee.FirstOrDefault().EmployeeName;
+                var approverEmp = UOW.Employees.GetAll().Where(e => e.EmployeeId == expense.ApproverId);
+                var approverMail = approverEmp.FirstOrDefault().Email;
+                SendEmailAsync(approverMail, "Ticket:- "+expense.ExpenseId+ "Modified", "Expense Modified by " + emplName+ ". Check Ticket for more details.");
                 return new HttpResponseMessage(HttpStatusCode.NoContent);
             }
             if (expense.rejectedFlag == "Rejected")
@@ -327,6 +344,13 @@ namespace ReimbursementApp.Controllers.API
                 expObj.Reason = new Reason { EmployeeId = expense.EmployeeId, Reasoning = expense.reason };
                 UOW.Expenses.Update(expObj);
                 UOW.Commit();
+                //Mail needs to be triggered here
+                //Here, employee needs to be notified means fetch employee from expense
+                var employee = UOW.Employees.GetAll().Where(emp => emp.UserName.Equals(User.Identity.Name));
+                var emplName = employee.FirstOrDefault().EmployeeName;
+                var empMail = expenseFetched.FirstOrDefault().Employees.Email;
+                SendEmailAsync(empMail, "Ticket:-" + expense.ExpenseId+ " Rejected", "Check Reasoning in Ticket. Ticket Rejected by:- " + emplName);
+                
             }
             else
             {
@@ -337,6 +361,42 @@ namespace ReimbursementApp.Controllers.API
                 expObj.Reason = new Reason { EmployeeId = expense.EmployeeId, Reasoning = expense.reason };
                 UOW.Expenses.Update(expObj);
                 UOW.Commit();
+                //Mail needs to be triggered here. Check expobj status and then trigger accordingly 
+                //If ticket is in submit state, it means it should go to manager
+                if (expObj.Status.State == TicketState.Submitted)
+                {
+                    var employee = UOW.Employees.GetAll().Where(emp => emp.UserName.Equals(User.Identity.Name));
+                    var emplName = employee.FirstOrDefault().EmployeeName;
+                    var empMail = employee.FirstOrDefault().Email;
+                    var approverEmp = UOW.Employees.GetAll().Where(e => e.EmployeeId == expense.ApproverId);
+                    var approverMail = approverEmp.FirstOrDefault().Email;
+                    SendEmailAsync(approverMail, "Ticket Submitted", "New Expense Request Submitted by:- " + emplName);
+                }
+                //If ticket is approved by manager, then it will go to admin.
+                if (expObj.Status.State == TicketState.ApprovedFromManager)
+                {
+                    var emplName = expenseFetched.FirstOrDefault().Employees.EmployeeName;
+                    var approverEmp = UOW.Employees.GetAll().Where(e => e.EmployeeId == expense.ApproverId);
+                    var approverName = approverEmp.FirstOrDefault().EmployeeName;
+                    SendEmailAsync("salma.nigaar@kdi.kongsberg.com", "Ticket:- "+expense.ExpenseId+ " Approved by:- "+ approverName, "New Expense Request Submitted by:- " + emplName);
+                }
+                //If ticket is approved by admin, then it will go to finance.
+                if (expObj.Status.State == TicketState.ApprovedFromAdmin)
+                {
+                    var emplName = expenseFetched.FirstOrDefault().Employees.EmployeeName;
+                    var approverEmp = UOW.Employees.GetAll().Where(e => e.EmployeeId == expense.ApproverId);
+                    var approverName = approverEmp.FirstOrDefault().EmployeeName;
+                    SendEmailAsync("naveen.bathina@kdi.kongsberg.com", "Ticket:- " + expense.ExpenseId + " Approved by:- " + approverName, "New Expense Request Submitted by:- " + emplName);
+                }
+                //If ticket is approved by finance, then it will get closed
+                if (expObj.Status.State == TicketState.ApprovedFromManager)
+                {
+                    var emplName = expenseFetched.FirstOrDefault().Employees.EmployeeName;
+                    var emplMail = expenseFetched.FirstOrDefault().Employees.Email;
+                    var approverEmp = UOW.Employees.GetAll().Where(e => e.EmployeeId == expense.ApproverId);
+                    var approverName = approverEmp.FirstOrDefault().EmployeeName;
+                    SendEmailAsync(emplMail, "Ticket:- " + expense.ExpenseId + " Closed " + approverName, "Ticket closed Submitted by:- " + emplName);
+                }
             }
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
@@ -378,6 +438,26 @@ namespace ReimbursementApp.Controllers.API
             UOW.Expenses.Delete(Id);
             UOW.Commit();
             return new HttpResponseMessage(HttpStatusCode.NoContent);
+        }
+
+        public async Task SendEmailAsync(string email, string subject, string message)
+        {
+            var emailMessage = new MimeMessage();
+            //TODO:- Read FROM and TO from the workflow
+            emailMessage.From.Add(new MailboxAddress("Rahul Sahay", "rahul.sahay@kdi.kongsberg.com"));
+            emailMessage.To.Add(new MailboxAddress("", email));
+            emailMessage.Subject = subject;
+            emailMessage.Body = new TextPart("plain") { Text = message };
+
+            using (var client = new SmtpClient())
+            {
+                //Not Required
+               // client.LocalDomain = "some.domain.com";
+                //await client.ConnectAsync("smtp.relay.uri", 25, SecureSocketOptions.None).ConfigureAwait(false);
+                await client.ConnectAsync("157.237.41.230", 25, SecureSocketOptions.None).ConfigureAwait(false);
+                await client.SendAsync(emailMessage).ConfigureAwait(false);
+                await client.DisconnectAsync(true).ConfigureAwait(false);
+            }
         }
 
     }

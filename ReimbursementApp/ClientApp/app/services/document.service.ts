@@ -9,12 +9,12 @@ export class DocsService {
     upload(Id, doc) {
         var formData = new FormData();
         formData.append('file', doc);
-        return this.http.post(`/api/expense/${Id}/files`, formData)
+        return this.http.post(`/api/expense/${Id}/files`, formData,  { withCredentials: true })
             .map(res => res.json());
     }
 
     getDocs(Id) {
-        return this.http.get(`/api/expense/${Id}/files`)
+        return this.http.get(`/api/expense/${Id}/files`, { withCredentials: true })
             .map(res => res.json());
     }
 }

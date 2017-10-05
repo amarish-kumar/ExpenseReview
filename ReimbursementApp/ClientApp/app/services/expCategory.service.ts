@@ -9,7 +9,7 @@ export class ExpCategoryService {
     constructor(private http: Http, @Inject('BASE_URL') private originUrl: string) { }
 
     getExpCategories() {
-        return this.http.get(this.originUrl + 'api/ExpenseSet')
+        return this.http.get(this.originUrl + 'api/ExpenseSet', { withCredentials: true })
             //Once, we get the response back, it has to get mapped to json
             .map(res => res.json());
     }

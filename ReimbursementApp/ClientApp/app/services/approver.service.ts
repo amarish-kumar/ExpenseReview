@@ -9,7 +9,7 @@ export class ApproverService {
     constructor(private http: Http, @Inject('BASE_URL') private originUrl: string) { }
 
     getApprovers() {
-        return this.http.get(this.originUrl + 'api/approverlist')
+        return this.http.get(this.originUrl + 'api/approverlist', { withCredentials: true })
             //Once, we get the response back, it has to get mapped to json
             .map(res => res.json());
     }

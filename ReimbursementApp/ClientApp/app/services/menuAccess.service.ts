@@ -9,7 +9,7 @@ export class MenuAccessService {
     constructor(private http: Http, @Inject('BASE_URL') private originUrl: string) { }
 
     checkAccess() {
-        return this.http.get(this.originUrl + 'api/menuaccess')
+        return this.http.get(this.originUrl + 'api/menuaccess', { withCredentials: true })
             //Once, we get the response back, it has to get mapped to json
             .map(res => res.json());
     }
