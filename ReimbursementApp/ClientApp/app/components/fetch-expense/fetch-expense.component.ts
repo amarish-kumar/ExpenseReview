@@ -2,9 +2,11 @@
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { ExpenseService } from '../../services/expense.service';
+import { DocsService } from '../../services/document.service';
 import { ToastyService } from "ng2-toasty";
 import { Expense } from './../../models/expense';
 import { NgForm } from '@angular/forms';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-fetch-expense',
@@ -22,8 +24,15 @@ export class FetchExpenseComponent implements OnInit {
     managerFlag: boolean;
     ExpenseObj;
     @ViewChild('expenseIdInput') expenseIdInput;
+    docs: any[] = [];
+    pdfs: any[] = [];
     expense: Expense = new Expense();
-    constructor(private router: Router, private expenseService: ExpenseService, private toastyService: ToastyService) { }
+    constructor(
+        private router: Router,
+        private expenseService: ExpenseService,
+        private toastyService: ToastyService,
+        private docService: DocsService,
+        private sanitizer: DomSanitizer) { }
 
     ngOnInit() {
         this.showHide = false;
@@ -37,12 +46,56 @@ export class FetchExpenseComponent implements OnInit {
         this.showHide = false;
         this.expenseIdInput.nativeElement.value = "";
     }
+
+    //Problem:- This does binding to all existing expenses
+    /*fetchDocs(expenseIdValue) {
+        this.docs = [];
+        this.pdfs = [];
+        this.docService.getDocs(expenseIdValue.value)
+            .subscribe(doc => {
+                for (var i = 0; i < doc[0].length; i++) {
+                    if (doc[0][i].docName.endsWith(".pdf")) {
+                        //PDFs Collection
+                        doc[0][i].docName = this.sanitizer.bypassSecurityTrustResourceUrl('/uploads/' + doc[0][i].docName);
+                        this.pdfs.push(doc[0][i]);
+                        console.log("PDFs:- ", this.pdfs);
+                    } else {
+                        //Images Collection
+                        this.docs.push(doc[0][i]);
+                    }
+                }
+            }, err => {
+                console.log("Error Occured while fetching docs!");
+            });
+    }*/
     searchExpense() {
+        //Flushing the documents before every search
+        this.docs = [];
+        this.pdfs = [];
+        //TODO:- Need to think on supplying associated expense id
+        this.docs = [];
+        this.pdfs = [];
+        this.docService.getDocs(this.expenseIdInput.nativeElement.value)
+            .subscribe(doc => {
+                for (var i = 0; i < doc[0].length; i++) {
+                    if (doc[0][i].docName.endsWith(".pdf")) {
+                        //PDFs Collection
+                        doc[0][i].docName = this.sanitizer.bypassSecurityTrustResourceUrl('/uploads/' + doc[0][i].docName);
+                        this.pdfs.push(doc[0][i]);
+                        console.log("PDFs:- ", this.pdfs);
+                    } else {
+                        //Images Collection
+                        this.docs.push(doc[0][i]);
+                    }
+                }
+            }, err => {
+                console.log("Error Occured while fetching docs!");
+            });
         //Search by Expense Id
         this.expenseService.getExpenseById(this.expenseIdInput.nativeElement.value)
             .subscribe(e => {
                 this.expenses = e;
-                    this.ExpenseObj = e;
+                this.ExpenseObj = e;
                 if (this.expenses.length == 0) {
                     this.idFlag = false;
                 }
@@ -194,7 +247,7 @@ export class FetchExpenseComponent implements OnInit {
         var data = JSON.parse(JSON.stringify(this.ExpenseObj || null));
         this.ExpenseObj.reason = reasonInput.value;
         this.expenseService.approveExpense(expIdInput.value, reasonInput.value, approvedDate.value, this.ExpenseObj)
-         .subscribe(e => {
+            .subscribe(e => {
                 this.toastyService.success({
                     title: 'Info',
                     msg: 'Expense Approved!',
@@ -210,8 +263,8 @@ export class FetchExpenseComponent implements OnInit {
                     showClose: true,
                     timeout: 5000
                 });
-             
-         });
+
+            });
     }
 
     rejectExpense(expIdInput, reasonInput, approvedDate) {

@@ -33,8 +33,7 @@ export class DetailViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        //TODO:- If incoming type is pdf then logic needs to be changed
-        this.docService.getDocs(this.expense.expenseId)
+       this.docService.getDocs(this.expense.expenseId)
             .subscribe(doc => {
                 for(var i=0;i<doc[0].length;i++){
                 if (doc[0][i].docName.endsWith(".pdf")) {
