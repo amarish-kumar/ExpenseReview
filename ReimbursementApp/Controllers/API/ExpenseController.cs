@@ -65,6 +65,7 @@ namespace ReimbursementApp.Controllers.API
                         reason = exp.Reason.Reasoning
 
                     });
+            SendEmailAsync("rahulsahay19@gmail.com","dummy subject","some message");
             return model;
 
         }
@@ -332,7 +333,7 @@ namespace ReimbursementApp.Controllers.API
                 var emplName = employee.FirstOrDefault().EmployeeName;
                 var approverEmp = UOW.Employees.GetAll().Where(e => e.EmployeeId == expense.ApproverId);
                 var approverMail = approverEmp.FirstOrDefault().Email;
-                SendEmailAsync(approverMail, "Ticket:- "+expense.ExpenseId+ "Modified", "Expense Modified by " + emplName+ ". Check Ticket for more details.");
+                SendEmailAsync("rahulsahay19@gmail.com", "Ticket:- "+expense.ExpenseId+ "Modified", "Expense Modified by " + emplName+ ". Check Ticket for more details.");
                 return new HttpResponseMessage(HttpStatusCode.NoContent);
             }
             if (expense.rejectedFlag == "Rejected")
@@ -370,7 +371,7 @@ namespace ReimbursementApp.Controllers.API
                     var empMail = employee.FirstOrDefault().Email;
                     var approverEmp = UOW.Employees.GetAll().Where(e => e.EmployeeId == expense.ApproverId);
                     var approverMail = approverEmp.FirstOrDefault().Email;
-                    SendEmailAsync(approverMail, "Ticket Submitted", "New Expense Request Submitted by:- " + emplName);
+                    SendEmailAsync("rahul.sahay@kdi.kongsberg.com", "Ticket Submitted", "New Expense Request Submitted by:- " + emplName);
                 }
                 //If ticket is approved by manager, then it will go to admin.
                 if (expObj.Status.State == TicketState.ApprovedFromManager)
@@ -378,7 +379,8 @@ namespace ReimbursementApp.Controllers.API
                     var emplName = expenseFetched.FirstOrDefault().Employees.EmployeeName;
                     var approverEmp = UOW.Employees.GetAll().Where(e => e.EmployeeId == expense.ApproverId);
                     var approverName = approverEmp.FirstOrDefault().EmployeeName;
-                    SendEmailAsync("salma.nigaar@kdi.kongsberg.com", "Ticket:- "+expense.ExpenseId+ " Approved by:- "+ approverName, "New Expense Request Submitted by:- " + emplName);
+                    //   SendEmailAsync("salma.nigaar@kdi.kongsberg.com", "Ticket:- "+expense.ExpenseId+ " Approved by:- "+ approverName, "New Expense Request Submitted by:- " + emplName);
+                    SendEmailAsync("rahul.sahay@kdi.kongsberg.com", "Ticket:- " + expense.ExpenseId + " Approved by:- " + approverName, "New Expense Request Submitted by:- " + emplName);
                 }
                 //If ticket is approved by admin, then it will go to finance.
                 if (expObj.Status.State == TicketState.ApprovedFromAdmin)
@@ -389,13 +391,13 @@ namespace ReimbursementApp.Controllers.API
                     SendEmailAsync("naveen.bathina@kdi.kongsberg.com", "Ticket:- " + expense.ExpenseId + " Approved by:- " + approverName, "New Expense Request Submitted by:- " + emplName);
                 }
                 //If ticket is approved by finance, then it will get closed
-                if (expObj.Status.State == TicketState.ApprovedFromManager)
+                if (expObj.Status.State == TicketState.ApprovedFromFinance)
                 {
                     var emplName = expenseFetched.FirstOrDefault().Employees.EmployeeName;
                     var emplMail = expenseFetched.FirstOrDefault().Employees.Email;
                     var approverEmp = UOW.Employees.GetAll().Where(e => e.EmployeeId == expense.ApproverId);
                     var approverName = approverEmp.FirstOrDefault().EmployeeName;
-                    SendEmailAsync(emplMail, "Ticket:- " + expense.ExpenseId + " Closed " + approverName, "Ticket closed Submitted by:- " + emplName);
+                    SendEmailAsync("rahul.sahay@kdi.kongsberg.com", "Ticket:- " + expense.ExpenseId + " Closed " + approverName, "Ticket closed Submitted by:- " + emplName);
                 }
             }
             return new HttpResponseMessage(HttpStatusCode.NoContent);

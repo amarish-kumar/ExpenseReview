@@ -18,6 +18,99 @@ namespace ReimbursementApp.SampleData
         {
             if (!_dbContext.Expenses.Any())
             {
+                var approver1 = new Employee
+                {
+                    UserName = "KONGSBERG\\dhavalt",
+                    EmployeeName = "Dhaval Trivedi",
+                    Gender = "M",
+                    Designation = "Manager",
+                    SkillSet = "HTML 5, AngularJS, JavaScript",
+                    EmployeeId = 1234,
+                    Email = "dhaval.trivedi@kdi.kongsberg.com",
+                    DOB = "05/05/1986",
+                    Mobile = "2345678901",
+                    AlternateNumber = "1234567890",
+                    AddressLine1 = "Flat No 203, Suncity Apartment",
+                    AddressLine2 = "Off Sarjapur Road",
+                    AddressLine3 = "Near Wipro Office",
+                    ZipCode = "560102",
+                    Country = "India",
+                    State = "Karnataka",
+                    FatherName = "Rakesh Kumar",
+                    MotherName = "Uma Devi",
+                    FatherDOB = "18/11/1957",
+                    MotherDOB = "06/05/1961",
+                    EmergencyContactName = "Kumar Gautham",
+                    EmergencyContactNumber = "3456789012",
+                    EmergencyContactRelation = "Brother",
+                    EmergencyContactDOB = "15/10/1985",
+                    ReportingManager = "Mrinal"
+                };
+                _dbContext.Employees.Add(approver1);
+                _dbContext.SaveChanges();
+
+                var approver2 = new Employee
+                {
+                    UserName = "KONGSBERG\\mrinalp",
+                    EmployeeName = "Mrinal Pandya",
+                    Gender = "M",
+                    Designation = "Manager",
+                    SkillSet = "HTML 5, AngularJS, JavaScript",
+                    EmployeeId = 3456,
+                    Email = "mrinal.pandya@kdi.kongsberg.com",
+                    DOB = "05/05/1986",
+                    Mobile = "2345678901",
+                    AlternateNumber = "1234567890",
+                    AddressLine1 = "Flat No 203, Suncity Apartment",
+                    AddressLine2 = "Off Sarjapur Road",
+                    AddressLine3 = "Near Wipro Office",
+                    ZipCode = "560102",
+                    Country = "India",
+                    State = "Karnataka",
+                    FatherName = "Rakesh Kumar",
+                    MotherName = "Uma Devi",
+                    FatherDOB = "18/11/1957",
+                    MotherDOB = "06/05/1961",
+                    EmergencyContactName = "Kumar Gautham",
+                    EmergencyContactNumber = "3456789012",
+                    EmergencyContactRelation = "Brother",
+                    EmergencyContactDOB = "15/10/1985",
+                    ReportingManager = "Mrinal"
+                };
+                _dbContext.Employees.Add(approver2);
+                _dbContext.SaveChanges();
+
+                var approver3 = new Employee
+                {
+                    UserName = "KONGSBERG\\deepaks",
+                    EmployeeName = "Deepak Kumar Swain",
+                    Gender = "M",
+                    Designation = "Manager",
+                    SkillSet = "HTML 5, AngularJS, JavaScript",
+                    EmployeeId = 2345,
+                    Email = "deepak.kumar.swain@kdi.kongsberg.com",
+                    DOB = "05/05/1986",
+                    Mobile = "2345678901",
+                    AlternateNumber = "1234567890",
+                    AddressLine1 = "Flat No 203, Suncity Apartment",
+                    AddressLine2 = "Off Sarjapur Road",
+                    AddressLine3 = "Near Wipro Office",
+                    ZipCode = "560102",
+                    Country = "India",
+                    State = "Karnataka",
+                    FatherName = "Rakesh Kumar",
+                    MotherName = "Uma Devi",
+                    FatherDOB = "18/11/1957",
+                    MotherDOB = "06/05/1961",
+                    EmergencyContactName = "Kumar Gautham",
+                    EmergencyContactNumber = "3456789012",
+                    EmergencyContactRelation = "Brother",
+                    EmergencyContactDOB = "15/10/1985",
+                    ReportingManager = "Mrinal"
+                };
+                _dbContext.Employees.Add(approver3);
+                _dbContext.SaveChanges();
+
                 //Add New Set
                 var expense = new Expense
                 {
@@ -192,7 +285,10 @@ namespace ReimbursementApp.SampleData
                 _dbContext.Employees.AddRange(expense2.Employees);
                 _dbContext.Approvers.AddRange(expense2.Approvers);
                 _dbContext.SaveChanges();
-            }
+
+             }
+          
+
             //Seed Expense CategorySet
             if (!_dbContext.ExpenseCategorySets.Any())
             {
