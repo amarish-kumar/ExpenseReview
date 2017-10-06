@@ -81,11 +81,11 @@
 
         <!-- Upload input-->
         <!--     <div class="form-group">
-                 <label class="col-md-4 control-label" for="docupload" >Upload Documents</label>
-                 <div class="col-md-4">
-                     <input type="file" #fileInput />
-                 </div>
-             </div>-->
+            <label class="col-md-4 control-label" for="docupload" >Upload Documents</label>
+            <div class="col-md-4">
+                <input type="file" #fileInput />
+            </div>
+        </div>-->
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="approvername">Approver Name</label>
@@ -111,7 +111,9 @@
         <!--Doc View/Download -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="reason">Your Documents</label>
-            <img *ngFor="let doc of docs" src="/uploads/{{doc.docName}}" class="img-thumbnail" style="width: 200px; height: 200px;" />
+            <span>{{doc.docName}}</span>
+            <!-- <img *ngFor="let doc of docs" src="/uploads/{{doc.docName}}" class="img-thumbnail" style="width: 200px; height: 200px;" /> -->
+            <img *ngFor="let doc of docs" [src]="doc.docName" class="img-thumbnail" style="width: 200px; height: 200px;" />
         </div>
         <div class="form-group">
             <label class="col-md-4 control-label" for="reason">Your PDF Documents</label>
