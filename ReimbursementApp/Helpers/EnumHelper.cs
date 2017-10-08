@@ -1,7 +1,7 @@
 using System;
 using ReimbursementApp.Model;
 
-namespace ReimbursementApp.Controllers.API
+namespace ReimbursementApp.Helpers
 {
     public static class EnumHelper
     {

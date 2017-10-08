@@ -75,6 +75,7 @@ export class FetchExpenseComponent implements OnInit {
         //TODO:- Need to think on supplying associated expense id
         this.docs = [];
         this.pdfs = [];
+        if (this.expenseIdInput.nativeElement.value!==''){
         this.docService.getDocs(this.expenseIdInput.nativeElement.value)
             .subscribe(doc => {
                 for (var i = 0; i < doc[0].length; i++) {
@@ -90,7 +91,8 @@ export class FetchExpenseComponent implements OnInit {
                 }
             }, err => {
                 console.log("Error Occured while fetching docs!");
-            });
+                });
+        }
         //Search by Expense Id
         this.expenseService.getExpenseById(this.expenseIdInput.nativeElement.value)
             .subscribe(e => {
