@@ -22,6 +22,8 @@ export class NewExpenseComponent implements OnInit {
     approvers;
     expCategories;
     employees;
+    emplNames: any[] = [];
+    emplIds: any[] = [];
     constructor(private expenseService: ExpenseService,
         private approverService: ApproverService,
         private expCategoryService: ExpCategoryService,
@@ -37,6 +39,11 @@ export class NewExpenseComponent implements OnInit {
         this.approverService.getApprovers()
             .subscribe(app => {
                 this.approvers = app;
+            });
+        this.employeeService.getEmployeeList()
+            .subscribe(emp => {
+                this.employees = emp;
+                console.log("Employee Set", this.employees);
             });
         //Think on the logic of gett
 

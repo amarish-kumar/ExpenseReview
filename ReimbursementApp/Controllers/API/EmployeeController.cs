@@ -20,13 +20,25 @@ namespace ReimbursementApp.Controllers.API
             UOW = uow;
         }
 
+        [HttpGet("~/api/employee/GetEmplNames/")]
+        public IQueryable GetEmplNames()
+        {
+            var model = UOW.Employees.GetAll().OrderByDescending(emp => emp.Id)
+                .Select(emp => new EmployeeViewModel
+                {
+                    EmployeeId = emp.EmployeeId,
+                    EmployeeName = emp.EmployeeName
+                });
+
+            return model;
+        }
+
         [HttpGet("")]
         public IQueryable Get()
         {
             var model = UOW.Employees.GetAll().OrderByDescending(emp => emp.Id);
             return model;
         }
-
         [HttpGet("{id}")]
         public IQueryable<Employee> Get(int id)
         {
@@ -34,7 +46,7 @@ namespace ReimbursementApp.Controllers.API
             return model;
         }
 
-       
+
         [HttpGet("~/api/employee/GetByName/{EmployeeName}")]
         public IQueryable<Employee> GetByName(string EmployeeName)
         {
@@ -96,7 +108,7 @@ namespace ReimbursementApp.Controllers.API
                 Designation = employee.Designation,
                 //Skillset will be comma-separated, so that later it can be listed as that.
                 SkillSet = employee.SkillSet,
-                Email=employee.Email,
+                Email = employee.Email,
                 DOB = employee.DOB,
                 Mobile = employee.Mobile,
                 AlternateNumber = employee.AlternateNumber,

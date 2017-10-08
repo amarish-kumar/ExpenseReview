@@ -39,6 +39,11 @@ export class EmployeeService {
             .map(res => res.json());
     }
 
+    getEmployeeList() {
+        return this.http.get(this.originUrl + 'api/employee/GetEmplNames/', { withCredentials: true })
+            .map(res => res.json());
+    }
+
     editEmployee(employee) {
         const body = JSON.stringify(employee);
         const headers = new Headers({ 'Content-Type': 'application/json' });

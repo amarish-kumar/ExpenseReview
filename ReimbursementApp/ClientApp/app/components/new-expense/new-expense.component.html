@@ -2,25 +2,23 @@
     <fieldset>
         <!-- Form Name -->
         <legend>Submit Expense</legend>
-        
-<!--EMP -ID and EMP Name not required as windows auth will take care-->
-    <!--     <div class="form-group">
-            <label class="col-md-4 control-label" for="empid">Employee ID</label>
-            <div class="col-md-4">
-                <input id="empid" name="empid" placeholder="Employee ID" class="form-control input-md" [(ngModel)]="expense.employeeId" #employeeId="ngModel" required type="text">
-                <div class="alert alert-danger" *ngIf="employeeId.touched && !employeeId.valid">Please specify Employee ID!</div>
-            </div>
-        </div>-->
 
+        <!--EMP -ID and EMP Name not required as windows auth will take care-->
+        <!--     <div class="form-group">
+                <label class="col-md-4 control-label" for="empid">Employee ID</label>
+                <div class="col-md-4">
+                    <input id="empid" name="empid" placeholder="Employee ID" class="form-control input-md" [(ngModel)]="expense.employeeId" #employeeId="ngModel" required type="text">
+                    <div class="alert alert-danger" *ngIf="employeeId.touched && !employeeId.valid">Please specify Employee ID!</div>
+                </div>
+            </div>-->
         <!-- Text input-->
-      <!--  <div class="form-group">
-            <label class="col-md-4 control-label" for="name">Employee Name</label>
-            <div class="col-md-4">
-                <input id="name" name="name" placeholder="Employee Name" class="form-control input-md" [(ngModel)]="expense.employeeName" #employeeName="ngModel" required type="text">
-                <div class="alert alert-danger" *ngIf="employeeName.touched && !employeeName.valid">Please specify Employee Name!</div>
-            </div>
-        </div>-->
-
+        <!--  <div class="form-group">
+              <label class="col-md-4 control-label" for="name">Employee Name</label>
+              <div class="col-md-4">
+                  <input id="name" name="name" placeholder="Employee Name" class="form-control input-md" [(ngModel)]="expense.employeeName" #employeeName="ngModel" required type="text">
+                  <div class="alert alert-danger" *ngIf="employeeName.touched && !employeeName.valid">Please specify Employee Name!</div>
+              </div>
+          </div>-->
         <!-- Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="edob">Expense Date</label>
@@ -80,14 +78,27 @@
                 <div class="alert alert-danger" *ngIf="expenseDetails.touched && !expenseDetails.valid">Please specify Expense Details!</div>
             </div>
         </div>
-        <!-- Upload input-->
-      <!--  <div class="form-group">
-            <label class="col-md-4 control-label" for="uploadDoc">Upload Documents</label>
+
+        <!--TODO:- Create an API which will return employee id and name only-->
+    <!--    <div class="form-group">
+            <label class="col-md-4 control-label" for="part1">Participant 1</label>
             <div class="col-md-4">
-                <input type="file" required #fileInput />
+                <select id="part1" name="part1" [(ngModel)]="expense.employees.employeeId" class="form-control">
+                    <option *ngFor="let e of employees" value="{{e.employeeId}}">{{e.employeeName}}</option>
+                </select>
             </div>
         </div>-->
-
+        <!-- Text input-->
+        <!--source is giving error-->
+        <!--  <div class="form-group">
+              <label class="col-md-4 control-label" for="parti1">Expense Details</label>
+              <div class="col-md-4">
+                  <input ngui-auto-complete id="parti1" name="parti1" placeholder="Participant 1"
+                         class="form-control input-md"
+                         type="text"
+                         [source]="employees.bind(this)" >
+              </div>
+          </div>-->
         <!--TODO:- This should be drop down as well Text input-->
         <div class="form-group">
             <label class="col-md-4 control-label" for="selectApprover">Reporting Manager</label>

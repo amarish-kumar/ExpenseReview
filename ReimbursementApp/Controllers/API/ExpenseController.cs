@@ -212,7 +212,7 @@ namespace ReimbursementApp.Controllers.API
         [HttpPost("")]
         public async Task<int> Post([FromBody]ExpenseViewModel expenseViewModel)
         {
-
+            //TODO:- Add Participants
             var approver = UOW.Approvers.GetAll().Where(app => app.ApproverId == expenseViewModel.ApproverId);
             var approverName = approver.FirstOrDefault().Name;
             //This is to make sure that employee is submitting his/her expense only. Not on behalve
@@ -330,11 +330,10 @@ namespace ReimbursementApp.Controllers.API
                 UOW.Expenses.Update(expObj);
                 UOW.Commit();
                 //Mail needs to be triggered here
-                var employee = UOW.Employees.GetAll().Where(emp => emp.UserName.Equals(User.Identity.Name));
-                var emplName = employee.FirstOrDefault().EmployeeName;
+                var emplName = expObj.Employees.EmployeeName;
                 var approverEmp = UOW.Employees.GetAll().Where(e => e.EmployeeId == expense.ApproverId);
                 var approverMail = approverEmp.FirstOrDefault().Email;
-                await EmailHelper.SendEmailAsync("rahulsahay19@gmail.com", "Ticket:- " + expense.ExpenseId + "Modified", "Expense Modified by " + emplName + ". Check Ticket for more details.");
+                await EmailHelper.SendEmailAsync(approverMail, "Ticket:- " + expense.ExpenseId + "Modified", "Expense Modified by " + emplName + ". Check Ticket for more details.");
                 return new HttpResponseMessage(HttpStatusCode.NoContent);
             }
             if (expense.rejectedFlag == "Rejected")
@@ -349,10 +348,10 @@ namespace ReimbursementApp.Controllers.API
                 //Mail needs to be triggered here
                 //TODO:- This Logic will change, below is there to fetch manager. 
                 //TODO:- Here, employee needs to be notified means fetch employee from expense
-                var employee = UOW.Employees.GetAll().Where(emp => emp.UserName.Equals(User.Identity.Name));
-                var emplName = employee.FirstOrDefault().EmployeeName;
+                var manager = UOW.Employees.GetAll().Where(emp => emp.UserName.Equals(User.Identity.Name));
+                var managerName = manager.FirstOrDefault().EmployeeName;
                 var empMail = expenseFetched.FirstOrDefault().Employees.Email;
-                await EmailHelper.SendEmailAsync(empMail, "Ticket:-" + expense.ExpenseId + " Rejected", "Check Reasoning in Ticket. Ticket Rejected by:- " + emplName);
+                await EmailHelper.SendEmailAsync(empMail, "Ticket:-" + expense.ExpenseId + " Rejected", "Check Reasoning in Ticket. Ticket Rejected by:- " + managerName);
 
             }
             else

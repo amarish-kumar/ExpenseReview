@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ToastyModule } from "ng2-toasty";
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -53,6 +54,7 @@ import { DocsService } from './services/document.service';
         HttpModule,
         FormsModule,
         ToastyModule.forRoot(),
+        Ng2AutoCompleteModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
