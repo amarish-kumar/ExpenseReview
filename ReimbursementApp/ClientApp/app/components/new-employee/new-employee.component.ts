@@ -54,7 +54,7 @@ export class NewEmployeeComponent implements OnInit {
         formData.motherName = this.employee.motherName;
         formData.fatherDob = this.employee.fatherDob;
         formData.motherDob = this.employee.motherDob;
-        formData.signedUp = true;
+        formData.signedUp = this.employee.signedUp;
         formData.emergencyContactName = this.employee.emergencyContactName;
         formData.emergencyContactRelation = this.employee.emergencyContactRelation;
         formData.emergencyContactNumber = this.employee.emergencyContactNumber;

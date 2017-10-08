@@ -1,0 +1,240 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="input-group" id="adv-search">
+                <input type="text" class="form-control" placeholder="Search for employees by Id or Name or Designation or Manager" #empIdInput/>
+                <div class="input-group-btn">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary" (click)="searchEmployee()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-danger" (click)="clearEmployee()"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form class="form-horizontal" (ngSubmit)="approveEmployee(f)" #f="ngForm" role="form">
+    <fieldset *ngFor="let e of employees">
+        <!-- Form Name -->
+        <legend>Employee Approval</legend>
+        
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="userName">User Name</label>
+        <div class="col-md-4">
+            <input id="userName" name="userName" placeholder="User Name" class="form-control input-md" readonly [(ngModel)]="e.userName" #userName="ngModel" required type="text">
+            <div class="alert alert-danger" *ngIf="userName.touched && !userName.valid">Please specify Employee ID</div>
+        </div>
+    </div>
+    <div class="form-group">
+            <label class="col-md-4 control-label" for="employeeId">Employee ID</label>
+            <div class="col-md-4">
+                <input id="employeeId" name="employeeId" placeholder="Employee ID" class="form-control input-md" readonly [(ngModel)]="e.employeeId" #employeeId="ngModel" required type="text">
+                <div class="alert alert-danger" *ngIf="employeeId.touched && !employeeId.valid">Please specify Employee ID</div>
+            </div>
+        </div>
+        <!-- Select Basic -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="gender">Title</label>
+            <div class="col-md-4">
+                <select id="gender" name="gender" class="form-control" [(ngModel)]="e.gender" #gender="ngModel">
+                    <option value="M">He</option>
+                    <option value="F">She</option>
+                    <option value="D">Don't want to disclose</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="gender.touched && !gender.valid">Please specify Gender</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="employeeName">Name</label>
+            <div class="col-md-4">
+                <input id="employeeName" name="employeeName" placeholder="Employee Name" class="form-control input-md" required type="text" [(ngModel)]="e.employeeName" #employeeName="ngModel">
+                <div class="alert alert-danger" *ngIf="employeeName.touched && !employeeName.valid">Please specify Employee Name</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="designation">Designation</label>
+            <div class="col-md-4">
+                <input id="designation" name="designation" placeholder="Designation" class="form-control input-md" required type="text" [(ngModel)]="e.designation" #designation="ngModel">
+                <div class="alert alert-danger" *ngIf="designation.touched && !designation.valid">Please specify Designation</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="dob">Date Of Birth</label>
+            <div class="col-md-4">
+                <input id="dob" name="dob" placeholder="Date Of Birth" class="form-control input-md" required type="text" [(ngModel)]="e.dob" #dob="ngModel">
+                <span class="help-block">format :DD/MM/YYYY</span>
+                <div class="alert alert-danger" *ngIf="dob.touched && !dob.valid">Please specify Date Of Birth</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="skillSet">Skill Set</label>
+            <div class="col-md-4">
+                <input id="skillSet" name="skillSet" placeholder="Skill Set" class="form-control input-md" required type="text" [(ngModel)]="e.skillSet" #skillSet="ngModel">
+                <div class="alert alert-danger" *ngIf="skillSet.touched && !skillSet.valid">Please specify Skill Set</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="email">Email</label>
+            <div class="col-md-4">
+                <input id="email" name="email" placeholder="Email" class="form-control input-md" required type="text" [(ngModel)]="e.email" #email="ngModel">
+                <div class="alert alert-danger" *ngIf="email.touched && !email.valid">Please specify Email Id</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="mobile">Mobile</label>
+            <div class="col-md-4">
+                <input id="mobile" name="mobile" placeholder="Mobile" class="form-control input-md" required type="text" [(ngModel)]="e.mobile" #mobile="ngModel">
+                <div class="alert alert-danger" *ngIf="mobile.touched && !mobile.valid">Please specify Mobile Number</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="alternateNumber">Alternate Number</label>
+            <div class="col-md-4">
+                <input id="alternateNumber" name="alternateNumber" placeholder="Alternate Number" class="form-control input-md" [(ngModel)]="e.alternateNumber" #alternateNumber="ngModel" required type="text">
+                <div class="alert alert-danger" *ngIf="alternateNumber.touched && !alternateNumber.valid">Please specify Alternate Number</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="addressLine1">Address Line1</label>
+            <div class="col-md-4">
+                <input id="addressLine1" name="addressLine1" placeholder="Address Line1" class="form-control input-md" required type="text" [(ngModel)]="e.addressLine1" #addressLine1="ngModel">
+                <div class="alert alert-danger" *ngIf="addressLine1.touched && !addressLine1.valid">Please specify Address 1</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="addressLine2">Address Line2</label>
+            <div class="col-md-4">
+                <input id="addressLine2" name="addressLine2" placeholder="Address Line2" class="form-control input-md" [(ngModel)]="e.addressLine2" #addressLine2="ngModel" required type="text">
+                <div class="alert alert-danger" *ngIf="addressLine2.touched && !addressLine2.valid">Please specify Address 2</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="addressLine3">Address Line3</label>
+            <div class="col-md-4">
+                <input id="addressLine3" name="addressLine3" placeholder="Address Line3" class="form-control input-md" [(ngModel)]="e.addressLine3" type="text">
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="zipCode">ZipCode</label>
+            <div class="col-md-2">
+                <input id="zipCode" name="zipCode" placeholder="ZipCode" class="form-control input-md" [(ngModel)]="e.zipCode" #zipCode="ngModel" required type="text">
+                <div class="alert alert-danger" *ngIf="zipCode.touched && !zipCode.valid">Please specify ZipCode</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="country">Country</label>
+            <div class="col-md-2">
+                <input id="country" name="country" placeholder="Country" class="form-control input-md" [(ngModel)]="e.country" #country="ngModel" required type="text">
+                <div class="alert alert-danger" *ngIf="country.touched && !country.valid">Please specify Country</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="state">State</label>
+            <div class="col-md-4">
+                <input id="state" name="state" placeholder="State" class="form-control input-md" [(ngModel)]="e.state" #state="ngModel" required type="text">
+                <div class="alert alert-danger" *ngIf="state.touched && !state.valid">Please specify State</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="fatherName">Father Name</label>
+            <div class="col-md-4">
+                <input id="fatherName" name="fatherName" placeholder="Father Name" class="form-control input-md" [(ngModel)]="e.fatherName" #fatherName="ngModel" required type="text">
+                <div class="alert alert-danger" *ngIf="fatherName.touched && !fatherName.valid">Please specify Father Name</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="motherName">Mother Name</label>
+            <div class="col-md-4">
+                <input id="motherName" name="motherName" placeholder="Mother Name" class="form-control input-md" [(ngModel)]="e.motherName" #motherName="ngModel" required type="text">
+                <div class="alert alert-danger" *ngIf="motherName.touched && !motherName.valid">Please specify Mother Name</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="fatherDOB">Father Date Of Birth</label>
+            <div class="col-md-4">
+                <input id="fatherDOB" name="fatherDOB" placeholder="Father Date Of Birth" class="form-control input-md" [(ngModel)]="e.fatherDOB" #fatherDob="ngModel" required type="text">
+                <span class="help-block">format :DD/MM/YYYY</span>
+                <div class="alert alert-danger" *ngIf="fatherDob.touched && !fatherDob.valid">Please specify Father Date Of Birth</div>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="motherDOB">Mother Date Of Birth</label>
+            <div class="col-md-4">
+                <input id="motherDOB" name="motherDOB" placeholder="Mother Date Of Birth" class="form-control input-md" [(ngModel)]="e.motherDOB" #motherDob="ngModel" required type="text">
+                <span class="help-block">format :DD/MM/YYYY</span>
+                <div class="alert alert-danger" *ngIf="motherDob.touched && !motherDob.valid">Please specify Mother Date Of Birth</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="emergencyContactName">Emergency Contact Name</label>
+            <div class="col-md-4">
+                <input id="emergencyContactName" name="emergencyContactName" placeholder="Emergency Contact Name" class="form-control input-md" [(ngModel)]="e.emergencyContactName" #emergencyContactName="ngModel" required type="text">
+                <div class="alert alert-danger" *ngIf="emergencyContactName.touched && !emergencyContactName.valid">Please specify Emergency Contact Name</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="emergencyContactRelation">Emergency Contact Relation</label>
+            <div class="col-md-4">
+                <input id="emergencyContactRelation" name="emergencyContactRelation" placeholder="Emergency Contact Relation" class="form-control input-md" [(ngModel)]="e.emergencyContactRelation" #emergencyContactRelation="ngModel" type="text">
+                <div class="alert alert-danger" *ngIf="emergencyContactRelation.touched && !emergencyContactRelation.valid">Please specify Emergency Relation</div>
+            </div>
+        </div>
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="emergencyContactNumber">Emergency Contact Number</label>
+            <div class="col-md-4">
+                <input id="emergencyContactNumber" name="emergencyContactNumber" placeholder="Emergency Contact Number" class="form-control input-md" [(ngModel)]="e.emergencyContactNumber" #emergencyContactNumber="ngModel" required type="text">
+                <div class="alert alert-danger" *ngIf="emergencyContactNumber.touched && !emergencyContactNumber.valid">Please specify Emergency Contact Number</div>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="emergencyContactDOB">Emergency Contact Date Of Birth</label>
+            <div class="col-md-4">
+                <input id="emergencyContactDOB" name="emergencyContactDOB" placeholder="Emergency Contact Date Of Birth" class="form-control input-md" [(ngModel)]="e.emergencyContactDOB" #emergencyContactDOB="ngModel" required type="text">
+                <span class="help-block">format :DD/MM/YYYY</span>
+                <div class="alert alert-danger" *ngIf="emergencyContactDOB.touched && !emergencyContactDOB.valid">Please specify Emergency Date Of Birth</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="reportingManager">Reporting Manager</label>
+            <div class="col-md-4">
+                <select id="reportingManager" name="reportingManager" class="form-control" [(ngModel)]="e.reportingManager" #reportingManager="ngModel">
+                    <option *ngFor="let a of approvers" value="{{a.name}}">{{a.name}}</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="reportingManager.touched && !reportingManager.valid">Please specify Reporting Manager</div>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="send">Approve</label>
+            <div class="col-md-4">
+                <button id="send" name="send" type="submit" [disabled]="!f.valid" class="btn btn-primary">Approve</button>
+            </div>
+        </div>
+
+    </fieldset>
+</form>

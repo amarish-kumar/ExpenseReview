@@ -48,6 +48,7 @@ namespace ReimbursementApp.DbContext
             /*PropertyAccessMode(modelBuilder.Entity<Employee>())*/
             /*modelBuilder.Entity<Employee>().HasOne(e=>e.EmployeeId)
                 .WithOne(i =>i ).HasForeignKey(p=>p.)*/
+                //Particpiant table will also have a composite key.
             modelBuilder.Entity<Approver>().HasKey(a => new {a.ApproverId,a.Id});
             modelBuilder.Entity<ExpenseCategory>().HasKey(e => new {e.CategoryId, e.Id});
             modelBuilder.Entity<ExpenseCategorySet>().HasKey(e => new { e.CategoryId, e.Id });

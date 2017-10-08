@@ -118,8 +118,8 @@ namespace ReimbursementApp.Controllers.API
                 EmergencyContactRelation = employee.EmergencyContactRelation,
                 EmergencyContactDOB = employee.EmergencyContactDOB,
                 //Upon, sign up, this flag will automatically set to true.
-                //Means, from next time user can't see this flow again
-                SignedUp = true
+                //TODO:- This will remain in False state till approved by reporting manager
+                SignedUp = false
             };
 
             UOW.Employees.Add(empObj);

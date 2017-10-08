@@ -442,6 +442,7 @@ namespace ReimbursementApp.Controllers.API
             return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 
+        //TODO: Email configuation reqd
         public async Task SendEmailAsync(string email, string subject, string message)
         {
             var emailMessage = new MimeMessage();

@@ -20,6 +20,7 @@ import { DetailViewComponent } from './components/detail-view/detail-view.compon
 import { EditExpenseComponent } from './components/edit-expense/edit-expense.component';
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
 import { UploadDocumentComponent } from './components/upload-documents/upload-document.component';
+import { EmployeeApprovalComponent } from './components/employee-approval/employee-approval.component';
 import { EmployeeService } from './services/employee.service';
 import { ExpenseService } from './services/expense.service';
 import { ApproverService } from './services/approver.service';
@@ -44,7 +45,8 @@ import { DocsService } from './services/document.service';
         DetailViewComponent,
         EditExpenseComponent,
         EditEmployeeComponent,
-        UploadDocumentComponent
+        UploadDocumentComponent,
+        EmployeeApprovalComponent
     ],
     imports: [
         CommonModule,
@@ -59,6 +61,7 @@ import { DocsService } from './services/document.service';
             { path: 'employee', component: EmployeeComponent },
             { path: 'new-employee', component: NewEmployeeComponent },
             { path: 'search-employee', component: SearchEmployeeComponent },
+            { path: 'employee-approval', component: EmployeeApprovalComponent },
             { path: 'new-expense', component: NewExpenseComponent },
             { path: 'fetch-expense', component: FetchExpenseComponent },
             { path: 'my-expenses', component: MyExpensesComponent },
