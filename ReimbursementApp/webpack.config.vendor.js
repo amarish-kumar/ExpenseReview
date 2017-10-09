@@ -15,7 +15,6 @@ const treeShakableModules = [
     'fontawesome',
     'ng2-toasty',
     'ng2-toasty/bundles/style-bootstrap.css',
-    'ng2-auto-complete',
     'zone.js'
 ];
 const nonTreeShakableModules = [

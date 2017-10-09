@@ -66,7 +66,7 @@ namespace ReimbursementApp.Controllers.API
                         reason = exp.Reason.Reasoning
 
                     });
-          //  await EmailHelper.SendEmailAsync("rahul.sahay@kdi.kongsberg.com", "dummy subject", "some message");
+            //  await EmailHelper.SendEmailAsync("rahul.sahay@kdi.kongsberg.com", "dummy subject", "some message");
             return model;
 
         }
@@ -222,23 +222,62 @@ namespace ReimbursementApp.Controllers.API
             var expCategory = UOW.ExpenseCategorySets.GetAll()
                 .Where(exp => exp.CategoryId == expenseViewModel.ExpCategory.CategoryId);
             var catName = expCategory.FirstOrDefault().Category;
+
+            //Check If there is any participants involve with some flag
+            //TODO:- Since, its required to have expense id, Hence if else condition won't work
+            //Rather than, it will work in continutaion, after expense id created
+            //This flow needs dicusission
+            /*        if (expenseViewModel.ParticipantFlag)
+                    {
+                        //Loop through all the participants, and then create a new expense id
+                        for (var i=0;i<expenseViewModel.Participants.Count;i++)
+                        {
+                            var ExpenseObj = new Expense
+                            {
+                                Amount = expenseViewModel.Amount,
+                                TotalAmount = expenseViewModel.TotalAmount,
+                                ExpenseDate = expenseViewModel.ExpenseDate,
+                                SubmitDate = expenseViewModel.SubmitDate,
+                                Status = new TicketStatus { State = TicketState.Submitted, Reason = "Expense submitted by -" + User.Identity.Name + " - " + DateTime.Now },
+                                Approvers = new Approver { ApproverId = expenseViewModel.ApproverId, Name = approverName },// approver.FirstOrDefault(),
+                                Employees = employee.FirstOrDefault(),
+                                ExpenseDetails = expenseViewModel.ExpenseDetails,
+                                ExpCategory = new ExpenseCategory { CategoryId = expenseViewModel.ExpCategory.CategoryId, Category = catName },
+                                Reason = new Reason { EmployeeId = empId, Reasoning = "Expense submitted by -" + User.Identity.Name + " - " + DateTime.Now },
+                                Participants = new[] {new Participant
+                                {
+                                    ApproverId = expenseViewModel.Participants.FirstOrDefault().ApproverId,
+                                    EmployeeId = expenseViewModel.Participants.FirstOrDefault().EmployeeId,
+                                    //TODO, How to get expense ID, 
+                                    ExpenseId = expenseViewModel.Participants.FirstOrDefault().ExpenseId
+                                }}
+
+                            };
+
+                            UOW.Commit();
+                        }
+
+                    }
+                    else
+                    {*/
             var ExpenseObj = new Expense
-            {
-                Amount = expenseViewModel.Amount,
-                TotalAmount = expenseViewModel.TotalAmount,
-                ExpenseDate = expenseViewModel.ExpenseDate,
-                SubmitDate = expenseViewModel.SubmitDate,
-                Status = new TicketStatus { State = TicketState.Submitted, Reason = "Expense submitted by -" + User.Identity.Name + " - " + DateTime.Now },
-                Approvers = new Approver { ApproverId = expenseViewModel.ApproverId, Name = approverName },// approver.FirstOrDefault(),
-                Employees = employee.FirstOrDefault(),
-                ExpenseDetails = expenseViewModel.ExpenseDetails,
-                ExpCategory = new ExpenseCategory { CategoryId = expenseViewModel.ExpCategory.CategoryId, Category = catName },
-                Reason = new Reason { EmployeeId = empId, Reasoning = "Expense submitted by -" + User.Identity.Name + " - " + DateTime.Now }
+                {
+                    Amount = expenseViewModel.Amount,
+                    TotalAmount = expenseViewModel.TotalAmount,
+                    ExpenseDate = expenseViewModel.ExpenseDate,
+                    SubmitDate = expenseViewModel.SubmitDate,
+                    Status = new TicketStatus { State = TicketState.Submitted, Reason = "Expense submitted by -" + User.Identity.Name + " - " + DateTime.Now },
+                    Approvers = new Approver { ApproverId = expenseViewModel.ApproverId, Name = approverName },// approver.FirstOrDefault(),
+                    Employees = employee.FirstOrDefault(),
+                    ExpenseDetails = expenseViewModel.ExpenseDetails,
+                    ExpCategory = new ExpenseCategory { CategoryId = expenseViewModel.ExpCategory.CategoryId, Category = catName },
+                    Reason = new Reason { EmployeeId = empId, Reasoning = "Expense submitted by -" + User.Identity.Name + " - " + DateTime.Now }
 
-            };
+                };
 
-            UOW.Expenses.Add(ExpenseObj);
-            UOW.Commit();
+                UOW.Expenses.Add(ExpenseObj);
+                UOW.Commit();
+          //  }
             //TODO:- Fetch approvers mail id and based on flow send the mail
             var approverEmp = UOW.Employees.GetAll().Where(e => e.EmployeeId == expenseViewModel.ApproverId);
             var approverMail = approverEmp.FirstOrDefault().Email;

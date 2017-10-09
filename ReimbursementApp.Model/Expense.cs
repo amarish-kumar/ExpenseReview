@@ -35,12 +35,13 @@ namespace ReimbursementApp.Model
 
         public virtual ExpenseCategory ExpCategory  { get; set; }
         public virtual ICollection<Documents> Docs { get; set; }
-
         public virtual Reason Reason { get; set; }
 
+        public virtual ICollection<Participant> Participants { get; set; }
         public Expense()
         {
             Docs = new Collection<Documents>();
+            Participants = new Collection<Participant>();
           //  Employees= new Employee();
            // Approvers= new Approver();
           //  Status = new TicketStatus();
