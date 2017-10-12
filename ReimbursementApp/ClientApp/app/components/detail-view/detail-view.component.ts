@@ -16,7 +16,7 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 })
 
 export class DetailViewComponent implements OnInit {
-    expenses;
+    expenses:Expense = new Expense();
     docs: any[] = [];
     pdfs: any[] = [];
     expense: Expense = new Expense();
@@ -30,6 +30,7 @@ export class DetailViewComponent implements OnInit {
         route.params.subscribe(p => {
             this.expense.expenseId = +p['id'];
         });
+
     }
 
     ngOnInit() {
@@ -54,26 +55,26 @@ export class DetailViewComponent implements OnInit {
             });
         this.expenseService.getExpenseById(this.expense.expenseId)
             .subscribe(e => {
-                    //Since, I am sending the component back as querable data from server.
-                    //But, in case of ID, it will be only one.
-                    this.expenses = e[0];
-                    this.toastyService.success({
-                        title: 'Success',
-                        msg: 'Expense retieved successfully!',
-                        theme: 'bootstrap',
-                        showClose: true,
-                        timeout: 5000
-                    });
-                },
-                err => {
-                    this.toastyService.error({
-                        title: 'Error',
-                        msg: 'Error Occured while Fetching Expenses!',
-                        theme: 'bootstrap',
-                        showClose: true,
-                        timeout: 5000
-                    });
+                //Since, I am sending the component back as querable data from server.
+                //But, in case of ID, it will be only one.
+                this.expenses = e[0];
+                this.toastyService.success({
+                    title: 'Success',
+                    msg: 'Expense retieved successfully!',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
                 });
+            },
+            err => {
+                this.toastyService.error({
+                    title: 'Error',
+                    msg: 'Error Occured while Fetching Expenses!',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
+                });
+            });
     }
 
 
