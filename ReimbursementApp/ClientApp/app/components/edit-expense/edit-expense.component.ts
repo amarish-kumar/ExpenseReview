@@ -15,7 +15,7 @@ import { NgForm } from '@angular/forms';
 })
 
 export class EditExpenseComponent implements OnInit {
-    expenses;
+    expenses:Expense = new Expense();
     showHide:boolean;
     expCategories;
     expense: Expense = new Expense();
