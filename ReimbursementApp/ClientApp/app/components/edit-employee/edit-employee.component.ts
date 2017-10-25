@@ -39,6 +39,7 @@ export class EditEmployeeComponent implements OnInit {
         this.employeeService.getEmployeeByUserName()
             .subscribe(e => {
                 this.employee = e[0];
+                    console.log('Fetched Deatils:- ', this.employee);
                 this.toastyService.success({
                     title: 'Success',
                     msg: 'Employee Info Retrieved Successfully!',
@@ -78,8 +79,8 @@ export class EditEmployeeComponent implements OnInit {
         formData.state = this.employee.state;
         formData.fatherName = this.employee.fatherName;
         formData.motherName = this.employee.motherName;
-        formData.fatherDob = this.employee.fatherDob;
-        formData.motherDob = this.employee.motherDob;
+        formData.fatherDOB = this.employee.fatherDOB;
+        formData.motherDOB = this.employee.motherDOB;
         formData.signedUp = true;
         formData.emergencyContactName = this.employee.emergencyContactName;
         formData.emergencyContactRelation = this.employee.emergencyContactRelation;

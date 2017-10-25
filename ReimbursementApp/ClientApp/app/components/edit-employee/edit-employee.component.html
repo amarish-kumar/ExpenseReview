@@ -146,7 +146,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="fdob">Father Date Of Birth</label>
             <div class="col-md-4">
-                <input id="fdob" name="fdob" placeholder="Father Date Of Birth" class="form-control input-md" [(ngModel)]="employee.fatherDob" #fatherDob="ngModel" required type="text">
+                <input id="fdob" name="fdob" placeholder="Father Date Of Birth" class="form-control input-md" [(ngModel)]="employee.fatherDOB" #fatherDob="ngModel" required type="text">
                 <span class="help-block">format :DD/MM/YYYY</span>
                 <div class="alert alert-danger" *ngIf="fatherDob.touched && !fatherDob.valid">Please specify Father Date Of Birth</div>
             </div>
@@ -156,7 +156,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="fdob">Mother Date Of Birth</label>
             <div class="col-md-4">
-                <input id="mdob" name="mdob" placeholder="Mother Date Of Birth" class="form-control input-md" [(ngModel)]="employee.motherDob" #motherDob="ngModel" required type="text">
+                <input id="mdob" name="mdob" placeholder="Mother Date Of Birth" class="form-control input-md" [(ngModel)]="employee.motherDOB" #motherDob="ngModel" required type="text">
                 <span class="help-block">format :DD/MM/YYYY</span>
                 <div class="alert alert-danger" *ngIf="motherDob.touched && !motherDob.valid">Please specify Mother Date Of Birth</div>
             </div>

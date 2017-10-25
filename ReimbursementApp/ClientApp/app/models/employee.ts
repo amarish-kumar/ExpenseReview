@@ -17,8 +17,8 @@
     public state: string = null;
     public fatherName: string = null;
     public motherName: string = null;
-    public fatherDob: string = null;
-    public motherDob: string = null;
+    public fatherDOB: string = null;
+    public motherDOB: string = null;
     public signedUp: boolean = null;
     public emergencyContactName: string = null;
     public emergencyContactRelation: string = null;
