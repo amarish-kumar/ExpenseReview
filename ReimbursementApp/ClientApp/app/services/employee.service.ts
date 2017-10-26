@@ -14,6 +14,12 @@ export class EmployeeService {
         .map(res => res.json());
     }
 
+    getPendingEmployees() {
+        return this.http.get(this.originUrl + 'api/employee/GetPendingApprovals', { withCredentials: true })
+            //Once, we get the response back, it has to get mapped to json
+            .map(res => res.json());
+    }
+
     getEmployee(id) {
         return this.http.get(this.originUrl + 'api/employee/' + id, { withCredentials: true })
             .map(res => res.json());

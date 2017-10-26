@@ -22,6 +22,7 @@ import { EditEmployeeComponent } from './components/edit-employee/edit-employee.
 import { UploadDocumentComponent } from './components/upload-documents/upload-document.component';
 import { EmployeeApprovalComponent } from './components/employee-approval/employee-approval.component';
 import { AssignRoleComponent } from './components/assign-role/assign-role.component';
+import { PendingApprovalComponent } from './components/pending-approvals/pending-approvals.component';
 import { EmployeeService } from './services/employee.service';
 import { ExpenseService } from './services/expense.service';
 import { ApproverService } from './services/approver.service';
@@ -49,7 +50,8 @@ import { AssignRoleService } from './services/assignRole.service';
         EditEmployeeComponent,
         UploadDocumentComponent,
         EmployeeApprovalComponent,
-        AssignRoleComponent
+        AssignRoleComponent,
+        PendingApprovalComponent
     ],
     imports: [
         CommonModule,
@@ -63,6 +65,7 @@ import { AssignRoleService } from './services/assignRole.service';
             { path: 'fetch-data', component: FetchDataComponent },
             { path: 'employee', component: EmployeeComponent },
             { path: 'new-employee', component: NewEmployeeComponent },
+            { path: 'pending-approval', component: PendingApprovalComponent },
             { path: 'assign-role', component: AssignRoleComponent },
             { path: 'search-employee', component: SearchEmployeeComponent },
             { path: 'employee-approval', component: EmployeeApprovalComponent },

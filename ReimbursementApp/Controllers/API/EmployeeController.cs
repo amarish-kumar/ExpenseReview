@@ -91,6 +91,13 @@ namespace ReimbursementApp.Controllers.API
             IQueryable<Employee> model = UOW.Employees.GetAll().Where(e => e.ReportingManager.StartsWith(Manager));
             return model;
         }
+
+        [HttpGet("~/api/employee/GetPendingApprovals/")]
+        public IQueryable<Employee> GetPendingApprovals()
+        {
+            IQueryable<Employee> model = UOW.Employees.GetAll().Where(e => e.SignedUp==false);
+            return model;
+        }
         // Post a new Employee
         // POST /api/employee
         //TODO: Need to think on populating Employee and Approver Id
