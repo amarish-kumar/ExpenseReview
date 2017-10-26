@@ -6,9 +6,6 @@ namespace ReimbursementApp.DbContext
 {
     public class ExpenseReviewDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
-        private bool _b;
-        private bool _c;
-
         public ExpenseReviewDbContext()
         {
             Database.EnsureCreated();
@@ -25,6 +22,7 @@ namespace ReimbursementApp.DbContext
         public virtual DbSet<ApproverList> ApproverLists { get; set; }
         public virtual DbSet<Documents> Documentses { get; set; }
         public virtual DbSet<Participant> Participants { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

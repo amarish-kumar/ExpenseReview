@@ -8,6 +8,7 @@ import { ApproverService } from './services/approver.service';
 import { ExpCategoryService } from './services/expCategory.service';
 import { MenuAccessService } from './services/menuAccess.service';
 import { DocsService } from './services/document.service';
+import { AssignRoleService } from './services/assignRole.service';
 
 
 //TODO:- URL Refresh issue needs to be fixed. Base URL needs to explored more
@@ -22,7 +23,8 @@ import { DocsService } from './services/document.service';
         ApproverService,
         ExpCategoryService,
         MenuAccessService,
-        DocsService
+        DocsService,
+        AssignRoleService
        ]
 })
 export class AppModule {

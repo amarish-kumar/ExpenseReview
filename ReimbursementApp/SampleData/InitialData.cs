@@ -327,6 +327,43 @@ namespace ReimbursementApp.SampleData
                 _dbContext.SaveChanges();
             }
 
+            if (!_dbContext.Roles.Any())
+            {
+                var role1 = new Role
+                {
+                    RoleName = "SuperAdmin"
+                };
+                _dbContext.Roles.Add(role1);
+                _dbContext.SaveChanges();
+
+                var role2 = new Role
+                {
+                    RoleName = "Admin"
+                };
+                _dbContext.Roles.Add(role2);
+                _dbContext.SaveChanges();
+
+                var role3 = new Role
+                {
+                    RoleName = "Manager"
+                };
+                _dbContext.Roles.Add(role3);
+                _dbContext.SaveChanges();
+
+                var role4 = new Role
+                {
+                    RoleName = "Finance"
+                };
+                _dbContext.Roles.Add(role4);
+                _dbContext.SaveChanges();
+
+                var role5 = new Role
+                {
+                    RoleName = "User"
+                };
+                _dbContext.Roles.Add(role5);
+                _dbContext.SaveChanges();
+            }
             //Seed Approver Lists
             if (!_dbContext.ApproverLists.Any())
             {

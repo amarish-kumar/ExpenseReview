@@ -30,12 +30,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\components\assign-role\assign-role.component.ts" />
     <None Remove="ClientApp\app\components\new-employee\new-employee.component.ts" />
     <None Remove="ClientApp\app\components\search-employee\search-employee.component.ts" />
     <None Remove="ClientApp\app\components\upload-documents\upload-document.component.ts" />
     <None Remove="ClientApp\app\models\employee.ts" />
     <None Remove="ClientApp\app\models\expCategory.ts" />
     <None Remove="ClientApp\app\models\expense.ts" />
+    <None Remove="ClientApp\app\models\role.ts" />
     <None Remove="ClientApp\app\services\approver.service.ts" />
     <None Remove="ClientApp\app\services\document.service.ts" />
     <None Remove="ClientApp\app\services\expCategory.service.ts" />
@@ -54,6 +56,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\assign-role\assign-role.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\new-expense\new-expense.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\new-employee\new-employee.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\search-employee\search-employee.component.ts" />
@@ -61,7 +64,9 @@
     <TypeScriptCompile Include="ClientApp\app\models\employee.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\expCategory.ts" />
     <TypeScriptCompile Include="ClientApp\app\models\expense.ts" />
+    <TypeScriptCompile Include="ClientApp\app\models\role.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\approver.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\services\assignRole.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\document.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\expCategory.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\expense.service.ts" />

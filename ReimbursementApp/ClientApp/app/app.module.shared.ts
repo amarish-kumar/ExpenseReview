@@ -21,12 +21,14 @@ import { EditExpenseComponent } from './components/edit-expense/edit-expense.com
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
 import { UploadDocumentComponent } from './components/upload-documents/upload-document.component';
 import { EmployeeApprovalComponent } from './components/employee-approval/employee-approval.component';
+import { AssignRoleComponent } from './components/assign-role/assign-role.component';
 import { EmployeeService } from './services/employee.service';
 import { ExpenseService } from './services/expense.service';
 import { ApproverService } from './services/approver.service';
 import { ExpCategoryService } from './services/expCategory.service';
 import { MenuAccessService } from './services/menuAccess.service';
 import { DocsService } from './services/document.service';
+import { AssignRoleService } from './services/assignRole.service';
 
 
 @NgModule({
@@ -46,7 +48,8 @@ import { DocsService } from './services/document.service';
         EditExpenseComponent,
         EditEmployeeComponent,
         UploadDocumentComponent,
-        EmployeeApprovalComponent
+        EmployeeApprovalComponent,
+        AssignRoleComponent
     ],
     imports: [
         CommonModule,
@@ -60,6 +63,7 @@ import { DocsService } from './services/document.service';
             { path: 'fetch-data', component: FetchDataComponent },
             { path: 'employee', component: EmployeeComponent },
             { path: 'new-employee', component: NewEmployeeComponent },
+            { path: 'assign-role', component: AssignRoleComponent },
             { path: 'search-employee', component: SearchEmployeeComponent },
             { path: 'employee-approval', component: EmployeeApprovalComponent },
             { path: 'new-expense', component: NewExpenseComponent },
@@ -77,7 +81,8 @@ import { DocsService } from './services/document.service';
         ApproverService,
         ExpCategoryService,
         MenuAccessService,
-        DocsService
+        DocsService,
+        AssignRoleService
     ]
 })
 export class AppModuleShared {

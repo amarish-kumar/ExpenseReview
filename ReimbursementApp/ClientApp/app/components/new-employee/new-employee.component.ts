@@ -59,7 +59,9 @@ export class NewEmployeeComponent implements OnInit {
         formData.emergencyContactRelation = this.employee.emergencyContactRelation;
         formData.emergencyContactNumber = this.employee.emergencyContactNumber;
         formData.emergencyContactDOB = this.employee.emergencyContactDOB;
-        formData.reportingManager = this.employee.reportingManager;
+        formData.reportingManager = '';//this.employee.reportingManager;
+        formData.signedUp = false;
+        console.log("Employee:- ", formData);
 
         this.employeeService.submitEmployee(formData)
             .subscribe(e => {
