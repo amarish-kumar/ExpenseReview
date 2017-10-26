@@ -44,7 +44,8 @@ namespace ReimbursementApp.SampleData
                     EmergencyContactNumber = "3456789012",
                     EmergencyContactRelation = "Brother",
                     EmergencyContactDOB = "15/10/1985",
-                    ReportingManager = "Mrinal"
+                    ReportingManager = "",
+                    RoleName = ""
                 };
                 _dbContext.Employees.Add(approver1);
                 _dbContext.SaveChanges();
@@ -75,7 +76,8 @@ namespace ReimbursementApp.SampleData
                     EmergencyContactNumber = "3456789012",
                     EmergencyContactRelation = "Brother",
                     EmergencyContactDOB = "15/10/1985",
-                    ReportingManager = "Mrinal"
+                    ReportingManager = "",
+                    RoleName = ""
                 };
                 _dbContext.Employees.Add(approver2);
                 _dbContext.SaveChanges();
@@ -106,7 +108,8 @@ namespace ReimbursementApp.SampleData
                     EmergencyContactNumber = "3456789012",
                     EmergencyContactRelation = "Brother",
                     EmergencyContactDOB = "15/10/1985",
-                    ReportingManager = "Mrinal"
+                    ReportingManager = "",
+                    RoleName = ""
                 };
                 _dbContext.Employees.Add(approver3);
                 _dbContext.SaveChanges();

@@ -13,5 +13,12 @@ export class AssignRoleService {
             //Once, we get the response back, it has to get mapped to json
             .map(res => res.json());
     }
+
+    assignRole(employee) {
+        const body = JSON.stringify(employee);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        return this.http.put(this.originUrl + 'api/employee/', body, { headers: headers, withCredentials: true })
+            .map(res => res.json());
+    }
     
 }

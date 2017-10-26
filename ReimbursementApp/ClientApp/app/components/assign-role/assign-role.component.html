@@ -1,35 +1,64 @@
-﻿<form class="form-horizontal" (ngSubmit)="onSubmit(f)" #f="ngForm" role="form">
-<fieldset>
-<!-- Form Name -->
-<legend>Assign Role</legend>
-
-
-    <div class="form-group">
-        <label class="col-md-4 control-label" for="selectApprover">Reporting Manager</label>
-        <div class="col-md-4">
-            <select id="selectApprover" name="selectApprover" class="form-control" [(ngModel)]="employee.reportingManager" #reportingManager="ngModel">
-                <option *ngFor="let a of approvers" value="{{a.name}}">{{a.name}}</option>
-            </select>
-            <div class="alert alert-danger" *ngIf="reportingManager.touched && !reportingManager.valid">Please specify Reporting Manager</div>
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="input-group" id="adv-search">
+                <input type="text" class="form-control" placeholder="Search for employees by Id or Name or Designation or Manager" #empIdInput />
+                <div class="input-group-btn">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary" (click)="searchEmployee()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        <button type="button" class="btn btn-danger" (click)="clearEmployee()"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-    <label class="col-md-4 control-label" for="selectRole">Role</label>
-    <div class="col-md-4">
-        <select id="selectRole" name="selectApprover" class="form-control" [(ngModel)]="role.roleName" #roleName="ngModel">
-            <option *ngFor="let r of roles" value="{{r.roleName}}">{{r.roleName}}</option>
-        </select>
-        <div class="alert alert-danger" *ngIf="roleName.touched && !roleName.valid">Please specify Role!</div>
-    </div>
 </div>
+<form class="form-horizontal" (ngSubmit)="assignRole(f)" #f="ngForm" role="form">
+    <h1>Assign Role</h1>
+    <fieldset *ngFor="let e of employees">
+        <!-- Form Name -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="employeeId">Employee ID</label>
+            <div class="col-md-4">
+                <input id="employeeId" name="employeeId" placeholder="Employee ID" class="form-control input-md" readonly [(ngModel)]="e.employeeId" #employeeId="ngModel" required type="text">
+                <div class="alert alert-danger" *ngIf="employeeId.touched && !employeeId.valid">Please specify Employee ID</div>
+            </div>
+        </div>
 
-<!-- Button -->
-<div class="form-group">
-    <label class="col-md-4 control-label" for="send">Edit</label>
-    <div class="col-md-4">
-        <button id="send" name="send" type="submit" [disabled]="!f.valid" class="btn btn-primary">Edit</button>
-    </div>
-</div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="employeeName">Name</label>
+            <div class="col-md-4">
+                <input id="employeeName" name="employeeName" placeholder="Employee Name" class="form-control input-md" required type="text" [(ngModel)]="e.employeeName" #employeeName="ngModel">
+                <div class="alert alert-danger" *ngIf="employeeName.touched && !employeeName.valid">Please specify Employee Name</div>
+            </div>
+        </div>
+    </fieldset>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="selectApprover">Reporting Manager</label>
+            <div class="col-md-4">
+                <select id="selectApprover" name="selectApprover" class="form-control" [(ngModel)]="employee.reportingManager" #reportingManager="ngModel">
+                    <option *ngFor="let a of approvers" value="{{a.name}}">{{a.name}}</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="reportingManager.touched && !reportingManager.valid">Please specify Reporting Manager</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="selectRole">Role</label>
+            <div class="col-md-4">
+                <select id="selectRole" name="selectApprover" class="form-control" [(ngModel)]="role.roleName" #roleName="ngModel">
+                    <option *ngFor="let r of roles" value="{{r.roleName}}">{{r.roleName}}</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="roleName.touched && !roleName.valid">Please specify Role!</div>
+            </div>
+        </div>
 
-</fieldset>
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="send">Assign</label>
+            <div class="col-md-4">
+                <button id="send" name="send" type="submit" [disabled]="!f.valid" class="btn btn-primary">Assign</button>
+            </div>
+        </div>
+
+    
 </form>

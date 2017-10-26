@@ -87,6 +87,7 @@ export class EditEmployeeComponent implements OnInit {
         formData.emergencyContactNumber = this.employee.emergencyContactNumber;
         formData.emergencyContactDOB = this.employee.emergencyContactDOB;
         formData.reportingManager = this.employee.reportingManager;
+        formData.roleName = this.employee.roleName;
 
         this.employeeService.editEmployee(formData)
             .subscribe(e => {

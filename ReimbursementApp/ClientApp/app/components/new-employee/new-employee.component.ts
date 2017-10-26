@@ -61,6 +61,7 @@ export class NewEmployeeComponent implements OnInit {
         formData.emergencyContactDOB = this.employee.emergencyContactDOB;
         formData.reportingManager = '';//this.employee.reportingManager;
         formData.signedUp = false;
+        formData.roleName = '';
         console.log("Employee:- ", formData);
 
         this.employeeService.submitEmployee(formData)

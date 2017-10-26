@@ -131,7 +131,9 @@ namespace ReimbursementApp.Controllers.API
                 EmergencyContactDOB = employee.EmergencyContactDOB,
                 //Upon, sign up, this flag will automatically set to true.
                 //TODO:- This will remain in False state till approved by reporting manager
-                SignedUp = false
+                SignedUp = false,
+                RoleName = string.Empty
+
             };
 
             UOW.Employees.Add(empObj);
@@ -145,9 +147,9 @@ namespace ReimbursementApp.Controllers.API
         [HttpPut("")]
         public HttpResponseMessage Put([FromBody]Employee employeeViewModel)
         {
-            UOW.Employees.Update(employeeViewModel);
-            UOW.Commit();
-            return new HttpResponseMessage(HttpStatusCode.NoContent);
+           UOW.Employees.Update(employeeViewModel);
+           UOW.Commit();
+           return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 
         // DELETE api/employee/5
