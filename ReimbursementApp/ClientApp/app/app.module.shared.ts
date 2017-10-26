@@ -66,7 +66,7 @@ import { AssignRoleService } from './services/assignRole.service';
             { path: 'employee', component: EmployeeComponent },
             { path: 'new-employee', component: NewEmployeeComponent },
             { path: 'pending-approval', component: PendingApprovalComponent },
-            { path: 'assign-role', component: AssignRoleComponent },
+            { path: 'assign-role/:id', component: AssignRoleComponent },
             { path: 'search-employee', component: SearchEmployeeComponent },
             { path: 'employee-approval', component: EmployeeApprovalComponent },
             { path: 'new-expense', component: NewExpenseComponent },

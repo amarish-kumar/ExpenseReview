@@ -23,16 +23,7 @@ export class AssignRoleComponent implements OnInit {
     roles;
     approvers;
     employees;
-    showHide: boolean;
-    desigSearch: boolean;
-    idflag: boolean;
-    desigFlag: boolean;
-    nameFlag: boolean;
-    managerFlag: boolean;
-
-    @ViewChild('empIdInput') empIdInput;
-    @ViewChild('reportingManager') reportingManager;
-    @ViewChild('roleName') roleName;
+   
     constructor(
         private router: Router,
         private route: ActivatedRoute,
@@ -41,20 +32,25 @@ export class AssignRoleComponent implements OnInit {
         private roleService: AssignRoleService,
         private toastyService: ToastyService) {
 
-    }
+        route.params.subscribe(p => {
+            this.employee.employeeId = +p['id'];
+        });
 
-    clearEmployee() {
-        this.showHide = false;
-        this.empIdInput.nativeElement.value = "";
     }
 
     ngOnInit() {
-        this.showHide = false;
-        this.desigSearch = false;
-        this.idflag = true;
-        this.desigFlag = true;
-        this.nameFlag = true;
-        this.managerFlag = true;
+     
+        this.employeeService.getEmployee(this.employee.employeeId)
+            .subscribe(e => {
+                this.employees = e;
+                this.toastyService.success({
+                    title: 'Success',
+                    msg: 'Employee Fetched!',
+                    theme: 'bootstrap',
+                    showClose: true,
+                    timeout: 5000
+                });
+            });
 
         this.approverService.getApprovers()
             .subscribe(app => {
@@ -99,10 +95,10 @@ export class AssignRoleComponent implements OnInit {
         formData.emergencyContactDOB = this.employees[0].emergencyContactDOB;
         formData.reportingManager = this.employee.reportingManager;
         formData.roleName = this.role.roleName;
-        console.log('Role Name:- ',
+      /*  console.log('Role Name:- ',
             formData.roleName + 'Manager Name:- ',
             formData.reportingManager);
-        console.log(formData);
+        console.log(formData);*/
         this.roleService.assignRole(formData)
             .subscribe(e => {
                     this.toastyService.success({
@@ -124,159 +120,7 @@ export class AssignRoleComponent implements OnInit {
                     });
                 });
     }
-    searchEmployee() {
-        //Search by Employee ID
-        this.employeeService.getEmployee(this.empIdInput.nativeElement.value)
-            .subscribe(e => {
-                    this.employees = e;
-                    console.log("Length:-", this.employees.length);
-                    console.log("Employee Fetched:-", this.employees);
-                    if (this.employees.length == 0) {
-                        this.idflag = false;
-                    }
-                    if (this.employees.length == 1) {
-                        this.toastyService.success({
-                            title: 'Success',
-                            msg: 'Employee Fetched!',
-                            theme: 'bootstrap',
-                            showClose: true,
-                            timeout: 5000
-                        });
-                    }
-                    if (this.employees.length > 1) {
-                        this.toastyService.success({
-                            title: 'Success',
-                            msg: 'Employees Fetched!',
-                            theme: 'bootstrap',
-                            showClose: true,
-                            timeout: 5000
-                        });
-                    }
-                    this.showHide = true;
-                    //Search by Employee Name
-                    if (this.employees.length == 0) {
-                        this.employeeService.getEmployeeByName(this.empIdInput.nativeElement.value)
-                            .subscribe(name => {
-                                this.employees = name;
-                                if (name.length == 0) {
-                                    //Search by Designation Name
-                                    this.employeeService.getEmployeeByDesig(this.empIdInput.nativeElement.value)
-                                        .subscribe(desig => {
-                                                this.employees = desig;
-                                                //Search by Manager Name
-                                                if (desig.length == 0) {
-                                                    this.employeeService
-                                                        .getEmployeeByManager(this.empIdInput.nativeElement.value)
-                                                        .subscribe(manager => {
-                                                                this.employees = manager;
-                                                                console.log("Emloyee Fetched via Manager:-", this.employees);
-                                                                if (manager.length > 0) {
-                                                                    this.toastyService.success({
-                                                                        title: 'Success',
-                                                                        msg: 'Employee Fetched via Manager!',
-                                                                        theme: 'bootstrap',
-                                                                        showClose: true,
-                                                                        timeout: 5000
-                                                                    });
-                                                                }
-                                                                if (manager.length == 0) {
-                                                                    this.managerFlag = false;
-                                                                }
-                                                            },
-                                                            err => {
-                                                                if (err.status == 404) {
-                                                                    this.toastyService.error({
-                                                                        title: 'Error',
-                                                                        msg: 'An unexpected error while fetching the record!',
-                                                                        theme: 'bootstrap',
-                                                                        showClose: true,
-                                                                        timeout: 5000
-                                                                    });
-                                                                    this.router.navigate(['/']);
-                                                                }
-                                                            });
-                                                }
-                                                if (desig.length > 0) {
-                                                    this.toastyService.success({
-                                                        title: 'Success',
-                                                        msg: 'Employee Fetched via designation!',
-                                                        theme: 'bootstrap',
-                                                        showClose: true,
-                                                        timeout: 5000
-                                                    });
-                                                    console.log("Employee Fetched via designation:-", this.employees);
-                                                }
-                                                if (desig.length == 0) {
-                                                    this.desigFlag = false;
-                                                }
-
-                                            },
-                                            err => {
-                                                if (err.status == 404) {
-                                                    this.toastyService.error({
-                                                        title: 'Error',
-                                                        msg: 'An unexpected error while fetching the record!',
-                                                        theme: 'bootstrap',
-                                                        showClose: true,
-                                                        timeout: 5000
-                                                    });
-                                                    this.router.navigate(['/']);
-                                                }
-                                            }
-                                        );
-
-                                }
-                                if (name.length > 0) {
-                                    this.toastyService.success({
-                                        title: 'Success',
-                                        msg: 'Employee Fetched via name!',
-                                        theme: 'bootstrap',
-                                        showClose: true,
-                                        timeout: 5000
-                                    });
-                                    console.log("Employee Fetched via name:-", this.employees);
-                                }
-                                if (name.length == 0) {
-                                    this.nameFlag = false;
-                                }
-
-                            }, err => {
-                                if (err.status == 404) {
-                                    this.toastyService.error({
-                                        title: 'Error',
-                                        msg: 'An unexpected error while fetching the record!',
-                                        theme: 'bootstrap',
-                                        showClose: true,
-                                        timeout: 5000
-                                    });
-                                    this.router.navigate(['/']);
-                                }
-                            });
-                    }
-                    //Checking Flag collection for not found scenario
-                    if (!this.idflag && !this.desigFlag && !this.managerFlag && !this.nameFlag) {
-                        this.toastyService.warning({
-                            title: 'Info',
-                            msg: 'Employee Not Found!',
-                            theme: 'bootstrap',
-                            showClose: true,
-                            timeout: 5000
-                        });
-                    }
-                },
-                err => {
-                    if (err.status == 404) {
-                        this.toastyService.error({
-                            title: 'Error',
-                            msg: 'An unexpected error while fetching the record!',
-                            theme: 'bootstrap',
-                            showClose: true,
-                            timeout: 5000
-                        });
-                        this.router.navigate(['/']);
-                    }
-                });
-    }
+    
 
     
 }

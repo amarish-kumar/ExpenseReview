@@ -12,7 +12,7 @@
                         <p class="desc">{{e.employeeId}}</p>
                         <p class="desc">{{e.designation}}</p>
                         <ul>
-                            <li style="width:50%;"><a href="#"><span class="fa fa-globe"></span> More Info</a></li>
+                            <li style="width:50%;"><a [routerLink]="['/assign-role/', e.employeeId]"><span class="fa fa-globe"></span> Approve</a></li>
                             <li style="width:50%;"><span class="fa fa-user"></span> {{e.reportingManager}}</li>
                         </ul>
                     </div>
