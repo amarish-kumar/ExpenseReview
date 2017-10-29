@@ -332,12 +332,12 @@ namespace ReimbursementApp.SampleData
 
             if (!_dbContext.Roles.Any())
             {
-                var role1 = new Role
+              /*  var role1 = new Role
                 {
                     RoleName = "SuperAdmin"
                 };
                 _dbContext.Roles.Add(role1);
-                _dbContext.SaveChanges();
+                _dbContext.SaveChanges();*/
 
                 var role2 = new Role
                 {
@@ -368,7 +368,7 @@ namespace ReimbursementApp.SampleData
                 _dbContext.SaveChanges();
             }
             //Seed Approver Lists
-            if (!_dbContext.ApproverLists.Any())
+            /*if (!_dbContext.ApproverLists.Any())
             {
                 //Add New Set of Expense Category
                 var approverCat = new ApproverList
@@ -403,7 +403,7 @@ namespace ReimbursementApp.SampleData
                 };
                 _dbContext.ApproverLists.Add(approverCat4);
                 _dbContext.SaveChanges();
-            }
+            }*/
         }
     }
 }

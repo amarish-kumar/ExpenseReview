@@ -42,6 +42,8 @@ namespace ReimbursementApp.DbContext
         {
             modelBuilder.Entity<Employee>().HasKey(a => new {a.EmployeeId, a.Id});
             modelBuilder.Entity<Employee>().HasIndex(e => e.EmployeeId).IsUnique();
+            modelBuilder.Entity<ApproverList>().HasKey(a => new {a.ApproverId, a.Id});
+            modelBuilder.Entity<ApproverList>().HasIndex(a => a.ApproverId).IsUnique();
             //This means Multiple document can be uploaded against single expense id
             modelBuilder.Entity<Documents>().HasIndex(documents => documents.ExpenseId).IsUnique(false);
             modelBuilder.Entity<Approver>().HasKey(a => new {a.ApproverId,a.Id});

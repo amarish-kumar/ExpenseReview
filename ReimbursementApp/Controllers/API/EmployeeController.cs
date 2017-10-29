@@ -154,8 +154,20 @@ namespace ReimbursementApp.Controllers.API
         [HttpPut("")]
         public HttpResponseMessage Put([FromBody]Employee employeeViewModel)
         {
-           UOW.Employees.Update(employeeViewModel);
-           UOW.Commit();
+           //check if role is other than user, then insert user in approvers list as well.
+            if (employeeViewModel.RoleName.ToLower() != "user")
+            {
+                //Insert employee in approvers' list
+                var approverObj = new ApproverList
+                {
+                    ApproverId = employeeViewModel.EmployeeId,
+                    Name = employeeViewModel.EmployeeName
+                };
+                UOW.ApproverLists.Add(approverObj);
+                UOW.Commit();
+            }
+            UOW.Employees.Update(employeeViewModel);
+            UOW.Commit();
            return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 
