@@ -46,7 +46,7 @@ namespace ReimbursementApp.Model
         //  public virtual Approver ReportingManager { get; set; }
         public string ReportingManager { get; set; }
         public string RoleName { get; set; }
-
-
+        public bool isEditable { get; set; }
+        public bool approvalRequired { get; set; }
     }
 }

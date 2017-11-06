@@ -95,6 +95,7 @@ export class AssignRoleComponent implements OnInit {
         formData.emergencyContactDOB = this.employees[0].emergencyContactDOB;
         formData.reportingManager = this.employee.reportingManager;
         formData.roleName = this.role.roleName;
+        formData.approvalRequired = true;
       /*  console.log('Role Name:- ',
             formData.roleName + 'Manager Name:- ',
             formData.reportingManager);

@@ -68,7 +68,7 @@ namespace ReimbursementApp.Controllers.API
             var model = UOW.Employees.GetAll().Where(e => e.UserName.StartsWith(User.Identity.Name));
             foreach (var i in model)
             {
-                if (i.SignedUp == true)
+                if (i.SignedUp)
                 {
                     flag = true;
                 }
@@ -95,7 +95,7 @@ namespace ReimbursementApp.Controllers.API
         [HttpGet("~/api/employee/GetPendingApprovals/")]
         public IQueryable<Employee> GetPendingApprovals()
         {
-            IQueryable<Employee> model = UOW.Employees.GetAll().Where(e => e.SignedUp==false);
+            IQueryable<Employee> model = UOW.Employees.GetAll().Where(e => e.SignedUp == false);
             return model;
         }
         // Post a new Employee
@@ -154,21 +154,32 @@ namespace ReimbursementApp.Controllers.API
         [HttpPut("")]
         public HttpResponseMessage Put([FromBody]Employee employeeViewModel)
         {
-           //check if role is other than user, then insert user in approvers list as well.
-            if (employeeViewModel.RoleName.ToLower() != "user")
-            {
-                //Insert employee in approvers' list
-                var approverObj = new ApproverList
+            //check if role is other than user, then insert user in approvers list as well.
+            //approval flow
+            if (employeeViewModel.approvalRequired)
+            {   //Insert employees into approver's list other than user role.
+                if (employeeViewModel.RoleName.ToLower() != "user")
                 {
-                    ApproverId = employeeViewModel.EmployeeId,
-                    Name = employeeViewModel.EmployeeName
-                };
-                UOW.ApproverLists.Add(approverObj);
+                    //Insert employee in approvers' list
+                    var approverObj = new ApproverList
+                    {
+                        ApproverId = employeeViewModel.EmployeeId,
+                        Name = employeeViewModel.EmployeeName
+                    };
+                    employeeViewModel.SignedUp = true;
+                    UOW.Employees.Update(employeeViewModel);
+                    UOW.ApproverLists.Add(approverObj);
+                    UOW.Commit();
+                    return new HttpResponseMessage(HttpStatusCode.NoContent);
+                }
+                employeeViewModel.SignedUp = true;
+                UOW.Employees.Update(employeeViewModel);
                 UOW.Commit();
+                return new HttpResponseMessage(HttpStatusCode.NoContent);
             }
             UOW.Employees.Update(employeeViewModel);
             UOW.Commit();
-           return new HttpResponseMessage(HttpStatusCode.NoContent);
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 
         // DELETE api/employee/5

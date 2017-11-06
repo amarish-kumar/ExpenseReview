@@ -34,5 +34,7 @@ namespace ReimbursementApp.ViewModels
         public string EmergencyContactNumber { get; set; }
         public string EmergencyContactDOB { get; set; }
         public string RoleName { get; set; }
+        public bool isEditable { get; set; }
+        public bool approvalRequired { get; set; }
     }
 }

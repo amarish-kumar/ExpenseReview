@@ -62,6 +62,8 @@ export class NewEmployeeComponent implements OnInit {
         formData.reportingManager = '';//this.employee.reportingManager;
         formData.signedUp = false;
         formData.roleName = '';
+        formData.isEditable = false;
+        formData.approvalRequired = false;
         console.log("Employee:- ", formData);
 
         this.employeeService.submitEmployee(formData)

@@ -25,5 +25,7 @@
     public emergencyContactNumber: string = null;
     public emergencyContactDOB: string = null;
     public reportingManager: string = null;
-    public roleName:string=null;
+    public roleName: string = null;
+    public isEditable: boolean = false;
+    public approvalRequired:boolean=false;
 }

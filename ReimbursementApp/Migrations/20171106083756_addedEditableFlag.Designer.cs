@@ -12,9 +12,10 @@ using System;
 namespace ReimbursementApp.Migrations
 {
     [DbContext(typeof(ExpenseReviewDbContext))]
-    partial class ExpenseReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171106083756_addedEditableFlag")]
+    partial class addedEditableFlag
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,8 +166,6 @@ namespace ReimbursementApp.Migrations
                     b.Property<string>("UserName");
 
                     b.Property<string>("ZipCode");
-
-                    b.Property<bool>("approvalRequired");
 
                     b.Property<bool>("isEditable");
 
