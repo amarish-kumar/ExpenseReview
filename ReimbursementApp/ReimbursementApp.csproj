@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <None Remove="ClientApp\app\components\assign-role\assign-role.component.ts" />
+    <None Remove="ClientApp\app\components\change-role\change-role.component.ts" />
     <None Remove="ClientApp\app\components\new-employee\new-employee.component.ts" />
     <None Remove="ClientApp\app\components\search-employee\search-employee.component.ts" />
     <None Remove="ClientApp\app\components\upload-documents\upload-document.component.ts" />
@@ -57,6 +58,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\app\components\assign-role\assign-role.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\change-role\change-role.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\new-expense\new-expense.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\new-employee\new-employee.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\search-employee\search-employee.component.ts" />

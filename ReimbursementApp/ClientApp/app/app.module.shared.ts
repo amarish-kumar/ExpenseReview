@@ -23,6 +23,7 @@ import { UploadDocumentComponent } from './components/upload-documents/upload-do
 import { EmployeeApprovalComponent } from './components/employee-approval/employee-approval.component';
 import { AssignRoleComponent } from './components/assign-role/assign-role.component';
 import { PendingApprovalComponent } from './components/pending-approvals/pending-approvals.component';
+import { ChangeRoleComponent } from './components/change-role/change-role.component';
 import { EmployeeService } from './services/employee.service';
 import { ExpenseService } from './services/expense.service';
 import { ApproverService } from './services/approver.service';
@@ -51,7 +52,8 @@ import { AssignRoleService } from './services/assignRole.service';
         UploadDocumentComponent,
         EmployeeApprovalComponent,
         AssignRoleComponent,
-        PendingApprovalComponent
+        PendingApprovalComponent,
+        ChangeRoleComponent
     ],
     imports: [
         CommonModule,
@@ -71,6 +73,7 @@ import { AssignRoleService } from './services/assignRole.service';
             { path: 'employee-approval', component: EmployeeApprovalComponent },
             { path: 'new-expense', component: NewExpenseComponent },
             { path: 'fetch-expense', component: FetchExpenseComponent },
+            { path: 'change-role', component: ChangeRoleComponent },
             { path: 'my-expenses', component: MyExpensesComponent },
             { path: 'detail-view/:id', component: DetailViewComponent },
             { path: 'edit-expense/:id', component: EditExpenseComponent },
