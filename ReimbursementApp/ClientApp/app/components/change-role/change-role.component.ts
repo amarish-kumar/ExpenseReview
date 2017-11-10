@@ -102,7 +102,7 @@ export class ChangeRoleComponent implements OnInit {
         formData.emergencyContactDOB = this.employees[0].emergencyContactDOB;
         formData.reportingManager = this.employee.reportingManager;
         formData.roleName = this.role.roleName;
-        formData.approvalRequired = true;
+        formData.approvalRequired = false;
         
         this.roleService.assignRole(formData)
             .subscribe(e => {
